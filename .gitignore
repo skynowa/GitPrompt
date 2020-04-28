@@ -1,0 +1,19 @@
+##### Dirs and files for ignoring #####
+
+
+##### files #####
+TODO.txt
+*.txt.user
+
+##### dirs #####
+Eclipse_linux/Debug
+Eclipse_linux/Release
+Eclipse_linux/.settings
+
+VC_windows/Debug
+VC_windows/Release
+VC_windows/ipch
+VC_windows/*.sdf
+VC_windows/*.suo
+VC_windows/*.opensdf
+
