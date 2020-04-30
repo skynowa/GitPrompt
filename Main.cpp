@@ -76,7 +76,7 @@ public:
 		}
 
 		std::ctstring_t ps1 =
-			Format::str("[{}]{}{}@{}: {} \\w{}{}{} {} ❱ ",
+			Format::str("[{}]{}{}@{}: {}\\w{}{}{} {} ❱ ",
 				dateTimeNow,
 				"✔",	// TODO: ✔
 				user.name(),
