@@ -18,13 +18,15 @@ xNAMESPACE_BEGIN(git_prompt)
 class GitClient
 {
 public:
-         GitClient(std::cvec_tstring_t &args, const Console &console);
-        	///< constructor
-        ~GitClient() = default;
-        	///< destructor
+    GitClient(std::cvec_tstring_t &args, const Console &console);
+        ///< constructor
+   ~GitClient() = default;
+        ///< destructor
 
-    bool isGit() const;
+    bool           isGit() const;
         ///< check incoming data
+    std::tstring_t branchName() const;
+        ///< get brach name
 
 private:
     std::cvec_tstring_t &_args;

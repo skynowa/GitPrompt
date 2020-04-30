@@ -47,6 +47,7 @@ public:
 
 		Cout() << "\n::::::::::::::::::::::::::::::";
         Cout() << xTRACE_VAR(git.isGit());
+        Cout() << xTRACE_VAR(git.branchName());
         Cout() << xTRACE_VAR(user.isAdmin());
         Cout() << xTRACE_VAR(user.loginName());
         Cout() << xTRACE_VAR(user.name());
