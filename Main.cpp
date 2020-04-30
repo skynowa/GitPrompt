@@ -43,14 +43,25 @@ public:
 		#endif
 		}
 
-		User user;
+		std::ctstring_t dateTimeNow = DateTime().current().format(xT("%d-%h-%Y %H:%M"), {});
+
+		User       user;
+		SystemInfo sysInfo;
+
 
 		Cout() << "\n::::::::::::::::::::::::::::::";
+        Cout() << xTRACE_VAR(dateTimeNow);
+
         Cout() << xTRACE_VAR(git.isGit());
+        Cout() << xTRACE_VAR(git.repoName());
         Cout() << xTRACE_VAR(git.branchName());
+        Cout() << xTRACE_VAR(git.filesStatuses());
+
         Cout() << xTRACE_VAR(user.isAdmin());
-        Cout() << xTRACE_VAR(user.loginName());
         Cout() << xTRACE_VAR(user.name());
+
+        Cout() << xTRACE_VAR(sysInfo.hostName());
+        Cout() << "\n::::::::::::::::::::::::::::::\n";
 
         return ExitCode::Success;
     }

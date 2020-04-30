@@ -25,8 +25,12 @@ public:
 
     bool           isGit() const;
         ///< check incoming data
+    std::tstring_t repoName() const;
+        ///< get repository name
     std::tstring_t branchName() const;
         ///< get brach name
+    std::tstring_t filesStatuses() const;
+        ///< get source files statuses
 
 private:
     std::cvec_tstring_t &_args;
