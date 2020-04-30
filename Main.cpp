@@ -38,11 +38,18 @@ public:
 
 		bRv = git.isGit();
 		if (!bRv) {
-			console.writeLine(xT("isGit() - false"));
+		#if 0
 			return Application::ExitCode::Failure;
+		#endif
 		}
 
-		console.writeLine(xT("isGit() - true"));
+		User user;
+
+		Cout() << "\n::::::::::::::::::::::::::::::";
+        Cout() << xTRACE_VAR(git.isGit());
+        Cout() << xTRACE_VAR(user.isAdmin());
+        Cout() << xTRACE_VAR(user.loginName());
+        Cout() << xTRACE_VAR(user.name());
 
         return ExitCode::Success;
     }
