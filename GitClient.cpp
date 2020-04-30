@@ -262,45 +262,37 @@ GitClient::commitsAheadBehind() const
 
 	std::tstring_t sRv;
 
+	std::ctstring_t                     filePath {"/usr/bin/git"};
+	std::cvec_tstring_t                 params   {"rev-list", "--left-right", "--count", "origin/master..." + branchName()};
+	const std::set<std::pair_tstring_t> envs;
+	std::tstring_t                      stdOut;
+	std::tstring_t                      stdError;
+
+	Process::execute(filePath, xTIMEOUT_INFINITE, params, envs, &stdOut, &stdError);
+	// Cout() << xTRACE_VAR(stdOut);
+	// Cout() << xTRACE_VAR(stdError);
+
 	std::tstring_t ahead  {"0"};
 	std::tstring_t behind {"0"};
 	{
-		std::ctstring_t                     filePath {"/usr/bin/git"};
-		std::cvec_tstring_t                 params   {"rev-list", "--left-right", "--count", "origin/master..." + branchName()};
-		const std::set<std::pair_tstring_t> envs;
-		std::tstring_t                      stdOut;
-		std::tstring_t                      stdError;
-
-		Process::execute(filePath, xTIMEOUT_INFINITE, params, envs, &stdOut, &stdError);
-		// Cout() << xTRACE_VAR(stdOut);
-		// Cout() << xTRACE_VAR(stdError);
-
-		// ahead, behind
-		{
-			std::vec_tstring_t values;
-			String::split(stdOut, Const::ht(), &values);
-			if (values.size() == 2) {
-				ahead  = values.at(0);
-				behind = values.at(1);
-			}
-
-			Cout() << xTRACE_VAR_2(ahead, behind);
+		std::vec_tstring_t values;
+		String::split(stdOut, Const::ht(), &values);
+		if (values.size() == 2) {
+			ahead  = ::String::trimSpace(values.at(0));
+			behind = ::String::trimSpace(values.at(1));
 		}
+
+		// Cout() << xTRACE_VAR_2(ahead, behind);
 	}
 
-	{
-		std::ctstring_t                     filePath {"/usr/bin/git"};
-		std::cvec_tstring_t                 params   {"status"};
-		const std::set<std::pair_tstring_t> envs;
-		std::tstring_t                      stdOut;
-		std::tstring_t                      stdError;
-
-		Process::execute(filePath, xTIMEOUT_INFINITE, params, envs, &stdOut, &stdError);
-		Cout() << xTRACE_VAR(stdOut);
-		Cout() << xTRACE_VAR(stdError);
-
+	// format
+	if (ahead != "0") {
+		sRv = "↑" + ahead;
 	}
 
+	if (behind != "0") {
+		sRv = "↓" + behind;
+	}
 
 	return sRv;
 }
