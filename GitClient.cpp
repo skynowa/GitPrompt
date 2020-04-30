@@ -209,7 +209,7 @@ GitClient::filesStatuses() const
 	cbool_t isDeleted   = (stdOut.find("deleted:")          != std::tstring_t::npos);
 
 	if (isNoCommit) {
-		sRv="✔";
+		sRv = "✔";
 	}
 
 	if (isRenamed) {
@@ -231,6 +231,76 @@ GitClient::filesStatuses() const
 	if (isModified) {
 		sRv =+ "●";
 	}
+
+	return sRv;
+}
+//-------------------------------------------------------------------------------------------------
+/**
+ find_git_ahead_behind()
+ {
+ 	if ! $(is_git); then
+ 		git_ahead_behind=""
+ 		return
+ 	fi
+
+ 	local status=$(git rev-list --left-right --count origin/master...$branch)
+ 	local aheadRegex="([0-9]+)"
+ 	local behindRegex="\s(\w+)$"
+
+ 	[[ $status =~ $aheadRegex ]]  && ahead="${BASH_REMATCH[1]}"  || ahead="0"
+ 	[[ $status =~ $behindRegex ]] && behind="${BASH_REMATCH[1]}" || behind="0"
+
+ 	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && git_ahead_behind=""
+ 	[[ $ahead != "0" ]]  && git_ahead_behind="↑${ahead}"
+ 	[[ $behind != "0" ]] && git_ahead_behind="↓${behind}"
+ }
+*/
+std::tstring_t
+GitClient::commitsAheadBehind() const
+{
+	xCHECK_RET(!isGit(), xT(""));
+
+	std::tstring_t sRv;
+
+	std::tstring_t ahead  {"0"};
+	std::tstring_t behind {"0"};
+	{
+		std::ctstring_t                     filePath {"/usr/bin/git"};
+		std::cvec_tstring_t                 params   {"rev-list", "--left-right", "--count", "origin/master..." + branchName()};
+		const std::set<std::pair_tstring_t> envs;
+		std::tstring_t                      stdOut;
+		std::tstring_t                      stdError;
+
+		Process::execute(filePath, xTIMEOUT_INFINITE, params, envs, &stdOut, &stdError);
+		// Cout() << xTRACE_VAR(stdOut);
+		// Cout() << xTRACE_VAR(stdError);
+
+		// ahead, behind
+		{
+			std::vec_tstring_t values;
+			String::split(stdOut, Const::ht(), &values);
+			if (values.size() == 2) {
+				ahead  = values.at(0);
+				behind = values.at(1);
+			}
+
+			Cout() << xTRACE_VAR_2(ahead, behind);
+		}
+	}
+
+	{
+		std::ctstring_t                     filePath {"/usr/bin/git"};
+		std::cvec_tstring_t                 params   {"status"};
+		const std::set<std::pair_tstring_t> envs;
+		std::tstring_t                      stdOut;
+		std::tstring_t                      stdError;
+
+		Process::execute(filePath, xTIMEOUT_INFINITE, params, envs, &stdOut, &stdError);
+		Cout() << xTRACE_VAR(stdOut);
+		Cout() << xTRACE_VAR(stdError);
+
+	}
+
 
 	return sRv;
 }

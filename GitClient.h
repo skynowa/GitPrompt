@@ -31,6 +31,8 @@ public:
         ///< get brach name
     std::tstring_t filesStatuses() const;
         ///< get source files statuses
+    std::tstring_t commitsAheadBehind() const;
+        ///< get number commits ahead behind
 
 private:
     std::cvec_tstring_t &_args;

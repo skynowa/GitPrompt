@@ -56,6 +56,7 @@ public:
         Cout() << xTRACE_VAR(git.repoName());
         Cout() << xTRACE_VAR(git.branchName());
         Cout() << xTRACE_VAR(git.filesStatuses());
+        Cout() << xTRACE_VAR(git.commitsAheadBehind());
 
         Cout() << xTRACE_VAR(user.isAdmin());
         Cout() << xTRACE_VAR(user.name());
