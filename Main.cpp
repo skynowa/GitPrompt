@@ -65,14 +65,24 @@ public:
 		PS1+=" $BP_ARROW ";
 	#endif
 
+		std::tstring_t gitRepoName = git.repoName();
+		if ( !gitRepoName.empty() ) {
+			gitRepoName = Format::str("[{}]", gitRepoName);
+		}
+
+		std::tstring_t gitBranchName = git.branchName();
+		if ( !gitBranchName.empty() ) {
+			gitBranchName = Format::str("[{}]", gitBranchName);
+		}
+
 		std::ctstring_t ps1 =
-			Format::str("[{}]{}{}@{}: [{}] \\w[{}]{}{} {} ❱ ",
+			Format::str("[{}]{}{}@{}: {} \\w{}{}{} {} ❱ ",
 				dateTimeNow,
 				"✔",	// TODO: ✔
 				user.name(),
 				sysInfo.hostName(),
-				git.repoName(),
-				git.branchName(),
+				gitRepoName,
+				gitBranchName,
 				git.filesStatuses(),
 				git.commitsAheadBehind(),
 				(user.isAdmin() ? "#" : "$")
