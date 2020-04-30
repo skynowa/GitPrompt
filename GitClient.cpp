@@ -201,34 +201,34 @@ GitClient::filesStatuses() const
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
-	cbool_t nocommit  = (stdOut.find("nothing to commit") != std::tstring_t::npos);
-	cbool_t dirty     = (stdOut.find("modified:")         != std::tstring_t::npos);
-	cbool_t untracked = (stdOut.find("Untracked files")   != std::tstring_t::npos);
-	cbool_t newfile   = (stdOut.find("new file:")         != std::tstring_t::npos);
-	cbool_t renamed   = (stdOut.find("renamed:")          != std::tstring_t::npos);
-	cbool_t deleted   = (stdOut.find("deleted:")          != std::tstring_t::npos);
+	cbool_t isNoCommit  = (stdOut.find("nothing to commit") != std::tstring_t::npos);
+	cbool_t isModified  = (stdOut.find("modified:")         != std::tstring_t::npos);
+	cbool_t isUntracked = (stdOut.find("Untracked files")   != std::tstring_t::npos);
+	cbool_t isNew       = (stdOut.find("new file:")         != std::tstring_t::npos);
+	cbool_t isRenamed   = (stdOut.find("renamed:")          != std::tstring_t::npos);
+	cbool_t isDeleted   = (stdOut.find("deleted:")          != std::tstring_t::npos);
 
-	if (nocommit) {
+	if (isNoCommit) {
 		sRv="✔";
 	}
 
-	if (renamed) {
+	if (isRenamed) {
 		sRv =+ "△";
 	}
 
-	if (newfile) {
+	if (isNew) {
 		sRv =+ "+";
 	}
 
-	if (untracked) {
+	if (isUntracked) {
 		sRv =+ "…";
 	}
 
-	if (deleted) {
+	if (isDeleted) {
 		sRv =+ "✖";
 	}
 
-	if (dirty) {
+	if (isModified) {
 		sRv =+ "●";
 	}
 
