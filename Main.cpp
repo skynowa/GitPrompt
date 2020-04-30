@@ -32,7 +32,7 @@ public:
 		// console.setTitle(::appName);
 		// console.writeLine(::appName);
 
-		std::ctstring_t       dateTimeNow = DateTime().current().format(xT("%d-%h-%Y %H:%M"), {});
+		std::ctstring_t       dateTimeNow = DateTime().current().format(xT("%d-%h %H:%M"), {});
 		git_prompt::GitClient git(appArgs, console);
 		User                  user;
 		SystemInfo            sysInfo;
