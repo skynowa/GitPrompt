@@ -250,7 +250,7 @@ GitClient::filesStatuses() const
  	[[ $status =~ $aheadRegex ]]  && ahead="${BASH_REMATCH[1]}"  || ahead="0"
  	[[ $status =~ $behindRegex ]] && behind="${BASH_REMATCH[1]}" || behind="0"
 
- 	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && git_ahead_behind=""
+??? [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && git_ahead_behind=""
  	[[ $ahead != "0" ]]  && git_ahead_behind="↑${ahead}"
  	[[ $behind != "0" ]] && git_ahead_behind="↓${behind}"
  }
