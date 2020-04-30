@@ -37,7 +37,7 @@ public:
 		User                  user;
 		SystemInfo            sysInfo;
 
-	#if 1
+	#if 0
 		Cout() << "\n::::::::::::::::::::::::::::::";
 		Cout() << xTRACE_VAR(dateTimeNow);
 
@@ -66,15 +66,15 @@ public:
 	#endif
 
 		std::ctstring_t ps1 =
-			Format::str("[%s]%s%s@%s: [%s] \\w[%s]%s%s %s >",
-				dateTimeNow.c_str(),
-				"+",	// TODO: ✔
-				user.name().c_str(),
-				sysInfo.hostName().c_str(),
-				git.repoName().c_str(),
-				git.branchName().c_str(),
-				"0"/*git.filesStatuses().c_str()*/,
-				git.commitsAheadBehind().c_str(),
+			Format::str("[{}]{}{}@{}: [{}] \\w[{}]{}{} {} ❱ ",
+				dateTimeNow,
+				"✔",	// TODO: ✔
+				user.name(),
+				sysInfo.hostName(),
+				git.repoName(),
+				git.branchName(),
+				git.filesStatuses(),
+				git.commitsAheadBehind(),
 				(user.isAdmin() ? "#" : "$")
 			);
 
