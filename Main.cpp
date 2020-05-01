@@ -21,8 +21,9 @@ GitPromptApp::onRun() /* override */
 	std::vec_tstring_t appArgs;
 	args(true, &appArgs);
 
+	std::ctstring_t       dateTimeNow      = DateTime().current().format(xT("%d-%h %H:%M"), {});
+	cbool_t               isLastShellError = _isShellLastError();
 	Console               console;
-	std::ctstring_t       dateTimeNow = DateTime().current().format(xT("%d-%h %H:%M"), {});
 	git_prompt::GitClient git(appArgs, console);
 	User                  user;
 	SystemInfo            sysInfo;
@@ -68,7 +69,7 @@ GitPromptApp::onRun() /* override */
 	std::ctstring_t ps1 =
 		Format::str("[{}]{}{}@{}: {}\\w{}{}{} {} ❱ ",
 			dateTimeNow,
-			"✔",	// TODO: ✔
+			isLastShellError ? "✖" : "✔",
 			user.name(),
 			sysInfo.hostName(),
 			gitRepoName,
@@ -81,6 +82,24 @@ GitPromptApp::onRun() /* override */
 	std::tcout << ps1 << std::endl;
 
 	return ExitCode::Success;
+}
+//-------------------------------------------------------------------------------------------------
+bool_t
+GitPromptApp::_isShellLastError() const
+{
+	std::ctstring_t                     filePath {"/bin/echo"};
+	std::cvec_tstring_t                 params   {"$?"};
+	const std::set<std::pair_tstring_t> envs;
+	std::tstring_t                      stdOut;
+	std::tstring_t                      stdError;
+
+	Process::execute(filePath, xTIMEOUT_INFINITE, params, envs, &stdOut, &stdError);
+	// Cout() << xTRACE_VAR(stdOut);
+	// Cout() << xTRACE_VAR(stdError);
+
+	std::ctstring_t &errorCode = ::String::trimSpace(stdOut);
+
+	return (errorCode == xT("0") ? false : true);
 }
 //-------------------------------------------------------------------------------------------------
 int_t main(int_t a_argNum, tchar_t *a_args[])
