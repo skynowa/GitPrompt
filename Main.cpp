@@ -69,7 +69,7 @@ GitPromptApp::onRun() /* override */
 	std::ctstring_t ps1 =
 		Format::str("[{}]{}{}@{}: {}\\w{}{}{} {} ❱ ",
 			dateTimeNow,
-			isLastShellError ? "✖" : "✔",
+			(isLastShellError ? "✖" : "✔"),
 			user.name(),
 			sysInfo.hostName(),
 			gitRepoName,
@@ -98,6 +98,7 @@ GitPromptApp::_isShellLastError() const
 	// Cout() << xTRACE_VAR(stdError);
 
 	std::ctstring_t &errorCode = ::String::trimSpace(stdOut);
+	Cout() << xTRACE_VAR(errorCode);
 
 	return (errorCode == xT("0") ? false : true);
 }
