@@ -211,8 +211,7 @@ GitPromptApp::onRun() /* override */
 		);
 #endif
 
-	std::wstring ps1W(ps1.begin(), ps1.end());
-	std::wcout << ps1W << std::endl;
+	console.writeLine(ps1);
 
 	return ExitCode::Success;
 }
