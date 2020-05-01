@@ -61,6 +61,8 @@ GitPromptApp::onRun() /* override */
 		gitRepoName = Format::str("[{}] ", gitRepoName);
 	}
 
+	std::ctstring_t currentDirPath = Dir::current();
+
 	std::tstring_t gitBranchName = git.branchName();
 	if ( !gitBranchName.empty() ) {
 		gitBranchName = Format::str("[{}]", gitBranchName);
@@ -123,76 +125,75 @@ GitPromptApp::onRun() /* override */
         ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += gitRepoName;
         ps1 += console.setAttributesDef();
+	}
+
+	// Current dir
+	{
+        Console::Foreground foreground = Console::Foreground::Green;
+        Console::Background background = Console::Background::Default;
+        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+
+        ps1 += console.setAttributes(foreground, background, attributes);
+        ps1 += currentDirPath;
+        ps1 += console.setAttributesDef();
+	}
+
+	// gitBranchName
+	{
+        Console::Foreground foreground = Console::Foreground::Red;
+        Console::Background background = Console::Background::Default;
+        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+
+        ps1 += console.setAttributes(foreground, background, attributes);
+        ps1 += gitBranchName;
+        ps1 += console.setAttributesDef();
+	}
+
+	// git.filesStatuses()
+	{
+        Console::Foreground foreground = Console::Foreground::Yellow;
+        Console::Background background = Console::Background::Default;
+        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+
+        ps1 += console.setAttributes(foreground, background, attributes);
+        ps1 += git.filesStatuses();
+        ps1 += console.setAttributesDef();
+	}
+
+	// git.commitsAheadBehind()
+	{
+        Console::Foreground foreground = Console::Foreground::Magenta;
+        Console::Background background = Console::Background::Default;
+        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+
+        ps1 += console.setAttributes(foreground, background, attributes);
+        ps1 += git.commitsAheadBehind();
+        ps1 += console.setAttributesDef();
         ps1 += xT(" ");
 	}
 
-//	// Current dir
-//	{
-//        Console::Foreground foreground = Console::Foreground::Yellow;
-//        Console::Background background = Console::Background::Default;
-//        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-//
-//        ps1 += console.setAttributes(foreground, background, attributes);
-//        ps1 += "~/home";
-//        ps1 += console.setAttributesDef();
-//	}
-//
-//	// gitBranchName
-//	{
-//        Console::Foreground foreground = Console::Foreground::Red;
-//        Console::Background background = Console::Background::Default;
-//        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-//
-//        ps1 += console.setAttributes(foreground, background, attributes);
-//        ps1 += gitBranchName;
-//        ps1 += console.setAttributesDef();
-//	}
-//
-//	// git.filesStatuses()
-//	{
-//        Console::Foreground foreground = Console::Foreground::Magenta;
-//        Console::Background background = Console::Background::Default;
-//        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-//
-//        ps1 += console.setAttributes(foreground, background, attributes);
-//        ps1 += git.filesStatuses();
-//        ps1 += console.setAttributesDef();
-//	}
-//
-//	// git.commitsAheadBehind()
-//	{
-//        Console::Foreground foreground = Console::Foreground::Magenta;
-//        Console::Background background = Console::Background::Default;
-//        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-//
-//        ps1 += console.setAttributes(foreground, background, attributes);
-//        ps1 += git.commitsAheadBehind();
-//        ps1 += console.setAttributesDef();
-//        ps1 += xT(" ");
-//	}
-//
-//	// user.isAdmin()
-//	{
-//        Console::Foreground foreground = Console::Foreground::Default;
-//        Console::Background background = Console::Background::Default;
-//        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-//
-//        ps1 += console.setAttributes(foreground, background, attributes);
-//        ps1 += (user.isAdmin() ? "#" : "$");
-//        ps1 += console.setAttributesDef();
-//        ps1 += xT(" ");
-//	}
-//
-//	// user.isAdmin()
-//	{
-//        Console::Foreground foreground = Console::Foreground::Yellow;
-//        Console::Background background = Console::Background::Default;
-//        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-//
-//        ps1 += console.setAttributes(foreground, background, attributes);
-//        ps1 += xT("❱ ");
-//        ps1 += console.setAttributesDef();
-//	}
+	// user.isAdmin()
+	{
+        Console::Foreground foreground = Console::Foreground::Default;
+        Console::Background background = Console::Background::Default;
+        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+
+        ps1 += console.setAttributes(foreground, background, attributes);
+        ps1 += (user.isAdmin() ? "#" : "$");
+        ps1 += console.setAttributesDef();
+        ps1 += xT(" ");
+	}
+
+	// "> "
+	{
+        Console::Foreground foreground = Console::Foreground::Yellow;
+        Console::Background background = Console::Background::Default;
+        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+
+        ps1 += console.setAttributes(foreground, background, attributes);
+        ps1 += xT("❱ ");
+        ps1 += console.setAttributesDef();
+	}
 
 #if 0
 	std::ctstring_t ps1 =
