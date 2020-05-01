@@ -28,10 +28,7 @@ public:
 		std::vec_tstring_t appArgs;
 		args(true, &appArgs);
 
-		Console console;
-		// console.setTitle(::appName);
-		// console.writeLine(::appName);
-
+		Console               console;
 		std::ctstring_t       dateTimeNow = DateTime().current().format(xT("%d-%h %H:%M"), {});
 		git_prompt::GitClient git(appArgs, console);
 		User                  user;
