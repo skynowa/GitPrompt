@@ -67,7 +67,7 @@ public:
 
 		std::tstring_t gitRepoName = git.repoName();
 		if ( !gitRepoName.empty() ) {
-			gitRepoName = Format::str("[{}]", gitRepoName);
+			gitRepoName = Format::str("[{}] ", gitRepoName);
 		}
 
 		std::tstring_t gitBranchName = git.branchName();
