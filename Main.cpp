@@ -102,13 +102,24 @@ GitPromptApp::_isShellLastError() const
 	return (errorCode == xT("0") ? false : true);
 }
 //-------------------------------------------------------------------------------------------------
-int_t main(int_t a_argNum, tchar_t *a_args[])
+int_t main(int_t /* a_argNum */, tchar_t ** /* a_args */)
 {
-    xTEST_NA(a_argNum);
-    xTEST_NA(a_args);
+	GitPromptApp::ExitCode exitStatus {};
 
-    GitPromptApp app(::appName, xT(""));
+	try {
+		GitPromptApp app(::appName, xT(""));
+		exitStatus = app.run();
+	}
+	catch (const Exception &a_e) {
+		Cout() << xTRACE_VAR_2(exitStatus, a_e.what());
+	}
+	catch (const std::exception &a_e) {
+		Cout() << xTRACE_VAR_2(exitStatus, a_e.what());
+	}
+	catch (...) {
+		Cout() << xTRACE_VAR_2(exitStatus, xT("Unknown error"));
+	}
 
-    return app.run();
+    return exitStatus;
 }
 //-------------------------------------------------------------------------------------------------

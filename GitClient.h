@@ -9,10 +9,6 @@
 #include <xLib/xLib.h>
 #include "Config.h"
 //-------------------------------------------------------------------------------------------------
-using namespace xl;
-using namespace xl::fs;
-using namespace xl::sync;
-
 xNAMESPACE_BEGIN(git_prompt)
 
 class GitClient
