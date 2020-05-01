@@ -15,7 +15,7 @@ GitPromptApp::GitPromptApp(
 {
 }
 //-------------------------------------------------------------------------------------------------
-ExitCode
+GitPromptApp::ExitCode
 GitPromptApp::onRun() /* override */
 {
 	std::vec_tstring_t appArgs;
