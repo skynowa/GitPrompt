@@ -85,7 +85,7 @@ GitClient::repoName() const
 	// Cout() << xTRACE_VAR(stdError);
 
 	sRv = Path(stdOut).fileBaseName();
-	sRv = ::String::trimSpace(sRv);
+	sRv = String::trimSpace(sRv);
 
     return sRv;
 }
@@ -138,7 +138,7 @@ GitClient::branchName() const
 		sRv = stdOut;
 	}
 
-	sRv = ::String::trimSpace(sRv);
+	sRv = String::trimSpace(sRv);
 
     return sRv;
 }
