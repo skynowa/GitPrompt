@@ -22,7 +22,7 @@ GitPromptApp::onRun() /* override */
 	args(true, &appArgs);
 
 	std::ctstring_t       dateTimeNow      = DateTime().current().format(xT("%d-%h %H:%M"), {});
-	cbool_t               isLastShellError = _isShellLastError();
+	std::ctstring_t       isLastShellError = _isShellLastError() ? "✖" : "✔";
 	Console               console;
 	git_prompt::GitClient git(appArgs, console);
 	User                  user;
@@ -69,7 +69,7 @@ GitPromptApp::onRun() /* override */
 	std::ctstring_t ps1 =
 		Format::str("[{}]{}{}@{}: {}\\w{}{}{} {} ❱ ",
 			dateTimeNow,
-			(isLastShellError ? "✖" : "✔"),
+			isLastShellError,
 			user.name(),
 			sysInfo.hostName(),
 			gitRepoName,
@@ -87,6 +87,7 @@ GitPromptApp::onRun() /* override */
 bool_t
 GitPromptApp::_isShellLastError() const
 {
+#if 0
 	std::ctstring_t                     filePath {"/bin/echo"};
 	std::cvec_tstring_t                 params   {"$?"};
 	const std::set<std::pair_tstring_t> envs;
@@ -97,10 +98,17 @@ GitPromptApp::_isShellLastError() const
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
-	std::ctstring_t &errorCode = ::String::trimSpace(stdOut);
-	Cout() << xTRACE_VAR(errorCode);
+	std::ctstring_t errorCode = ::String::trimSpace(stdOut);
+	Cout() << "errorCode: >>>" << errorCode << "<<<";
+	Cout() << xTRACE_VAR_4(errorCode.size(), errorCode[0], errorCode[1], std::tstring_t{"0"}.size());
 
-	return (errorCode == xT("0") ? false : true);
+	cbool_t bRv = false; // (errorCode == std::tstring_t{"0"});
+	Cout() << xTRACE_VAR(bRv);
+
+	return bRv;
+#else
+	return false;
+#endif
 }
 //-------------------------------------------------------------------------------------------------
 int_t main(int_t /* a_argNum */, tchar_t ** /* a_args */)
