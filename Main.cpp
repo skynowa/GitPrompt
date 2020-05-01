@@ -76,9 +76,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += "[" + dateTimeNow + "]";
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
 	}
 
 	// isLastShellError
@@ -87,9 +87,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += (isLastShellError ? "✖" : "✔");
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
 	}
 
 	// user.name()
@@ -98,9 +98,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += user.name();
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
         ps1 += xT("@");
 	}
 
@@ -110,9 +110,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += sysInfo.hostName();
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
         ps1 += xT(": ");
 	}
 
@@ -122,9 +122,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += gitRepoName;
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
 	}
 
 	// Current dir
@@ -133,9 +133,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += currentDirPath;
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
 	}
 
 	// gitBranchName
@@ -144,9 +144,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += gitBranchName;
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
 	}
 
 	// git.filesStatuses()
@@ -155,9 +155,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += git.filesStatuses();
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
 	}
 
 	// git.commitsAheadBehind()
@@ -166,9 +166,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += git.commitsAheadBehind();
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
         ps1 += xT(" ");
 	}
 
@@ -178,9 +178,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += (user.isAdmin() ? "#" : "$");
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
         ps1 += xT(" ");
 	}
 
@@ -190,9 +190,9 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
+        // ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += xT("❱ ");
-        ps1 += console.setAttributesDef();
+        // ps1 += console.setAttributesDef();
 	}
 
 #if 0
