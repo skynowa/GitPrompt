@@ -1,8 +1,6 @@
 /**
- * \file  Crypt ++
- * \brief
- *
- * export PROMPT_COMMAND='PS1="$(~/Projects/GitPrompt_eclipse_gcc/GitPrompt)"'
+ * \file  Main.cpp
+ * \brief GitPrompt
  */
 
 
