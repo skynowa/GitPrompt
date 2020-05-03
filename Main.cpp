@@ -61,14 +61,14 @@ GitPromptApp::onRun() /* override */
 	// Format values
 	std::tstring_t gitRepoName = git.repoName();
 	if ( !gitRepoName.empty() ) {
-		gitRepoName = Format::str("[{}] ", gitRepoName);
+		gitRepoName = Format::str(xT("[{}] "), gitRepoName);
 	}
 
 	std::ctstring_t currentDirPath = Dir::current();
 
 	std::tstring_t gitBranchName = git.branchName();
 	if ( !gitBranchName.empty() ) {
-		gitBranchName = Format::str("[{}]", gitBranchName);
+		gitBranchName = Format::str(xT("[{}]"), gitBranchName);
 	}
 
 	std::tstring_t ps1;
@@ -80,7 +80,7 @@ GitPromptApp::onRun() /* override */
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += "[" + dateTimeNow + "]";
+        ps1 += xT("[") + dateTimeNow + xT("]");
         ps1 += console.setAttributesDef();
 	}
 
@@ -91,7 +91,7 @@ GitPromptApp::onRun() /* override */
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += (isLastShellError ? "✖" : "✔");
+        ps1 += (isLastShellError ? xT("✖") : xT("✔"));
         ps1 += console.setAttributesDef();
 	}
 
@@ -182,7 +182,7 @@ GitPromptApp::onRun() /* override */
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += (user.isAdmin() ? "#" : "$");
+        ps1 += (user.isAdmin() ? xT("#") : xT("$"));
         ps1 += console.setAttributesDef();
         ps1 += xT(" ");
 	}
