@@ -27,7 +27,7 @@ xNAMESPACE_BEGIN(git_prompt)
  }
 */
 bool
-GitClient::isGit() const
+GitClient::isGitDir() const
 {
     std::ctstring_t                     filePath {"/usr/bin/git"};
     std::cvec_tstring_t                 params   {"rev-parse", "--git-dir"};
@@ -61,7 +61,7 @@ GitClient::isGit() const
 std::tstring_t
 GitClient::repoName() const
 {
-	xCHECK_RET(!isGit(), xT(""));
+	xCHECK_RET(!isGitDir(), xT(""));
 
 	std::tstring_t sRv;
 
@@ -105,7 +105,7 @@ GitClient::repoName() const
 std::tstring_t
 GitClient::branchName() const
 {
-	xCHECK_RET(!isGit(), xT(""));
+	xCHECK_RET(!isGitDir(), xT(""));
 
 	std::tstring_t sRv;
 
@@ -178,7 +178,7 @@ GitClient::branchName() const
 std::tstring_t
 GitClient::filesStatuses() const
 {
-	xCHECK_RET(!isGit(), xT(""));
+	xCHECK_RET(!isGitDir(), xT(""));
 
 	std::tstring_t sRv;
 
@@ -249,7 +249,7 @@ GitClient::filesStatuses() const
 std::tstring_t
 GitClient::commitsAheadBehind() const
 {
-	xCHECK_RET(!isGit(), xT(""));
+	xCHECK_RET(!isGitDir(), xT(""));
 
 	std::tstring_t sRv;
 

@@ -21,8 +21,8 @@ public:
 
     xNO_COPY_ASSIGN(GitClient);
 
-    bool           isGit() const;
-        ///< check incoming data
+    bool           isGitDir() const;
+        ///< check Git directory
     std::tstring_t repoName() const;
         ///< get repository name
     std::tstring_t branchName() const;
