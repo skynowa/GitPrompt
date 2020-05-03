@@ -32,9 +32,6 @@ GitPromptApp::onRun() /* override */
 
 	// Format values
 	std::tstring_t gitRepoName = git.repoName();
-	if ( !gitRepoName.empty() ) {
-		gitRepoName = Format::str(xT("[{}] "), gitRepoName);
-	}
 
     std::tstring_t currentDirPath;
     {
@@ -104,12 +101,20 @@ GitPromptApp::onRun() /* override */
 	// Git repositiry name
 	{
         Console::Foreground foreground = Console::Foreground::Yellow;
-        Console::Background background = Console::Background::Default;
+        Console::Background background = Console::Background::Black;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += gitRepoName;
+
+		if ( !gitRepoName.empty() ) {
+			ps1 += xT("[") + gitRepoName + xT("]");
+		}
+
         ps1 += console.setAttributesDef();
+
+        if ( !gitRepoName.empty() ) {
+            ps1 += xT(" ");
+        }
 	}
 
 	// Current dir
