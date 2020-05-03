@@ -14,10 +14,12 @@ xNAMESPACE_BEGIN(git_prompt)
 class GitClient
 {
 public:
-    GitClient(std::cvec_tstring_t &args, const Console &console);
+    GitClient() = default;
         ///< constructor
    ~GitClient() = default;
         ///< destructor
+
+    xNO_COPY_ASSIGN(GitClient);
 
     bool           isGit() const;
         ///< check incoming data
@@ -29,12 +31,6 @@ public:
         ///< get source files statuses
     std::tstring_t commitsAheadBehind() const;
         ///< get number commits ahead behind
-
-private:
-    std::cvec_tstring_t &_args;
-    const Console       &_console;
-
-    xNO_COPY_ASSIGN(GitClient)
 };
 
 xNAMESPACE_END(git_prompt)

@@ -20,11 +20,12 @@ GitPromptApp::onRun() /* override */
 {
 	std::vec_tstring_t appArgs;
 	args(true, &appArgs);
+	xUNUSED(appArgs);
 
+	Console               console;
 	std::ctstring_t       dateTimeNow      = DateTime().current().format(xT("%d-%h %H:%M"), {});
 	cbool_t               isLastShellError = _isShellLastError();
-	Console               console;
-	git_prompt::GitClient git(appArgs, console);
+	git_prompt::GitClient git;
 	User                  user;
 	SystemInfo            sysInfo;
 
@@ -56,6 +57,7 @@ GitPromptApp::onRun() /* override */
 	PS1+=" $BP_ARROW ";
 #endif
 
+	// Format values
 	std::tstring_t gitRepoName = git.repoName();
 	if ( !gitRepoName.empty() ) {
 		gitRepoName = Format::str("[{}] ", gitRepoName);
