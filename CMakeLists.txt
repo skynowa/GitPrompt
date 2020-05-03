@@ -18,16 +18,16 @@ if (CMAKE_CXX_COMPILER MATCHES ".*clang")
     set(CMAKE_COMPILER_IS_CLANGXX 1)
 endif()
 
-
 #--------------------------------------------------------------------------------------------------
 # find packages
-# find_package(OpenSSL REQUIRED)
-# find_package(LibXml2 REQUIRED)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_ROOT}/Modules/CMakeLib")
+message("CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
 
+find_package(xLib REQUIRED)
+find_package(LibXml2 REQUIRED)
 #-------------------------------------------------------------------------------
 # includes
-# include_directories("${OPENSSL_INCLUDE_DIR}")
-# include_directories("${LIBXML2_INCLUDE_DIR}")
+include_directories("${LIBXML2_INCLUDE_DIR}")
 
 #-------------------------------------------------------------------------------
 # sources
