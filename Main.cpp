@@ -133,13 +133,11 @@ GitPromptApp::onRun() /* override */
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += xT("[") + gitBranchName;
+        ps1 += xT("[") + gitBranchName + xT("]");
 
 		if (localBranchesNum > 0) {
-			ps1 += xT(",") + std::to_string( git.localBranchesNum() );
+			ps1 += std::to_string( git.localBranchesNum() );
 		}
-
-		ps1 += xT("]");
 
         ps1 += console.setAttributesDef();
 	}
