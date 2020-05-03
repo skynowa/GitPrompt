@@ -70,7 +70,7 @@ GitPromptApp::onRun() /* override */
 
 	std::tstring_t ps1;
 
-	// dateTimeNow
+	// Current date
 	{
         Console::Foreground foreground = Console::Foreground::Green;
         Console::Background background = Console::Background::Default;
@@ -81,7 +81,7 @@ GitPromptApp::onRun() /* override */
         ps1 += console.setAttributesDef();
 	}
 
-	// isLastShellError
+	// Shell last error
 	{
         Console::Foreground foreground = Console::Foreground::Red;
         Console::Background background = Console::Background::Default;
@@ -92,7 +92,7 @@ GitPromptApp::onRun() /* override */
         ps1 += console.setAttributesDef();
 	}
 
-	// user.name()
+	// User name
 	{
         Console::Foreground foreground = Console::Foreground::Magenta;
         Console::Background background = Console::Background::Default;
@@ -104,7 +104,7 @@ GitPromptApp::onRun() /* override */
         ps1 += xT("@");
 	}
 
-	// sysInfo.hostName()
+	// Host name
 	{
         Console::Foreground foreground = Console::Foreground::Cyan;
         Console::Background background = Console::Background::Default;
@@ -116,7 +116,7 @@ GitPromptApp::onRun() /* override */
         ps1 += xT(": ");
 	}
 
-	// gitRepoName
+	// Git repositiry name
 	{
         Console::Foreground foreground = Console::Foreground::Yellow;
         Console::Background background = Console::Background::Default;
@@ -138,7 +138,7 @@ GitPromptApp::onRun() /* override */
         ps1 += console.setAttributesDef();
 	}
 
-	// gitBranchName
+	// Git branch name
 	{
         Console::Foreground foreground = Console::Foreground::Red;
         Console::Background background = Console::Background::Default;
@@ -149,7 +149,7 @@ GitPromptApp::onRun() /* override */
         ps1 += console.setAttributesDef();
 	}
 
-	// git.filesStatuses()
+	// Git file statuses
 	{
         Console::Foreground foreground = Console::Foreground::Yellow;
         Console::Background background = Console::Background::Default;
@@ -160,7 +160,7 @@ GitPromptApp::onRun() /* override */
         ps1 += console.setAttributesDef();
 	}
 
-	// git.commitsAheadBehind()
+	// Git ahead/behind commits
 	{
         Console::Foreground foreground = Console::Foreground::Magenta;
         Console::Background background = Console::Background::Default;
@@ -172,7 +172,7 @@ GitPromptApp::onRun() /* override */
         ps1 += xT(" ");
 	}
 
-	// user.isAdmin()
+	// Is admin user
 	{
         Console::Foreground foreground = Console::Foreground::Default;
         Console::Background background = Console::Background::Default;
