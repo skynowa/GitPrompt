@@ -48,6 +48,13 @@ GitPromptApp::onRun() /* override */
 	std::ctstring_t gitBranchName    = git.branchName();
 	std::csize_t    localBranchesNum = git.localBranchesNum();
 
+	// Console
+	{
+		std::ctstring_t title = Format::str(xT("{}, {}"),
+			sysInfo.distro(), sysInfo.desktopName());
+		console.setTitle(title);
+	}
+
 	std::tstring_t ps1;
 
 	// Current date
