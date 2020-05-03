@@ -30,34 +30,6 @@ GitPromptApp::onRun() /* override */
 	User                  user;
 	SystemInfo            sysInfo;
 
-#if 0
-	Cout() << "\n::::::::::::::::::::::::::::::";
-	Cout() << xTRACE_VAR(dateTimeNow);
-
-	Cout() << xTRACE_VAR(git.isGit());
-	Cout() << xTRACE_VAR(git.repoName());
-	Cout() << xTRACE_VAR(git.branchName());
-	Cout() << xTRACE_VAR(git.filesStatuses());
-	Cout() << xTRACE_VAR(git.commitsAheadBehind());
-
-	Cout() << xTRACE_VAR(user.isAdmin());
-	Cout() << xTRACE_VAR(user.name());
-
-	Cout() << xTRACE_VAR(sysInfo.hostName());
-	Cout() << "::::::::::::::::::::::::::::::\n";
-#endif
-
-#if 0
-	PS1+="$BP_TIME"
-	PS1+="\$(if [[ \$? == 0 ]]; then echo \"\[\033[0;32m\]✔\"; else echo \"\[\033[0;31m\]✖\"; fi)\[\033[00m\]"
-	PS1+="$(get_user)${BP_AT}${BP_HOST}:${BP_GIT_REPO}${BP_DIR}"
-	PS1+="$BP_GIT_BRANCH"
-	PS1+="$BP_GIT_STATES"
-	PS1+="$BP_GIT_AHEAD_BEHIND"
-	PS1+=" $(get_user_dirty)"
-	PS1+=" $BP_ARROW ";
-#endif
-
 	// Format values
 	std::tstring_t gitRepoName = git.repoName();
 	if ( !gitRepoName.empty() ) {
@@ -197,21 +169,6 @@ GitPromptApp::onRun() /* override */
         ps1 += xT("❱ ");
         ps1 += console.setAttributesDef();
 	}
-
-#if 0
-	std::ctstring_t ps1 =
-		Format::str("[{}]{}{}@{}: {}\\w{}{}{} {} ❱ ",
-			dateTimeNow,
-			isLastShellError,
-			user.name(),
-			sysInfo.hostName(),
-			gitRepoName,
-			gitBranchName,
-			git.filesStatuses(),
-			git.commitsAheadBehind(),
-			(user.isAdmin() ? "#" : "$")
-		);
-#endif
 
 	console.writeLine(ps1);
 
