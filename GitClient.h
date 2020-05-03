@@ -27,6 +27,8 @@ public:
         ///< get repository name
     std::tstring_t branchName() const;
         ///< get brach name
+    std::size_t    localBranchesNum() const;
+        ///< number of local branches
     std::tstring_t filesStatuses() const;
         ///< get source files statuses
     std::tstring_t commitsAheadBehind() const;

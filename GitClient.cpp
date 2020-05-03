@@ -134,6 +134,27 @@ GitClient::branchName() const
     return sRv;
 }
 //-------------------------------------------------------------------------------------------------
+std::size_t
+GitClient::localBranchesNum() const
+{
+	xCHECK_RET(!isGitDir(), 0);
+
+	std::ctstring_t                     filePath {"/usr/bin/git"};
+	std::cvec_tstring_t                 params   {"branch"};
+	const std::set<std::pair_tstring_t> envs;
+	std::tstring_t                      stdOut;
+	std::tstring_t                      stdError;
+
+	Process::execute(filePath, xTIMEOUT_INFINITE, params, envs, &stdOut, &stdError);
+
+	std::vec_tstring_t values;
+	String::split(String::trimSpace(stdOut), Const::nl(), &values);
+	xCHECK_RET(values.empty(), 0);
+
+	// without "master"
+	return values.size() - 1;
+}
+//-------------------------------------------------------------------------------------------------
 /**
  git_states=""
 

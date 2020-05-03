@@ -45,10 +45,8 @@ GitPromptApp::onRun() /* override */
 	#endif
     }
 
-	std::tstring_t gitBranchName = git.branchName();
-	if ( !gitBranchName.empty() ) {
-		gitBranchName = Format::str(xT("[{}]"), gitBranchName);
-	}
+	std::ctstring_t gitBranchName    = git.branchName();
+	std::csize_t    localBranchesNum = git.localBranchesNum();
 
 	std::tstring_t ps1;
 
@@ -128,14 +126,21 @@ GitPromptApp::onRun() /* override */
         ps1 += console.setAttributesDef();
 	}
 
-	// Git branch name
-	{
+	// Git branch name, Local branches number
+	if ( !gitBranchName.empty() ) {
         Console::Foreground foreground = Console::Foreground::Red;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += gitBranchName;
+        ps1 += xT("[") + gitBranchName;
+
+		if (localBranchesNum > 0) {
+			ps1 += xT(",") + std::to_string( git.localBranchesNum() );
+		}
+
+		ps1 += xT("]");
+
         ps1 += console.setAttributesDef();
 	}
 
