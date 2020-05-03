@@ -34,14 +34,16 @@ GitPromptApp::onRun() /* override */
 	std::tstring_t gitRepoName = git.repoName();
 
     std::tstring_t currentDirPath;
+    std::tstring_t currentDirPathBrief;
     {
         currentDirPath = Path(Dir::current()).homeAsBrief();
 
-	#if 0
+	#if 1
 		std::csize_t leftDirsNum         {2};
 		std::csize_t rightDirsNum        {2};
 		cbool_t      isShowHiddenDirsNum {true};
-		currentDirPath = Path(currentDirPath).brief(2, 2, isShowHiddenDirsNum);
+		currentDirPathBrief = Path(currentDirPath).brief(leftDirsNum, rightDirsNum,
+			isShowHiddenDirsNum);
 	#endif
     }
 
@@ -50,8 +52,8 @@ GitPromptApp::onRun() /* override */
 
 	// Console
 	{
-		std::ctstring_t title = Format::str(xT("{}, {}"),
-			sysInfo.distro(), sysInfo.desktopName());
+		std::ctstring_t title = Format::str(xT("{}, {}, CPUs: {} {}"),
+			sysInfo.distro(), sysInfo.desktopName(), sysInfo.numOfCpus(), currentDirPath);
 		console.setTitle(title);
 	}
 
@@ -129,7 +131,7 @@ GitPromptApp::onRun() /* override */
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += currentDirPath;
+        ps1 += currentDirPathBrief;
         ps1 += console.setAttributesDef();
 	}
 
