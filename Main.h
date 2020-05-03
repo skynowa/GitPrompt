@@ -16,7 +16,7 @@ class GitPromptApp :
 {
 public:
     GitPromptApp(std::ctstring_t &a_appGuid, std::ctstring_t &a_locale);
-    ~GitPromptApp() = default;
+   ~GitPromptApp() = default;
 
     xNO_COPY_ASSIGN(GitPromptApp)
 
