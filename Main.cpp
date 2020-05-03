@@ -36,7 +36,7 @@ GitPromptApp::onRun() /* override */
 		gitRepoName = Format::str(xT("[{}] "), gitRepoName);
 	}
 
-	std::ctstring_t currentDirPath = Dir::current();
+	std::ctstring_t currentDirPath = Path(Dir::current()).homeAsBrief();
 
 	std::tstring_t gitBranchName = git.branchName();
 	if ( !gitBranchName.empty() ) {
