@@ -22,7 +22,8 @@ GitPromptApp::onRun() /* override */
 	args(true, &appArgs);
 	xUNUSED(appArgs);
 
-	Console               console;
+	Console console;
+
 	std::ctstring_t       dateTimeNow      = DateTime().current().format(xT("%d-%h %H:%M"), {});
 	cbool_t               isLastShellError = _isShellLastError();
 	git_prompt::GitClient git;
