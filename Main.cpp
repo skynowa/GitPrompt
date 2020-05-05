@@ -150,8 +150,8 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Blue;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-        std::ctstring_t    &str        = (localBranchesNum == 0) ?
-											xT("") : std::to_string(git.localBranchesNum());
+        std::ctstring_t    &str        =
+        	(localBranchesNum == 0) ? xT("") : xT(" ") + std::to_string(git.localBranchesNum());
 
         ps1 += console.setAttributes(foreground, background, attributes);
 		ps1 += str;
