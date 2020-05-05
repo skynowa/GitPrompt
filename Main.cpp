@@ -133,16 +133,25 @@ GitPromptApp::onRun() /* override */
         ps1 += console.setAttributesDef();
 	}
 
-	// Git branch name, Local branches number
+	// Git branch name
 	if ( !gitBranchName.empty() ) {
         Console::Foreground foreground = Console::Foreground::Red;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = xT("[") + gitBranchName + xT("]");
 
-        std::tstring_t str = xT("[") + gitBranchName + xT("]");
-		if (localBranchesNum > 0) {
-			str += std::to_string( git.localBranchesNum() );
-		}
+        ps1 += console.setAttributes(foreground, background, attributes);
+        ps1 += str;
+        ps1 += console.setAttributesDef();
+	}
+
+	// Local branches number
+	{
+        Console::Foreground foreground = Console::Foreground::Red;
+        Console::Background background = Console::Background::Default;
+        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = (localBranchesNum == 0) ?
+											xT("") : std::to_string(git.localBranchesNum());
 
         ps1 += console.setAttributes(foreground, background, attributes);
 		ps1 += str;
