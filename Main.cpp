@@ -22,7 +22,7 @@ GitPromptApp::onRun() /* override */
 	args(true, &appArgs);
 	xUNUSED(appArgs);
 
-	Console console;
+
 
 	std::ctstring_t       dateTimeNow      = DateTime().current().format(xT("%d-%h %H:%M"), {});
 	cbool_t               isLastShellError = _isShellLastError();
@@ -46,7 +46,7 @@ GitPromptApp::onRun() /* override */
 	std::ctstring_t gitBranchName    = git.branchName();
 	std::csize_t    localBranchesNum = git.localBranchesNum();
 
-	// Console
+	Console console;
 	{
 		std::ctstring_t title = Format::str(xT("{}, {}, CPUs: {} {}"),
 			sysInfo.distro(), sysInfo.desktopName(), sysInfo.numOfCpus(), currentDirPath);
@@ -60,9 +60,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Green;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = xT("[") + dateTimeNow + xT("]");
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += xT("[") + dateTimeNow + xT("]");
+        ps1 += str;
         ps1 += console.setAttributesDef();
 	}
 
@@ -71,9 +72,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Red;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = isLastShellError ? xT("✖") : xT("✔");
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += (isLastShellError ? xT("✖") : xT("✔"));
+        ps1 += str;
         ps1 += console.setAttributesDef();
 	}
 
@@ -82,9 +84,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Magenta;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = user.name();
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += user.name();
+        ps1 += str;
         ps1 += console.setAttributesDef();
         ps1 += xT("@");
 	}
@@ -94,9 +97,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Cyan;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = sysInfo.hostName();
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += sysInfo.hostName();
+        ps1 += str;
         ps1 += console.setAttributesDef();
         ps1 += xT(": ");
 	}
@@ -106,13 +110,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Yellow;
         Console::Background background = Console::Background::Black;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = gitRepoName.empty() ? xT("") : xT("[") + gitRepoName + xT("]");
 
         ps1 += console.setAttributes(foreground, background, attributes);
-
-		if ( !gitRepoName.empty() ) {
-			ps1 += xT("[") + gitRepoName + xT("]");
-		}
-
+		ps1 += str;
         ps1 += console.setAttributesDef();
 
         if ( !gitRepoName.empty() ) {
@@ -125,9 +126,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Green;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = currentDirPathBrief;
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += currentDirPathBrief;
+        ps1 += str;
         ps1 += console.setAttributesDef();
 	}
 
@@ -137,13 +139,13 @@ GitPromptApp::onRun() /* override */
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += xT("[") + gitBranchName + xT("]");
-
+        std::tstring_t str = xT("[") + gitBranchName + xT("]");
 		if (localBranchesNum > 0) {
-			ps1 += std::to_string( git.localBranchesNum() );
+			str += std::to_string( git.localBranchesNum() );
 		}
 
+        ps1 += console.setAttributes(foreground, background, attributes);
+		ps1 += str;
         ps1 += console.setAttributesDef();
 	}
 
@@ -152,9 +154,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Yellow;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = git.filesStatuses();
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += git.filesStatuses();
+        ps1 += str;
         ps1 += console.setAttributesDef();
 	}
 
@@ -163,9 +166,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Magenta;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = git.commitsAheadBehind();
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += git.commitsAheadBehind();
+        ps1 += str;
         ps1 += console.setAttributesDef();
         ps1 += xT(" ");
 	}
@@ -175,9 +179,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Default;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = user.isAdmin() ? xT("#") : xT("$");
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += (user.isAdmin() ? xT("#") : xT("$"));
+        ps1 += str;
         ps1 += console.setAttributesDef();
         ps1 += xT(" ");
 	}
@@ -187,9 +192,10 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Yellow;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        = xT("❱ ");
 
         ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += xT("❱ ");
+        ps1 += str;
         ps1 += console.setAttributesDef();
 	}
 
