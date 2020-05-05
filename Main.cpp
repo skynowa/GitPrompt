@@ -22,8 +22,6 @@ GitPromptApp::onRun() /* override */
 	args(true, &appArgs);
 	xUNUSED(appArgs);
 
-
-
 	std::ctstring_t       dateTimeNow      = DateTime().current().format(xT("%d-%h %H:%M"), {});
 	cbool_t               isLastShellError = _isShellLastError();
 	git_prompt::GitClient git;
@@ -48,6 +46,8 @@ GitPromptApp::onRun() /* override */
 
 	Console console;
 	{
+		console.setColorSupport(true);
+
 		std::ctstring_t title = Format::str(xT("{}, {}, CPUs: {} {}"),
 			sysInfo.distro(), sysInfo.desktopName(), sysInfo.numOfCpus(), currentDirPath);
 		console.setTitle(title);
