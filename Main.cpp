@@ -38,13 +38,9 @@ GitPromptApp::onRun() /* override */
     {
         currentDirPath = Path(Dir::current()).homeAsBrief();
 
-	#if 1
-		std::csize_t leftDirsNum         {2};
-		std::csize_t rightDirsNum        {2};
-		cbool_t      isShowHiddenDirsNum {true};
-		currentDirPathBrief = Path(currentDirPath).brief(leftDirsNum, rightDirsNum,
-			isShowHiddenDirsNum);
-	#endif
+		std::csize_t leftDirsNum  {2};
+		std::csize_t rightDirsNum {2};
+		currentDirPathBrief = Path(currentDirPath).brief(leftDirsNum, rightDirsNum);
     }
 
 	std::ctstring_t gitBranchName    = git.branchName();
