@@ -147,12 +147,11 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Local branches number
-	{
+	if (localBranchesNum > 0) {
         Console::Foreground foreground = Console::Foreground::Blue;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-        std::ctstring_t    &str        =
-            (localBranchesNum == 0) ? xT("") : std::to_string(localBranchesNum);
+        std::ctstring_t    &str        = std::to_string(localBranchesNum);
 
         ps1 += console.setAttributes(foreground, background, attributes);
 		ps1 += str;
