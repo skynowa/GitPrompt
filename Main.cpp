@@ -107,11 +107,11 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Git repositiry name
-	{
+	if ( !gitRepoName.empty() ) {
         Console::Foreground foreground = Console::Foreground::Yellow;
         Console::Background background = Console::Background::Black;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-        std::ctstring_t    &str        = gitRepoName.empty() ? xT("") : xT("[") + gitRepoName + xT("]");
+        std::ctstring_t    &str        = xT("[") + gitRepoName + xT("]");
 
         ps1 += console.setAttributes(foreground, background, attributes);
 		ps1 += str;
