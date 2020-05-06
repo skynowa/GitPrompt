@@ -171,27 +171,27 @@ GitClient::filesStatuses() const
 	std::tstring_t sRv;
 
 	if (isNoCommit) {
-		sRv += "✔";
+		sRv += xT("✔");
 	}
 
 	if (isRenamed) {
-		sRv += "△";
+		sRv += xT("△");
 	}
 
 	if (isNew) {
-		sRv += "✚";
+		sRv += xT("✚");
 	}
 
 	if (isUntracked) {
-		sRv += "…";
+		sRv += xT("…");
 	}
 
 	if (isDeleted) {
-		sRv += "✖";
+		sRv += xT("✖");
 	}
 
 	if (isModified) {
-		sRv += "●";
+		sRv += xT("●");
 	}
 
 	return sRv;
