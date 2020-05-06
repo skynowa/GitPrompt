@@ -184,12 +184,11 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Stashes number
-	{
+	if (stashesNum > 0) {
         Console::Foreground foreground = Console::Foreground::Blue;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-        std::ctstring_t    &str        =
-            (stashesNum == 0) ? xT("") : Format::str(xT("⚑{}"), stashesNum);
+        std::ctstring_t    &str        = Format::str(xT("⚑{}"), stashesNum);
 
         ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += str;
