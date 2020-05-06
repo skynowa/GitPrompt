@@ -25,6 +25,7 @@ message("CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
 
 find_package(xLib REQUIRED)
 find_package(LibXml2 REQUIRED)
+find_package(Git REQUIRED)
 #-------------------------------------------------------------------------------
 # includes
 include_directories("${LIBXML2_INCLUDE_DIR}")
@@ -69,3 +70,9 @@ target_link_libraries(
     ${PROJECT_NAME}
     ${LIBS} ${CMAKE_THREAD_LIBS} ${CMAKE_DL_LIBS} ${OPENSSL_LIBRARIES} /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so /usr/lib/x86_64-linux-gnu/libmysqlclient.so /usr/lib/x86_64-linux-gnu/libssh2.so /usr/lib/x86_64-linux-gnu/libcurl.so /usr/lib/x86_64-linux-gnu/libxml2.so /usr/lib/x86_64-linux-gnu/libxcb.so /usr/lib/x86_64-linux-gnu/libX11-xcb.so -lpthread dl pthread rt m z xLib_static
 )
+#--------------------------------------------------------------------------------------------------
+# config
+configure_file(
+    ${CMAKE_SOURCE_DIR}/Config.h.in
+    ${CMAKE_SOURCE_DIR}/Config.h)
+#--------------------------------------------------------------------------------------------------
