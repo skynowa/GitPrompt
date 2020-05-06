@@ -161,12 +161,12 @@ GitClient::filesStatuses() const
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
-	cbool_t isNoCommit  = (stdOut.find("nothing to commit") != std::tstring_t::npos);
-	cbool_t isModified  = (stdOut.find("modified:")         != std::tstring_t::npos);
-	cbool_t isUntracked = (stdOut.find("Untracked files")   != std::tstring_t::npos);
-	cbool_t isNew       = (stdOut.find("new file:")         != std::tstring_t::npos);
-	cbool_t isRenamed   = (stdOut.find("renamed:")          != std::tstring_t::npos);
-	cbool_t isDeleted   = (stdOut.find("deleted:")          != std::tstring_t::npos);
+	cbool_t isNoCommit  = StringCI::compare(stdOut, "nothing to commit");
+	cbool_t isModified  = StringCI::compare(stdOut, "modified:");
+	cbool_t isUntracked = StringCI::compare(stdOut, "Untracked files");
+	cbool_t isNew       = StringCI::compare(stdOut, "new file:");
+	cbool_t isRenamed   = StringCI::compare(stdOut, "renamed:");
+	cbool_t isDeleted   = StringCI::compare(stdOut, "deleted:");
 
 	std::tstring_t sRv;
 
