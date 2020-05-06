@@ -15,17 +15,6 @@ xNAMESPACE_BEGIN(git_prompt)
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
-/**
- is_git()
- {
- 	if ! git rev-parse --git-dir > /dev/null 2>&1; then
- 		false
- 		return
- 	fi
-
- 	true;
- }
-*/
 bool
 GitClient::isGitDir() const
 {
@@ -44,19 +33,6 @@ GitClient::isGitDir() const
     return true;
 }
 //-------------------------------------------------------------------------------------------------
-/**
- get_git_repo()
- {
-     if ! $(is_git); then
-         return
-     fi
-
-     path=`git rev-parse --show-toplevel`
-     dir_name=`basename $path`
-
-     echo $dir_name
- }
-*/
 std::tstring_t
 GitClient::repoName() const
 {
@@ -79,27 +55,6 @@ GitClient::repoName() const
     return sRv;
 }
 //-------------------------------------------------------------------------------------------------
-/**
- git_branch=""
-
- find_git_branch()
- {
-     if ! $(is_git); then
-         git_branch=""
-         return
-     fi
-
-     branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
-
-     if   [[ "$branch" == "" ]]; then
-         git_branch=""
-     elif [[ "$branch" == "HEAD" ]]; then
-         git_branch="detached*"
-     else
-         git_branch="$branch"
-     fi
- }
-*/
 std::tstring_t
 GitClient::branchName() const
 {
