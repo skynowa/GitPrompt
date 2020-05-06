@@ -175,23 +175,23 @@ GitClient::filesStatuses() const
 	}
 
 	if (isRenamed) {
-		sRv =+ "△";
+		sRv += "△";
 	}
 
 	if (isNew) {
-		sRv =+ "+";
+		sRv += "+";
 	}
 
 	if (isUntracked) {
-		sRv =+ "…";
+		sRv += "…";
 	}
 
 	if (isDeleted) {
-		sRv =+ "✖";
+		sRv += "✖";
 	}
 
 	if (isModified) {
-		sRv =+ "●";
+		sRv += "●";
 	}
 
 	return sRv;
