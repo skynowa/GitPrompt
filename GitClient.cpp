@@ -309,7 +309,25 @@ GitClient::commitsAheadBehind() const
 	return sRv;
 }
 //-------------------------------------------------------------------------------------------------
+std::size_t
+GitClient::stashesNum() const
+{
+	xCHECK_RET(!isGitDir(), 0);
 
+	std::ctstring_t                     filePath {"/usr/bin/git"};
+	std::cvec_tstring_t                 params   {"stash", "list"};
+	const std::set<std::pair_tstring_t> envs;
+	std::tstring_t                      stdOut;
+	std::tstring_t                      stdError;
+
+	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
+
+	std::vec_tstring_t values;
+	String::split(String::trimSpace(stdOut), Const::nl(), &values);
+
+	return values.size();
+}
+//-------------------------------------------------------------------------------------------------
 
 /**************************************************************************************************
 *   private

@@ -43,6 +43,7 @@ GitPromptApp::onRun() /* override */
 
 	std::ctstring_t gitBranchName    = git.branchName();
 	std::csize_t    localBranchesNum = git.localBranchesNum();
+	std::csize_t    stashesNum       = git.stashesNum();
 
 	Console console;
 	{
@@ -181,6 +182,19 @@ GitPromptApp::onRun() /* override */
         ps1 += str;
         ps1 += console.setAttributesDef();
         ps1 += xT(" ");
+	}
+
+	// Stashes number
+	{
+        Console::Foreground foreground = Console::Foreground::Blue;
+        Console::Background background = Console::Background::Default;
+        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+        std::ctstring_t    &str        =
+            (stashesNum == 0) ? xT("") : Format::str(xT("⚑{}"), stashesNum);
+
+        ps1 += console.setAttributes(foreground, background, attributes);
+        ps1 += str;
+        ps1 += console.setAttributesDef();
 	}
 
 	// Is admin user

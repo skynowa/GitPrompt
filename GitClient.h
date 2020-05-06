@@ -33,6 +33,8 @@ public:
         ///< get source files statuses
     std::tstring_t commitsAheadBehind() const;
         ///< get number commits ahead behind
+    std::size_t    stashesNum() const;
+        ///< get stashes number
 };
 
 xNAMESPACE_END(git_prompt)
