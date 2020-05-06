@@ -152,8 +152,6 @@ GitClient::filesStatuses() const
 {
 	xCHECK_RET(!isGitDir(), xT(""));
 
-	std::tstring_t sRv;
-
 	std::cvec_tstring_t                 params {"status"};
 	const std::set<std::pair_tstring_t> envs;
 	std::tstring_t                      stdOut;
@@ -170,8 +168,10 @@ GitClient::filesStatuses() const
 	cbool_t isRenamed   = (stdOut.find("renamed:")          != std::tstring_t::npos);
 	cbool_t isDeleted   = (stdOut.find("deleted:")          != std::tstring_t::npos);
 
+	std::tstring_t sRv;
+
 	if (isNoCommit) {
-		sRv = "✔";
+		sRv += "✔";
 	}
 
 	if (isRenamed) {
@@ -179,7 +179,7 @@ GitClient::filesStatuses() const
 	}
 
 	if (isNew) {
-		sRv += "+";
+		sRv += "✚";
 	}
 
 	if (isUntracked) {
