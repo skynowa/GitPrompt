@@ -11,6 +11,6 @@ using namespace xl::debug;
 using namespace xl::fs;
 using namespace xl::sync;
 //-------------------------------------------------------------------------------------------------
-const std::tstring_t appName = xT("GitPrompt");
-const std::tstring_t gitPath = xT("/usr/bin/git");
+const std::ctstring_t appName = xT("GitPrompt");
+const std::ctstring_t gitPath = xT("/usr/bin/git");
 //-------------------------------------------------------------------------------------------------

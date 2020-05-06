@@ -29,13 +29,12 @@ xNAMESPACE_BEGIN(git_prompt)
 bool
 GitClient::isGitDir() const
 {
-    std::ctstring_t                     filePath {"/usr/bin/git"};
-    std::cvec_tstring_t                 params   {"rev-parse", "--git-dir"};
+    std::cvec_tstring_t                 params {"rev-parse", "--git-dir"};
     const std::set<std::pair_tstring_t> envs;
 	std::tstring_t                      stdOut;
 	std::tstring_t                      stdError;
 
-	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(::gitPath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
@@ -65,13 +64,12 @@ GitClient::repoName() const
 
 	std::tstring_t sRv;
 
-    std::ctstring_t                     filePath {"/usr/bin/git"};
-    std::cvec_tstring_t                 params   {"rev-parse", "--show-toplevel"};
+    std::cvec_tstring_t                 params {"rev-parse", "--show-toplevel"};
     const std::set<std::pair_tstring_t> envs;
 	std::tstring_t                      stdOut;
 	std::tstring_t                      stdError;
 
-	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(::gitPath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
@@ -109,13 +107,12 @@ GitClient::branchName() const
 
 	std::tstring_t sRv;
 
-    std::ctstring_t                     filePath {"/usr/bin/git"};
-    std::cvec_tstring_t                 params   {"rev-parse", "--abbrev-ref", "HEAD"};
+    std::cvec_tstring_t                 params {"rev-parse", "--abbrev-ref", "HEAD"};
     const std::set<std::pair_tstring_t> envs;
 	std::tstring_t                      stdOut;
 	std::tstring_t                      stdError;
 
-	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(::gitPath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
@@ -139,13 +136,12 @@ GitClient::localBranchesNum() const
 {
 	xCHECK_RET(!isGitDir(), 0);
 
-	std::ctstring_t                     filePath {"/usr/bin/git"};
-	std::cvec_tstring_t                 params   {"branch"};
+	std::cvec_tstring_t                 params {"branch"};
 	const std::set<std::pair_tstring_t> envs;
 	std::tstring_t                      stdOut;
 	std::tstring_t                      stdError;
 
-	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(::gitPath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
 	std::vec_tstring_t values;
 	String::split(String::trimSpace(stdOut), Const::nl(), &values);
@@ -203,13 +199,12 @@ GitClient::filesStatuses() const
 
 	std::tstring_t sRv;
 
-	std::ctstring_t                     filePath {"/usr/bin/git"};
-	std::cvec_tstring_t                 params   {"status"};
+	std::cvec_tstring_t                 params {"status"};
 	const std::set<std::pair_tstring_t> envs;
 	std::tstring_t                      stdOut;
 	std::tstring_t                      stdError;
 
-	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(::gitPath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
@@ -274,13 +269,12 @@ GitClient::commitsAheadBehind() const
 
 	std::tstring_t sRv;
 
-	std::ctstring_t                     filePath {"/usr/bin/git"};
-	std::cvec_tstring_t                 params   {"rev-list", "--left-right", "--count", "origin/master..." + branchName()};
+	std::cvec_tstring_t                 params {"rev-list", "--left-right", "--count", "origin/master..." + branchName()};
 	const std::set<std::pair_tstring_t> envs;
 	std::tstring_t                      stdOut;
 	std::tstring_t                      stdError;
 
-	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(::gitPath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
@@ -314,13 +308,12 @@ GitClient::stashesNum() const
 {
 	xCHECK_RET(!isGitDir(), 0);
 
-	std::ctstring_t                     filePath {"/usr/bin/git"};
-	std::cvec_tstring_t                 params   {"stash", "list"};
+	std::cvec_tstring_t                 params {"stash", "list"};
 	const std::set<std::pair_tstring_t> envs;
 	std::tstring_t                      stdOut;
 	std::tstring_t                      stdError;
 
-	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(::gitPath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
 	std::vec_tstring_t values;
 	String::split(String::trimSpace(stdOut), Const::nl(), &values);
