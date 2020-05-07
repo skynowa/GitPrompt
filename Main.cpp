@@ -22,15 +22,13 @@ GitPromptApp::onRun() /* override */
 	args(true, &appArgs);
 	xUNUSED(appArgs);
 
-	std::ctstring_t       dateTimeNow      = DateTime().current().format(xT("%d-%h %H:%M"), {});
-	cbool_t               isLastShellError = _isShellLastError();
 	git_prompt::GitClient git;
 	User                  user;
 	SystemInfo            sysInfo;
 
 	cbool_t isGitDir = git.isGitDir();
 
-	// Format values
+	// Current dir
     std::tstring_t currentDirPath;
     std::tstring_t currentDirPathBrief;
     {
@@ -54,6 +52,8 @@ GitPromptApp::onRun() /* override */
 
 	// Current date
 	{
+		std::ctstring_t dateTimeNow = DateTime().current().format(xT("%d-%h %H:%M"), {});
+
         Console::Foreground foreground = Console::Foreground::Green;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
@@ -66,6 +66,8 @@ GitPromptApp::onRun() /* override */
 
 	// Shell last error
 	{
+		cbool_t isLastShellError = _isShellLastError();
+
         Console::Foreground foreground = Console::Foreground::Red;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
