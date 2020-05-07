@@ -185,7 +185,6 @@ GitPromptApp::onRun() /* override */
 			if (aheadNum != 0) {
 				str = Format::str(xT("↑{}"), aheadNum);
 			}
-
 			if (behindNum != 0) {
 				str = Format::str(xT("↓{}"), behindNum);
 			}
