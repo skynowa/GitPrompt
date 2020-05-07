@@ -61,11 +61,11 @@ GitClient::branchName() const
 
 	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
-	if   (stdOut == "") {
-		sRv = "";
+	if      ( stdOut.empty() ) {
+		sRv = xT("");
 	}
-	else if (stdOut == "HEAD") {
-		sRv = "detached*";
+	else if (stdOut == xT("HEAD")) {
+		sRv = xT("detached●");
 	}
 	else {
 		sRv = stdOut;
