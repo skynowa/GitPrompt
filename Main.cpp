@@ -152,7 +152,7 @@ GitPromptApp::onRun() /* override */
 	if (isGitDir) {
 		std::csize_t localBranchesNum = git.localBranchesNum();
 		if (localBranchesNum > 0) {
-			Console::Foreground foreground = Console::Foreground::Blue;
+			Console::Foreground foreground = Console::Foreground::Red;
 			Console::Background background = Console::Background::Default;
 			cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 			std::ctstring_t    &str        = Format::str(xT("⎇{}"), localBranchesNum);
