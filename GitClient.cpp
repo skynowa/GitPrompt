@@ -78,7 +78,7 @@ GitClient::branchName() const
 std::size_t
 GitClient::localBranchesNum() const
 {
-	xCHECK_RET(!isGitDir(), 0);
+	/// xCHECK_RET(!isGitDir(), 0);
 
 	std::cvec_tstring_t  params {"branch"};
 	std::tstring_t       stdOut;
@@ -211,7 +211,7 @@ GitClient::commitsAheadBehind(
 	Utils::ptrAssignT(out_aheadNum,  std::size_t{});
 	Utils::ptrAssignT(out_behindNum, std::size_t{});
 
-	xCHECK_DO(!isGitDir(), return);
+	/// xCHECK_DO(!isGitDir(), return);
 
 	std::cvec_tstring_t params {"rev-list", "--left-right", "--count", "origin/master..." + branchName()};
 	std::tstring_t      stdOut;
@@ -232,7 +232,7 @@ GitClient::commitsAheadBehind(
 std::size_t
 GitClient::stashesNum() const
 {
-	xCHECK_RET(!isGitDir(), 0);
+	/// xCHECK_RET(!isGitDir(), 0);
 
 	std::cvec_tstring_t params {"stash", "list"};
 	std::tstring_t      stdOut;
