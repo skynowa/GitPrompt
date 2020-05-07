@@ -29,8 +29,6 @@ GitPromptApp::onRun() /* override */
 	SystemInfo            sysInfo;
 
 	// Format values
-	std::tstring_t gitRepoName = git.repoName();
-
     std::tstring_t currentDirPath;
     std::tstring_t currentDirPathBrief;
     {
@@ -41,6 +39,8 @@ GitPromptApp::onRun() /* override */
 		currentDirPathBrief = Path(currentDirPath).brief(leftDirsNum, rightDirsNum);
     }
 
+	cbool_t         isGitDir         = git.isGitDir();
+	std::tstring_t  gitRepoName      = git.repoName();
 	std::ctstring_t gitBranchName    = git.branchName();
 	std::csize_t    localBranchesNum = git.localBranchesNum();
 	std::csize_t    stashesNum       = git.stashesNum();
