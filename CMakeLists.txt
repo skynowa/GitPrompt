@@ -12,12 +12,6 @@ project(GitPrompt)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#-------------------------------------------------------------------------------
-# prepare
-if (CMAKE_CXX_COMPILER MATCHES ".*clang")
-    set(CMAKE_COMPILER_IS_CLANGXX 1)
-endif()
-
 #--------------------------------------------------------------------------------------------------
 # find packages
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_ROOT}/Modules/CMakeLib")
