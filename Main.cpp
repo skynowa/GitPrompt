@@ -175,7 +175,21 @@ GitPromptApp::onRun() /* override */
         Console::Foreground foreground = Console::Foreground::Magenta;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-        std::ctstring_t    &str        = git.commitsAheadBehind();
+
+        std::tstring_t str;
+		{
+			std::size_t aheadNum  {};
+			std::size_t behindNum {};
+			git.commitsAheadBehind(&aheadNum, &behindNum);
+
+			if (aheadNum != 0) {
+				str = Format::str(xT("↑{}"), aheadNum);
+			}
+
+			if (behindNum != 0) {
+				str = Format::str(xT("↓{}"), behindNum);
+			}
+		}
 
         ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += str;

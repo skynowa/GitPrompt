@@ -203,12 +203,16 @@ GitClient::filesStatuses() const
  	[[ $behind != "0" ]] && git_ahead_behind="↓${behind}"
  }
 */
-std::tstring_t
-GitClient::commitsAheadBehind() const
+void_t
+GitClient::commitsAheadBehind(
+	std::size_t *out_aheadNum,	///< [out]
+	std::size_t *out_behindNum	///< [out]
+) const
 {
-	xCHECK_RET(!isGitDir(), xT(""));
+	Utils::ptrAssignT(out_aheadNum,  std::size_t{});
+	Utils::ptrAssignT(out_behindNum, std::size_t{});
 
-	std::tstring_t sRv;
+	xCHECK_DO(!isGitDir(), return);
 
 	std::cvec_tstring_t params {"rev-list", "--left-right", "--count", "origin/master..." + branchName()};
 	std::tstring_t      stdOut;
@@ -216,29 +220,14 @@ GitClient::commitsAheadBehind() const
 
 	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
-	std::tstring_t ahead  {"0"};
-	std::tstring_t behind {"0"};
-	{
-		std::vec_tstring_t values;
-		String::split(stdOut, Const::ht(), &values);
-		if (values.size() == 2) {
-			ahead  = ::String::trimSpace(values.at(0));
-			behind = ::String::trimSpace(values.at(1));
-		}
-
-		// Cout() << xTRACE_VAR_2(ahead, behind);
+	std::vec_tstring_t values;
+	String::split(stdOut, Const::ht(), &values);
+	if (values.size() != 2) {
+		return;
 	}
 
-	// format
-	if (ahead != "0") {
-		sRv = "↑" + ahead;
-	}
-
-	if (behind != "0") {
-		sRv = "↓" + behind;
-	}
-
-	return sRv;
+	Utils::ptrAssignT(out_aheadNum,  String::cast<std::size_t>(String::trimSpace(values.at(0))));
+	Utils::ptrAssignT(out_behindNum, String::cast<std::size_t>(String::trimSpace(values.at(1))));
 }
 //-------------------------------------------------------------------------------------------------
 std::size_t

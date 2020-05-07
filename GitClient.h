@@ -31,7 +31,7 @@ public:
         ///< number of local branches
     std::tstring_t filesStatuses() const;
         ///< get source files statuses
-    std::tstring_t commitsAheadBehind() const;
+    void_t         commitsAheadBehind(std::size_t *aheadNum, std::size_t *behindNum) const;
         ///< get number commits ahead behind
     std::size_t    stashesNum() const;
         ///< get stashes number
