@@ -226,8 +226,8 @@ GitClient::commitsAheadBehind(
 		return;
 	}
 
-	Utils::ptrAssignT(out_aheadNum,  String::cast<std::size_t>(String::trimSpace(values.at(0))));
-	Utils::ptrAssignT(out_behindNum, String::cast<std::size_t>(String::trimSpace(values.at(1))));
+	Utils::ptrAssignT(out_aheadNum,  String::cast<std::size_t>(String::trimSpace(values[0])));
+	Utils::ptrAssignT(out_behindNum, String::cast<std::size_t>(String::trimSpace(values[1])));
 }
 //-------------------------------------------------------------------------------------------------
 std::size_t
