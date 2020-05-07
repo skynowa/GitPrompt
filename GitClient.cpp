@@ -15,6 +15,11 @@ xNAMESPACE_BEGIN(git_prompt)
 **************************************************************************************************/
 
 //-------------------------------------------------------------------------------------------------
+GitClient::GitClient() :
+	_isGitDir{ isGitDir() }
+{
+}
+//-------------------------------------------------------------------------------------------------
 bool
 GitClient::isGitDir() const
 {
@@ -32,7 +37,7 @@ GitClient::isGitDir() const
 std::tstring_t
 GitClient::repoName() const
 {
-	xCHECK_RET(!isGitDir(), xT(""));
+	xCHECK_RET(!_isGitDir, xT(""));
 
 	std::tstring_t sRv;
 
@@ -50,7 +55,7 @@ GitClient::repoName() const
 std::tstring_t
 GitClient::branchName() const
 {
-	xCHECK_RET(!isGitDir(), xT(""));
+	xCHECK_RET(!_isGitDir, xT(""));
 
 	std::tstring_t sRv;
 
@@ -78,7 +83,7 @@ GitClient::branchName() const
 std::size_t
 GitClient::localBranchesNum() const
 {
-	xCHECK_RET(!isGitDir(), 0);
+	xCHECK_RET(!_isGitDir, 0);
 
 	std::cvec_tstring_t  params {"branch"};
 	std::tstring_t       stdOut;
@@ -138,7 +143,7 @@ GitClient::localBranchesNum() const
 std::tstring_t
 GitClient::filesStatuses() const
 {
-	xCHECK_RET(!isGitDir(), xT(""));
+	xCHECK_RET(!_isGitDir, xT(""));
 
 	std::cvec_tstring_t params {"status"};
 	std::tstring_t      stdOut;
@@ -211,7 +216,7 @@ GitClient::commitsAheadBehind(
 	Utils::ptrAssignT(out_aheadNum,  std::size_t{});
 	Utils::ptrAssignT(out_behindNum, std::size_t{});
 
-	xCHECK_DO(!isGitDir(), return);
+	xCHECK_DO(!_isGitDir, return);
 
 	std::cvec_tstring_t params {"rev-list", "--left-right", "--count", "origin/master..." + branchName()};
 	std::tstring_t      stdOut;
@@ -232,7 +237,7 @@ GitClient::commitsAheadBehind(
 std::size_t
 GitClient::stashesNum() const
 {
-	xCHECK_RET(!isGitDir(), 0);
+	xCHECK_RET(!_isGitDir, 0);
 
 	std::cvec_tstring_t params {"stash", "list"};
 	std::tstring_t      stdOut;
