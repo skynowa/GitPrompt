@@ -32,7 +32,7 @@ GitClient::isGitDir() const
 std::tstring_t
 GitClient::repoName() const
 {
-	/// /// xCHECK_RET(!isGitDir(), xT(""));
+	/// xCHECK_RET(!isGitDir(), xT(""));
 
 	std::tstring_t sRv;
 
