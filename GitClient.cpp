@@ -23,9 +23,6 @@ GitClient::isGitDir() const
 	std::tstring_t      stdError;
 
 	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
-	// Cout() << xTRACE_VAR(stdOut);
-	// Cout() << xTRACE_VAR(stdError);
-
 	xCHECK_RET(!stdError.empty(), false);
 	xCHECK_RET((stdOut.find(xT(".git")) == std::tstring_t::npos), false);
 
@@ -44,8 +41,6 @@ GitClient::repoName() const
 	std::tstring_t      stdError;
 
 	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
-	// Cout() << xTRACE_VAR(stdOut);
-	// Cout() << xTRACE_VAR(stdError);
 
 	sRv = Path(stdOut).fileBaseName();
 	sRv = String::trimSpace(sRv);
@@ -65,8 +60,6 @@ GitClient::branchName() const
 	std::tstring_t      stdError;
 
 	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
-	// Cout() << xTRACE_VAR(stdOut);
-	// Cout() << xTRACE_VAR(stdError);
 
 	if   (stdOut == "") {
 		sRv = "";
@@ -153,8 +146,6 @@ GitClient::filesStatuses() const
 	std::tstring_t      stdError;
 
 	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
-	// Cout() << xTRACE_VAR(stdOut);
-	// Cout() << xTRACE_VAR(stdError);
 
 	cbool_t isNoCommit  = StringCI::contains(stdOut, xT("nothing to commit"));
 	cbool_t isModified  = StringCI::contains(stdOut, xT("modified:"));
@@ -224,8 +215,6 @@ GitClient::commitsAheadBehind() const
 	std::tstring_t      stdError;
 
 	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
-	// Cout() << xTRACE_VAR(stdOut);
-	// Cout() << xTRACE_VAR(stdError);
 
 	std::tstring_t ahead  {"0"};
 	std::tstring_t behind {"0"};
