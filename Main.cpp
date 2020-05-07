@@ -28,6 +28,8 @@ GitPromptApp::onRun() /* override */
 	User                  user;
 	SystemInfo            sysInfo;
 
+	cbool_t isGitDir = git.isGitDir();
+
 	// Format values
     std::tstring_t currentDirPath;
     std::tstring_t currentDirPathBrief;
@@ -38,12 +40,6 @@ GitPromptApp::onRun() /* override */
 		std::csize_t rightDirsNum {2};
 		currentDirPathBrief = Path(currentDirPath).brief(leftDirsNum, rightDirsNum);
     }
-
-	cbool_t         isGitDir         = git.isGitDir();
-	std::tstring_t  gitRepoName      = git.repoName();
-	std::ctstring_t gitBranchName    = git.branchName();
-	std::csize_t    localBranchesNum = git.localBranchesNum();
-	std::csize_t    stashesNum       = git.stashesNum();
 
 	Console console;
 	{
@@ -107,7 +103,9 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Git repositiry name
-	if ( !gitRepoName.empty() ) {
+	if (isGitDir) {
+		std::tstring_t gitRepoName = git.repoName();
+
         Console::Foreground foreground = Console::Foreground::Yellow;
         Console::Background background = Console::Background::Black;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
@@ -135,7 +133,9 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Git branch name
-	if ( !gitBranchName.empty() ) {
+	if (isGitDir) {
+		std::ctstring_t gitBranchName = git.branchName();
+
         Console::Foreground foreground = Console::Foreground::Red;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
@@ -147,15 +147,18 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Local branches number
-	if (localBranchesNum > 0) {
-        Console::Foreground foreground = Console::Foreground::Blue;
-        Console::Background background = Console::Background::Default;
-        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-        std::ctstring_t    &str        = Format::str(xT("⎇{}"), localBranchesNum);
+	if (isGitDir) {
+		std::csize_t localBranchesNum = git.localBranchesNum();
+		if (localBranchesNum > 0) {
+			Console::Foreground foreground = Console::Foreground::Blue;
+			Console::Background background = Console::Background::Default;
+			cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+			std::ctstring_t    &str        = Format::str(xT("⎇{}"), localBranchesNum);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
-		ps1 += str;
-        ps1 += console.setAttributesDef();
+			ps1 += console.setAttributes(foreground, background, attributes);
+			ps1 += str;
+			ps1 += console.setAttributesDef();
+		}
 	}
 
 	// Git file statuses
@@ -196,15 +199,18 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Stashes number
-	if (stashesNum > 0) {
-        Console::Foreground foreground = Console::Foreground::Blue;
-        Console::Background background = Console::Background::Default;
-        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-        std::ctstring_t    &str        = Format::str(xT("⚑{}"), stashesNum);
+	if (isGitDir) {
+		std::csize_t stashesNum = git.stashesNum();
+		if (stashesNum > 0) {
+			Console::Foreground foreground = Console::Foreground::Blue;
+			Console::Background background = Console::Background::Default;
+			cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+			std::ctstring_t    &str        = Format::str(xT("⚑{}"), stashesNum);
 
-        ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += str;
-        ps1 += console.setAttributesDef();
+			ps1 += console.setAttributes(foreground, background, attributes);
+			ps1 += str;
+			ps1 += console.setAttributesDef();
+		}
 	}
 
 	// Is admin user
