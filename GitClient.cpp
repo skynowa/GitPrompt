@@ -32,7 +32,7 @@ GitClient::isGitDir() const
 std::tstring_t
 GitClient::repoName() const
 {
-	xCHECK_RET(!isGitDir(), xT(""));
+	/// /// xCHECK_RET(!isGitDir(), xT(""));
 
 	std::tstring_t sRv;
 
@@ -50,7 +50,7 @@ GitClient::repoName() const
 std::tstring_t
 GitClient::branchName() const
 {
-	xCHECK_RET(!isGitDir(), xT(""));
+	/// xCHECK_RET(!isGitDir(), xT(""));
 
 	std::tstring_t sRv;
 
@@ -138,7 +138,7 @@ GitClient::localBranchesNum() const
 std::tstring_t
 GitClient::filesStatuses() const
 {
-	xCHECK_RET(!isGitDir(), xT(""));
+	/// xCHECK_RET(!isGitDir(), xT(""));
 
 	std::cvec_tstring_t params {"status"};
 	std::tstring_t      stdOut;
