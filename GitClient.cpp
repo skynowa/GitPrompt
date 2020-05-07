@@ -42,8 +42,7 @@ GitClient::repoName() const
 
 	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
-	sRv = Path(stdOut).fileBaseName();
-	sRv = String::trimSpace(sRv);
+	sRv = String::trimSpace( Path(stdOut).fileBaseName() );
 
     return sRv;
 }
