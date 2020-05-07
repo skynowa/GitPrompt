@@ -164,7 +164,7 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Git file statuses
-	{
+	if (isGitDir) {
         Console::Foreground foreground = Console::Foreground::Yellow;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
@@ -176,7 +176,7 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Git ahead/behind commits
-	{
+	if (isGitDir) {
         Console::Foreground foreground = Console::Foreground::Magenta;
         Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
