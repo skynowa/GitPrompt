@@ -14,7 +14,7 @@ xNAMESPACE_BEGIN(git_prompt)
 class GitClient
 {
 public:
-    GitClient();
+    GitClient() = default;
         ///< constructor
    ~GitClient() = default;
         ///< destructor
@@ -35,9 +35,6 @@ public:
         ///< get number commits ahead behind
     std::size_t    stashesNum() const;
         ///< get stashes number
-
-private:
-    cbool_t _isGitDir{};
 };
 
 xNAMESPACE_END(git_prompt)
