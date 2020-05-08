@@ -26,7 +26,7 @@ GitClient::isGitDir() const
 	std::tstring_t      stdOut;
 	std::tstring_t      stdError;
 
-	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(_gitPath(), params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 	xCHECK_RET(!stdError.empty(), false);
 	xCHECK_RET((stdOut.find(xT(".git")) == std::tstring_t::npos), false);
 
@@ -44,7 +44,7 @@ GitClient::repoName() const
 	std::tstring_t      stdOut;
 	std::tstring_t      stdError;
 
-	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(_gitPath(), params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
 	sRv = String::trimSpace( Path(stdOut).fileBaseName() );
 
@@ -62,7 +62,7 @@ GitClient::branchName() const
 	std::tstring_t      stdOut;
 	std::tstring_t      stdError;
 
-	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(_gitPath(), params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
 	if      ( stdOut.empty() ) {
 		sRv = xT("");
@@ -88,7 +88,7 @@ GitClient::localBranchesNum() const
 	std::tstring_t       stdOut;
 	std::tstring_t       stdError;
 
-	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(_gitPath(), params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
 	std::vec_tstring_t values;
 	String::split(String::trimSpace(stdOut), Const::nl(), &values);
@@ -148,7 +148,7 @@ GitClient::filesStatuses() const
 	std::tstring_t      stdOut;
 	std::tstring_t      stdError;
 
-	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(_gitPath(), params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
 	cbool_t isNoCommit  = StringCI::contains(stdOut, xT("nothing to commit"));
 	cbool_t isModified  = StringCI::contains(stdOut, xT("modified:"));
@@ -221,7 +221,7 @@ GitClient::commitsAheadBehind(
 	std::tstring_t      stdOut;
 	std::tstring_t      stdError;
 
-	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(_gitPath(), params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
 	std::vec_tstring_t values;
 	String::split(stdOut, Const::ht(), &values);
@@ -242,7 +242,7 @@ GitClient::stashesNum() const
 	std::tstring_t      stdOut;
 	std::tstring_t      stdError;
 
-	Process::execute(::gitPath, params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
+	Process::execute(_gitPath(), params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
 
 	std::vec_tstring_t values;
 	String::split(String::trimSpace(stdOut), Const::nl(), &values);
