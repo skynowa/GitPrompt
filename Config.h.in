@@ -12,5 +12,4 @@ using namespace xl::fs;
 using namespace xl::sync;
 //-------------------------------------------------------------------------------------------------
 const std::ctstring_t appName = xT("@PROJECT_NAME@");
-const std::ctstring_t gitPath = xT("@GIT_EXECUTABLE@");
 //-------------------------------------------------------------------------------------------------

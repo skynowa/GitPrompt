@@ -19,7 +19,6 @@ message("CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
 
 find_package(xLib REQUIRED)
 find_package(LibXml2 REQUIRED)
-find_package(Git REQUIRED)
 #-------------------------------------------------------------------------------
 # includes
 include_directories("${LIBXML2_INCLUDE_DIR}")
