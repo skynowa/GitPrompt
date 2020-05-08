@@ -276,8 +276,10 @@ GitClient::_gitPath() const
 	std::cvec_tstring_t dirPaths
 	{
 	#if   xENV_WIN
+		// echo %Path%
 		xT("c:\\Program Files (x86)\\Git\\bin")
 	#elif xENV_UNIX
+		// echo $PATH
 		xT("/usr/bin"),
 		xT("/usr/local/bin")
 	#endif
