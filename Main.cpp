@@ -44,7 +44,7 @@ GitPromptApp::onRun() /* override */
 		console.setColorSupport(true);
 
 		std::ctstring_t title = Format::str(xT("{} - {}, {}, CPUs: {} {}"),
-			appName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.numOfCpus(), currentDirPath);
+			::appName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.numOfCpus(), currentDirPath);
 		console.setTitle(title);
 	}
 
