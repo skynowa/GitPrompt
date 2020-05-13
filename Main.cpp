@@ -260,7 +260,7 @@ GitPromptApp::_isShellLastError() const
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
-	std::ctstring_t errorCode = ::String::trimSpace(stdOut);
+	std::ctstring_t &errorCode = ::String::trimSpace(stdOut);
 	Cout() << "errorCode: >>>" << errorCode << "<<<";
 	Cout() << xTRACE_VAR_4(errorCode.size(), errorCode[0], errorCode[1], std::tstring_t{"0"}.size());
 
