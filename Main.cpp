@@ -66,16 +66,49 @@ GitPromptApp::onRun() /* override */
 
 	// Shell last error
 	{
+	#if 0
 		cbool_t isLastShellError = _isShellLastError();
 
-        Console::Foreground foreground = Console::Foreground::Red;
-        Console::Background background = Console::Background::Default;
-        cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-        std::ctstring_t    &str        = isLastShellError ? xT("✖") : xT("✔");
+		Console::Foreground foreground = Console::Foreground::Red;
+		Console::Background background = Console::Background::Default;
+		cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+		std::ctstring_t    &str        = isLastShellError ? xT("✖") : xT("✔");
 
-        ps1 += console.setAttributes(foreground, background, attributes);
-        ps1 += str;
-        ps1 += console.setAttributesDef();
+		ps1 += console.setAttributes(foreground, background, attributes);
+		ps1 += str;
+		ps1 += console.setAttributesDef();
+	#else
+		// ps1 += "$(if [[ $? == 0 ]]; then echo \"\\[\033[0;32m\\]✔\"; else echo \"\\[\033[0;31m\\]✖\"; fi)\\[\033[00m\\]";
+
+		std::tstring_t lastShellOk;
+		{
+			Console::Foreground foreground = Console::Foreground::Green;
+			Console::Background background = Console::Background::Default;
+			cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+			std::ctstring_t    &str        = xT("✔");
+
+			lastShellOk    =
+				console.setAttributes(foreground, background, attributes) +
+				str +
+				console.setAttributesDef();
+		}
+
+		std::tstring_t lastShellError;
+		{
+			Console::Foreground foreground = Console::Foreground::Red;
+			Console::Background background = Console::Background::Default;
+			cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
+			std::ctstring_t    &str        = xT("✖");
+
+			lastShellError    =
+				console.setAttributes(foreground, background, attributes) +
+				str +
+				console.setAttributesDef();
+		}
+
+		ps1 += Format::str(xT("$(if [[ $? == 0 ]]; then echo \"{}\"; else echo \"{}\"; fi)"),
+			lastShellOk, lastShellError);
+	#endif
 	}
 
 	// User name
