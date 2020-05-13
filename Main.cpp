@@ -256,7 +256,7 @@ GitPromptApp::_isShellLastError() const
 	std::tstring_t                      stdOut;
 	std::tstring_t                      stdError;
 
-	Process::execute(filePath, xTIMEOUT_INFINITE, params, envs, &stdOut, &stdError);
+	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
 	// Cout() << xTRACE_VAR(stdOut);
 	// Cout() << xTRACE_VAR(stdError);
 
