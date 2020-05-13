@@ -101,7 +101,7 @@ GitPromptApp::onRun() /* override */
         ps1 += console.setAttributes(foreground, background, attributes);
         ps1 += str;
         ps1 += console.setAttributesDef();
-        ps1 += xT(": ");
+        ps1 += xT(" ");
 	}
 
 	// Git repositiry name
