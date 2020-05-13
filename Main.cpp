@@ -66,19 +66,13 @@ GitPromptApp::onRun() /* override */
 
 	// Shell last error
 	{
-	#if 0
-		cbool_t isLastShellError = _isShellLastError();
-
-		Console::Foreground foreground = Console::Foreground::Red;
-		Console::Background background = Console::Background::Default;
-		cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-		std::ctstring_t    &str        = isLastShellError ? xT("✖") : xT("✔");
-
-		ps1 += console.setAttributes(foreground, background, attributes);
-		ps1 += str;
-		ps1 += console.setAttributesDef();
-	#else
-		// ps1 += "$(if [[ $? == 0 ]]; then echo \"\\[\033[0;32m\\]✔\"; else echo \"\\[\033[0;31m\\]✖\"; fi)\\[\033[00m\\]";
+	   /**
+		* ps1 += "$(if [[ $? == 0 ]]; then
+		*     echo \"\\[\033[0;32m\\]✔\";
+		* else
+		*     echo \"\\[\033[0;31m\\]✖\";
+		* fi)\\[\033[00m\\]";
+		*/
 
 		std::tstring_t lastShellOk;
 		{
@@ -108,7 +102,6 @@ GitPromptApp::onRun() /* override */
 
 		ps1 += Format::str(xT("$(if [[ $? == 0 ]]; then echo \"{}\"; else echo \"{}\"; fi)"),
 			lastShellOk, lastShellError);
-	#endif
 	}
 
 	// User name
@@ -277,33 +270,6 @@ GitPromptApp::onRun() /* override */
 	console.writeLine(ps1);
 
 	return ExitCode::Success;
-}
-//-------------------------------------------------------------------------------------------------
-bool_t
-GitPromptApp::_isShellLastError() const
-{
-#if 0
-	std::ctstring_t                     filePath {"/bin/echo"};
-	std::cvec_tstring_t                 params   {"$?"};
-	const std::set<std::pair_tstring_t> envs;
-	std::tstring_t                      stdOut;
-	std::tstring_t                      stdError;
-
-	Process::execute(filePath, params, envs, xTIMEOUT_INFINITE, &stdOut, &stdError);
-	// Cout() << xTRACE_VAR(stdOut);
-	// Cout() << xTRACE_VAR(stdError);
-
-	std::ctstring_t &errorCode = ::String::trimSpace(stdOut);
-	Cout() << "errorCode: >>>" << errorCode << "<<<";
-	Cout() << xTRACE_VAR_4(errorCode.size(), errorCode[0], errorCode[1], std::tstring_t{"0"}.size());
-
-	cbool_t bRv = false; // (errorCode == std::tstring_t{"0"});
-	Cout() << xTRACE_VAR(bRv);
-
-	return bRv;
-#else
-	return false;
-#endif
 }
 //-------------------------------------------------------------------------------------------------
 int_t main(int_t /* a_argNum */, tchar_t ** /* a_args */)

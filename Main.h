@@ -21,10 +21,6 @@ public:
     xNO_COPY_ASSIGN(GitPromptApp)
 
     ExitCode onRun() override;
-
-private:
-    bool_t _isShellLastError() const;
-        ///< check exit status of last shell command ("echo $?")
 };
 //-------------------------------------------------------------------------------------------------
 /**
