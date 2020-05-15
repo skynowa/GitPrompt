@@ -26,6 +26,7 @@ public:
 /**
  * TODO:
  * - repo icon: xT("🙃");
+ * - screens num
  *
  * DONE:
  * - Local branches number
