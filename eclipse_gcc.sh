@@ -10,7 +10,7 @@
 # export CXX="g++"
 
 DIR="../GitPrompt"
-DIR_BUILD="../GitPrompt_eclipse_gcc"
+DIR_BUILD="../GitPrompt_eclipse"
 
 
 # build
