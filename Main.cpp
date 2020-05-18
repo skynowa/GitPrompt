@@ -12,7 +12,7 @@ int_t main(int_t a_argNum, tchar_t *a_args[])
 	xUNUSED(a_argNum);
 	xUNUSED(a_args);
 
-	git_prompt::GitPromptApp::ExitCode exitStatus {};
+	auto exitStatus {Application::ExitCode::Failure};
 
 	try {
 		git_prompt::GitPromptApp app(::appName, xT(""));
