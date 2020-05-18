@@ -23,6 +23,8 @@ public:
 
     bool           isGitDir() const;
         ///< check Git directory
+    std::tstring_t repoUrlName() const;
+        ///< get repo URL name
     std::tstring_t repoName() const;
         ///< get repository name
     std::tstring_t branchName() const;

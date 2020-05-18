@@ -124,12 +124,13 @@ GitPromptApp::onRun() /* override */
 
 	// Git repositiry name
 	if (isGitDir) {
-		std::tstring_t gitRepoName = git.repoName();
+		std::ctstring_t &gitRepoName    = git.repoName();
+		std::ctstring_t &gitRepoUrlName = git.repoUrlName();
 
         Console::Foreground foreground = Console::Foreground::Yellow;
         Console::Background background = Console::Background::Black;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-        std::ctstring_t    &str        = xT("[") + gitRepoName + xT("]");
+		std::ctstring_t    &str        = Format::str(xT("[{}:{}]"), gitRepoUrlName, gitRepoName);
 
         ps1 += console.setAttributesText(foreground, background, attributes, str);
 

@@ -33,6 +33,41 @@ GitClient::isGitDir() const
     return true;
 }
 //-------------------------------------------------------------------------------------------------
+/**
+ * HTTP(s)/Git proto
+ *
+ * - git@bitbucket.org:skynowa/faq.git
+ * - ssh://git@gitlab.maklai.dev:8999/suppliers/services-sync.git
+ * - ssh://git@stash.fabrica.net.ua:7999/trav/booked.git
+ *
+ * - https://github.com/FIvanO/PocketBookTest
+ */
+std::tstring_t
+GitClient::repoUrlName() const
+{
+	/// xCHECK_RET(!isGitDir(), xT(""));
+
+	std::tstring_t sRv;
+
+	std::cvec_tstring_t params {"config", "--get", "remote.origin.url"};
+	std::tstring_t      stdOut;
+	std::tstring_t      stdError;
+
+	Process::execute(_gitPath(), params, {}, xTIMEOUT_INFINITE, &stdOut, &stdError);
+
+	std::ctstring_t &url = String::trimSpace(stdOut);
+
+	constexpr std::array protos {xT("git@"), xT("://")};
+
+	for (const auto &it_proto : protos) {
+		xCHECK_DO(url.find(it_proto) == std::tstring_t::npos, continue);
+
+		return String::cut(url, it_proto, xT(".")) ;
+	}
+
+	return {};
+}
+//-------------------------------------------------------------------------------------------------
 std::tstring_t
 GitClient::repoName() const
 {
