@@ -25,7 +25,7 @@ include_directories("${LIBXML2_INCLUDE_DIR}")
 
 #-------------------------------------------------------------------------------
 # sources
-set(SOURCES "Main.cpp" "GitClient.cpp")
+set(SOURCES "Main.cpp" "GitPromptApp.cpp" "GitClient.cpp")
 
 #-------------------------------------------------------------------------------
 # target
