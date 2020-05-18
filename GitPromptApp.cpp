@@ -127,7 +127,7 @@ GitPromptApp::onRun() /* override */
 		std::ctstring_t &gitRepoName    = git.repoName();
 		std::ctstring_t &gitRepoUrlName = git.repoUrlName();
 
-		Console::Foreground foreground = Console::Foreground::Yellow;
+		Console::Foreground foreground = Console::Foreground::White;
 		Console::Background background = Console::Background::Default;
 		cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
 
@@ -149,7 +149,13 @@ GitPromptApp::onRun() /* override */
 
 		// Git repository name
 		{
-			std::ctstring_t &str = Format::str(xT("{}]"), gitRepoName);
+			std::ctstring_t &str = Format::str(xT("{}"), gitRepoName);
+			ps1 += console.setAttributesText(foreground, background, attributes, str);
+		}
+
+		// ]
+		{
+			std::ctstring_t &str = xT("]");
 			ps1 += console.setAttributesText(foreground, background, attributes, str);
 		}
 
