@@ -46,7 +46,7 @@ GitPromptApp::onRun() /* override */
 	{
 		console.setColorSupport(true);
 
-		std::ctstring_t title = Format::str(xT("{} - {}, {}, CPUs: {},                Build: {}"),
+		std::ctstring_t &title = Format::str(xT("{} - {}, {}, CPUs: {},                Build: {}"),
 			::appName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.numOfCpus(),
 			BuildInfo().datetime());
 		console.setTitle(title);
@@ -56,7 +56,7 @@ GitPromptApp::onRun() /* override */
 
 	// Current date
 	{
-		std::ctstring_t dateTimeNow = DateTime().current().format(xT("%d-%h %H:%M"), {});
+		std::ctstring_t &dateTimeNow = DateTime().current().format(xT("%d-%h %H:%M"), {});
 
         Console::Foreground foreground = Console::Foreground::Green;
         Console::Background background = Console::Background::Default;
@@ -151,7 +151,7 @@ GitPromptApp::onRun() /* override */
 
 	// Git branch name
 	if (isGitDir) {
-		std::ctstring_t gitBranchName = git.branchName();
+		std::ctstring_t &gitBranchName = git.branchName();
 
         Console::Foreground foreground = Console::Foreground::Red;
         Console::Background background = Console::Background::Default;
