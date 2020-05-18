@@ -133,8 +133,7 @@ GitPromptApp::onRun() /* override */
 
 	// Git repository
 	if (isGitDir) {
-		std::ctstring_t &gitRepoName    = git.repoName();
-		std::ctstring_t &gitRepoUrlName = git.repoUrlName();
+		std::ctstring_t &gitRepoName = git.repoName();
 
 		// [
 		{
@@ -144,7 +143,7 @@ GitPromptApp::onRun() /* override */
 
 		// Git repo URL name
 		{
-			std::ctstring_t &str = Format::str(xT("{}:"), gitRepoUrlName);
+			std::ctstring_t &str = Format::str(xT("{}:"), git.repoUrlName());
 			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
 		}
 
