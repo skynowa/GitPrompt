@@ -14,9 +14,9 @@ xNAMESPACE_BEGIN(git_prompt)
 class GitClient
 {
 public:
-    GitClient();
+                   GitClient();
         ///< constructor
-   ~GitClient() = default;
+                  ~GitClient() = default;
         ///< destructor
 
     xNO_COPY_ASSIGN(GitClient);
