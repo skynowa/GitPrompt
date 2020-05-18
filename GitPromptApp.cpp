@@ -54,27 +54,26 @@ GitPromptApp::onRun() /* override */
 
 	std::tstring_t ps1;
 
-	const auto fgGreen   = Console::Foreground::Green;
-	const auto fgYellow  = Console::Foreground::Yellow;
-	const auto fgBlue    = Console::Foreground::Blue;
-	const auto fgMagenta = Console::Foreground::Magenta;
-	const auto fgRed     = Console::Foreground::Red;
-	const auto fgWhite   = Console::Foreground::White;
-	const auto fgCyan    = Console::Foreground::Cyan;
-	const auto fgDefault = Console::Foreground::Default;
+	constexpr auto fgGreen   = Console::Foreground::Green;
+	constexpr auto fgYellow  = Console::Foreground::Yellow;
+	constexpr auto fgBlue    = Console::Foreground::Blue;
+	constexpr auto fgMagenta = Console::Foreground::Magenta;
+	constexpr auto fgRed     = Console::Foreground::Red;
+	constexpr auto fgWhite   = Console::Foreground::White;
+	constexpr auto fgCyan    = Console::Foreground::Cyan;
+	constexpr auto fgDefault = Console::Foreground::Default;
 
-	const auto bgDefault = Console::Background::Default;
+	constexpr auto bgDefault = Console::Background::Default;
 
-	const auto attrBold  = static_cast<int_t>(Console::Attribute::Bold);
+	constexpr auto attrBold  = static_cast<int_t>(Console::Attribute::Bold);
 
 	// Current date
 	{
 		std::ctstring_t &dateTimeNow = DateTime().current().format(xT("%d-%h %H:%M"), {});
 
-		const auto       attrs = static_cast<int_t>(Console::Attribute::Bold);
 		std::ctstring_t &str = xT("[") + dateTimeNow + xT("]");
 
-		ps1 += console.setAttributesText(fgGreen, bgDefault, attrs, str);
+		ps1 += console.setAttributesText(fgGreen, bgDefault, attrBold, str);
 	}
 
 	// Shell last error
