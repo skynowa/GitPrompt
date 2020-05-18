@@ -35,10 +35,9 @@ GitPromptApp::onRun() /* override */
 	cbool_t isGitDir = git.isGitDir();
 
 	// Current dir
-	std::tstring_t currentDirPath;
 	std::tstring_t currentDirPathBrief;
 	{
-		currentDirPath = Path(Dir::current()).homeAsBrief();
+		std::ctstring_t &currentDirPath = Path(Dir::current()).homeAsBrief();
 
 		std::csize_t leftDirsNum  {2};
 		std::csize_t rightDirsNum {2};
