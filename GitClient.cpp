@@ -41,6 +41,8 @@ GitClient::isGitDir() const
  * - ssh://git@stash.fabrica.net.ua:7999/trav/booked.git
  *
  * - https://github.com/FIvanO/PocketBookTest
+ *
+ * - https://skynowa@git.code.sf.net/p/x-lib/code
  */
 std::tstring_t
 GitClient::repoUrlName() const
@@ -57,7 +59,12 @@ GitClient::repoUrlName() const
 
 	std::ctstring_t &url = String::trimSpace(stdOut);
 
-	constexpr std::array protos {xT("git@"), xT("://")};
+	constexpr std::array protos
+	{
+		xT("git@"), 		// without protos
+		xT("@git.code."),	// sourceforge.net
+		xT("://")			// with protos
+	};
 
 	for (const auto &it_proto : protos) {
 		xCHECK_DO(url.find(it_proto) == std::tstring_t::npos, continue);

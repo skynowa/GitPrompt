@@ -122,17 +122,36 @@ GitPromptApp::onRun() /* override */
         ps1 += xT(" ");
 	}
 
-	// Git repositiry name
+	// Git repository
 	if (isGitDir) {
 		std::ctstring_t &gitRepoName    = git.repoName();
 		std::ctstring_t &gitRepoUrlName = git.repoUrlName();
 
         Console::Foreground foreground = Console::Foreground::Yellow;
-        Console::Background background = Console::Background::Black;
+        Console::Background background = Console::Background::Default;
         cint_t              attributes = static_cast<int_t>(Console::Attribute::Bold);
-		std::ctstring_t    &str        = Format::str(xT("[{}:{}]"), gitRepoUrlName, gitRepoName);
 
-        ps1 += console.setAttributesText(foreground, background, attributes, str);
+        // [
+		{
+			std::ctstring_t &str = xT("[");
+			ps1 += console.setAttributesText(foreground, background, attributes, str);
+		}
+
+        // Git repo URL name
+        {
+            Console::Foreground foreground2 = Console::Foreground::Blue;
+            Console::Background background2 = Console::Background::Default;
+            cint_t              attributes2 = static_cast<int_t>(Console::Attribute::Bold);
+            std::ctstring_t    &str       = Format::str(xT("{}:"), gitRepoUrlName);
+
+            ps1 += console.setAttributesText(foreground2, background2, attributes2, str);
+        }
+
+        // Git repository name
+		{
+			std::ctstring_t &str = Format::str(xT("{}]"), gitRepoName);
+			ps1 += console.setAttributesText(foreground, background, attributes, str);
+		}
 
         if ( !gitRepoName.empty() ) {
             ps1 += xT(" ");
