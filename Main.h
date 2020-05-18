@@ -5,12 +5,10 @@
 
 
 #include <xLib/xLib.h>
-
 #include "Config.h"
-#include "GitClient.h"
-
-using namespace git_prompt;
 //-------------------------------------------------------------------------------------------------
+xNAMESPACE_BEGIN(git_prompt)
+
 class GitPromptApp :
     public Application
 {
@@ -22,6 +20,8 @@ public:
 
     ExitCode onRun() override;
 };
+
+xNAMESPACE_END(git_prompt)
 //-------------------------------------------------------------------------------------------------
 /**
  * TODO:

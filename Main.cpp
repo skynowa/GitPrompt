@@ -6,6 +6,9 @@
 
 #include "Main.h"
 
+#include "GitClient.h"
+
+xNAMESPACE_BEGIN(git_prompt)
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::GitPromptApp(
 	std::ctstring_t &a_appGuid,
@@ -243,12 +246,15 @@ GitPromptApp::onRun() /* override */
 	return ExitCode::Success;
 }
 //-------------------------------------------------------------------------------------------------
+xNAMESPACE_END(git_prompt)
+
+//-------------------------------------------------------------------------------------------------
 int_t main(int_t /* a_argNum */, tchar_t ** /* a_args */)
 {
-	GitPromptApp::ExitCode exitStatus {};
+	git_prompt::GitPromptApp::ExitCode exitStatus {};
 
 	try {
-		GitPromptApp app(::appName, xT(""));
+		git_prompt::GitPromptApp app(::appName, xT(""));
 		exitStatus = app.run();
 	}
 	catch (const Exception &a_e) {
