@@ -28,6 +28,7 @@ xNAMESPACE_END(git_prompt)
  * - repo icon: xT("🙃");
  *
  * DONE:
+ * - repo URL name
  * - Local branches number
  * - Stashes number
  *
