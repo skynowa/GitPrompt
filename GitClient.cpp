@@ -22,7 +22,7 @@ GitClient::GitClient()
 bool
 GitClient::isGitDir() const
 {
-    std::cvec_tstring_t params {"rev-parse", "--git-dir"};
+	std::cvec_tstring_t params {"rev-parse", "--git-dir"};
 	std::tstring_t      stdOut;
 	std::tstring_t      stdError;
 
@@ -30,7 +30,7 @@ GitClient::isGitDir() const
 	xCHECK_RET(!stdError.empty(), false);
 	xCHECK_RET((stdOut.find(xT(".git")) == std::tstring_t::npos), false);
 
-    return true;
+	return true;
 }
 //-------------------------------------------------------------------------------------------------
 /**
@@ -82,7 +82,7 @@ GitClient::repoName() const
 
 	std::tstring_t sRv;
 
-    std::cvec_tstring_t params {"rev-parse", "--show-toplevel"};
+	std::cvec_tstring_t params {"rev-parse", "--show-toplevel"};
 	std::tstring_t      stdOut;
 	std::tstring_t      stdError;
 
@@ -90,7 +90,7 @@ GitClient::repoName() const
 
 	sRv = String::trimSpace( Path(stdOut).fileBaseName() );
 
-    return sRv;
+	return sRv;
 }
 //-------------------------------------------------------------------------------------------------
 std::tstring_t
@@ -100,7 +100,7 @@ GitClient::branchName() const
 
 	std::tstring_t sRv;
 
-    std::cvec_tstring_t params {"rev-parse", "--abbrev-ref", "HEAD"};
+	std::cvec_tstring_t params {"rev-parse", "--abbrev-ref", "HEAD"};
 	std::tstring_t      stdOut;
 	std::tstring_t      stdError;
 
@@ -118,7 +118,7 @@ GitClient::branchName() const
 
 	sRv = String::trimSpace(sRv);
 
-    return sRv;
+	return sRv;
 }
 //-------------------------------------------------------------------------------------------------
 std::size_t
@@ -231,21 +231,21 @@ GitClient::filesStatuses() const
 /**
  find_git_ahead_behind()
  {
- 	if ! $(is_git); then
- 		git_ahead_behind=""
- 		return
- 	fi
+	if ! $(is_git); then
+		git_ahead_behind=""
+		return
+	fi
 
- 	local status=$(git rev-list --left-right --count origin/master...$branch)
- 	local aheadRegex="([0-9]+)"
- 	local behindRegex="\s(\w+)$"
+	local status=$(git rev-list --left-right --count origin/master...$branch)
+	local aheadRegex="([0-9]+)"
+	local behindRegex="\s(\w+)$"
 
- 	[[ $status =~ $aheadRegex ]]  && ahead="${BASH_REMATCH[1]}"  || ahead="0"
- 	[[ $status =~ $behindRegex ]] && behind="${BASH_REMATCH[1]}" || behind="0"
+	[[ $status =~ $aheadRegex ]]  && ahead="${BASH_REMATCH[1]}"  || ahead="0"
+	[[ $status =~ $behindRegex ]] && behind="${BASH_REMATCH[1]}" || behind="0"
 
 ??? [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && git_ahead_behind=""
- 	[[ $ahead != "0" ]]  && git_ahead_behind="↑${ahead}"
- 	[[ $behind != "0" ]] && git_ahead_behind="↓${behind}"
+	[[ $ahead != "0" ]]  && git_ahead_behind="↑${ahead}"
+	[[ $behind != "0" ]] && git_ahead_behind="↓${behind}"
  }
 */
 void_t

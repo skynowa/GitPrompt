@@ -28,6 +28,6 @@ int_t main(int_t a_argNum, tchar_t *a_args[])
 		Cout() << xTRACE_VAR_2(exitStatus, xT("Unknown error"));
 	}
 
-    return exitStatus;
+	return exitStatus;
 }
 //-------------------------------------------------------------------------------------------------

@@ -10,15 +10,15 @@
 xNAMESPACE_BEGIN(git_prompt)
 
 class GitPromptApp :
-    public Application
+	public Application
 {
 public:
-             GitPromptApp(std::ctstring_t &appGuid, std::ctstring_t &locale);
-            ~GitPromptApp() = default;
+			 GitPromptApp(std::ctstring_t &appGuid, std::ctstring_t &locale);
+			~GitPromptApp() = default;
 
-    xNO_COPY_ASSIGN(GitPromptApp)
+	xNO_COPY_ASSIGN(GitPromptApp)
 
-    ExitCode onRun() override;
+	ExitCode onRun() override;
 };
 
 xNAMESPACE_END(git_prompt)
