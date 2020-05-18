@@ -54,6 +54,7 @@ GitPromptApp::onRun() /* override */
 
 	std::tstring_t ps1;
 
+	// Foreground
 	constexpr auto fgGreen   = Console::Foreground::Green;
 	constexpr auto fgYellow  = Console::Foreground::Yellow;
 	constexpr auto fgBlue    = Console::Foreground::Blue;
@@ -63,8 +64,10 @@ GitPromptApp::onRun() /* override */
 	constexpr auto fgCyan    = Console::Foreground::Cyan;
 	constexpr auto fgDefault = Console::Foreground::Default;
 
+	// Background
 	constexpr auto bgDefault = Console::Background::Default;
 
+	// Attribute
 	constexpr auto attrBold  = static_cast<int_t>(Console::Attribute::Bold);
 
 	// Current date
