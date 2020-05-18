@@ -37,11 +37,11 @@ GitPromptApp::onRun() /* override */
 	// Current dir
 	std::tstring_t currentDirPathBrief;
 	{
-		std::ctstring_t &currentDirPath = Path(Dir::current()).homeAsBrief();
+		std::ctstring_t &_currentDirPath = Path(Dir::current()).homeAsBrief();
 
 		std::csize_t leftDirsNum  {2};
 		std::csize_t rightDirsNum {2};
-		currentDirPathBrief = Path(currentDirPath).brief(leftDirsNum, rightDirsNum);
+		currentDirPathBrief = Path(_currentDirPath).brief(leftDirsNum, rightDirsNum);
 	}
 
 	ulonglong_t volumeUsedPct {};
