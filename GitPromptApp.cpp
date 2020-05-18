@@ -72,11 +72,23 @@ GitPromptApp::onRun() /* override */
 
 	// Current date
 	{
-		std::ctstring_t &dateTimeNow = DateTime().current().format(xT("%d-%h %H:%M"), {});
+		// [
+		{
+			std::ctstring_t &str = xT("[");
+			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+		}
 
-		std::ctstring_t &str = xT("[") + dateTimeNow + xT("]");
+		// Current date
+		{
+			std::ctstring_t &str = DateTime().current().format(xT("%d-%h %H:%M"), {});
+			ps1 += console.setAttributesText(fgGreen, bgDefault, attrBold, str);
+		}
 
-		ps1 += console.setAttributesText(fgGreen, bgDefault, attrBold, str);
+		// ]
+		{
+			std::ctstring_t &str = xT("]");
+			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+		}
 	}
 
 	// Shell last error
@@ -92,14 +104,12 @@ GitPromptApp::onRun() /* override */
 		std::tstring_t lastShellOk;
 		{
 			std::ctstring_t &str = xT("✔");
-
 			lastShellOk = console.setAttributesText(fgGreen, bgDefault, attrBold, str);
 		}
 
 		std::tstring_t lastShellError;
 		{
 			std::ctstring_t &str = xT("✖");
-
 			lastShellError = console.setAttributesText(fgRed, bgDefault, attrBold, str);
 		}
 
@@ -110,7 +120,6 @@ GitPromptApp::onRun() /* override */
 	// User name
 	{
 		std::ctstring_t &str = user.name();
-
 		ps1 += console.setAttributesText(fgMagenta, bgDefault, attrBold, str);
 		ps1 += xT("@");
 	}
@@ -118,7 +127,6 @@ GitPromptApp::onRun() /* override */
 	// Host name
 	{
 		std::ctstring_t &str = sysInfo.hostName();
-
 		ps1 += console.setAttributesText(fgCyan, bgDefault, attrBold, str);
 		ps1 += xT(" ");
 	}
@@ -137,14 +145,13 @@ GitPromptApp::onRun() /* override */
 		// Git repo URL name
 		{
 			std::ctstring_t &str = Format::str(xT("{}:"), gitRepoUrlName);
-
 			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
 		}
 
 		// Git repository name
 		{
 			std::ctstring_t &str = Format::str(xT("{}"), gitRepoName);
-			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+			ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, str);
 		}
 
 		// ]
@@ -161,17 +168,28 @@ GitPromptApp::onRun() /* override */
 	// Current dir
 	{
 		std::ctstring_t &str = currentDirPathBrief;
-
 		ps1 += console.setAttributesText(fgGreen, bgDefault, attrBold, str);
 	}
 
 	// Git branch name
 	if (isGitDir) {
-		std::ctstring_t &gitBranchName = git.branchName();
+		// [
+		{
+			std::ctstring_t &str = xT("[");
+			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+		}
 
-		std::ctstring_t &str = xT("[") + gitBranchName + xT("]");
+		// Git branch name
+		{
+			std::ctstring_t &str = git.branchName();
+			ps1 += console.setAttributesText(fgRed, bgDefault, attrBold, str);
+		}
 
-		ps1 += console.setAttributesText(fgRed, bgDefault, attrBold, str);
+		// ]
+		{
+			std::ctstring_t &str = xT("]");
+			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+		}
 	}
 
 	// Local branches number
@@ -179,7 +197,6 @@ GitPromptApp::onRun() /* override */
 		std::csize_t localBranchesNum = git.localBranchesNum();
 		if (localBranchesNum > 0) {
 			std::ctstring_t &str = Format::str(xT("⎇{}"), localBranchesNum);
-
 			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
 		}
 	}
@@ -187,7 +204,6 @@ GitPromptApp::onRun() /* override */
 	// Git file statuses
 	if (isGitDir) {
 		std::ctstring_t &str = git.filesStatuses();
-
 		ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, str);
 	}
 
@@ -214,9 +230,7 @@ GitPromptApp::onRun() /* override */
 	if (isGitDir) {
 		std::csize_t stashesNum = git.stashesNum();
 		if (stashesNum > 0) {
-
 			std::ctstring_t &str = Format::str(xT("⚑{}"), stashesNum);
-
 			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
 		}
 	}
@@ -233,7 +247,6 @@ GitPromptApp::onRun() /* override */
 	// "> "
 	{
 		std::ctstring_t &str = xT("❱ ");
-
 		ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, str);
 	}
 
