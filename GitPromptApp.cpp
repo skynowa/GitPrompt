@@ -25,6 +25,9 @@ GitPromptApp::onRun() /* override */
 	args(true, &appArgs);
 	xUNUSED(appArgs);
 
+	// Options
+	constexpr ulonglong_t volumeUsedWarnPct {90};
+
 	git_prompt::GitClient git;
 	User                  user;
 	SystemInfo            sysInfo;
@@ -40,6 +43,16 @@ GitPromptApp::onRun() /* override */
 		std::csize_t leftDirsNum  {2};
 		std::csize_t rightDirsNum {2};
 		currentDirPathBrief = Path(currentDirPath).brief(leftDirsNum, rightDirsNum);
+	}
+
+	ulonglong_t volumeUsedPct {};
+	{
+        ulonglong_t available {};
+        ulonglong_t total     {};
+
+        Volume::space(Dir::current(), &available, &total, nullptr);
+
+        volumeUsedPct = (total - available) * 100 / total;
 	}
 
 	Console console;
@@ -168,6 +181,16 @@ GitPromptApp::onRun() /* override */
 	{
 		std::ctstring_t &str = currentDirPathBrief;
 		ps1 += console.setAttributesText(fgGreen, bgDefault, attrBold, str);
+	}
+
+	// Volume used %
+	if (volumeUsedPct > volumeUsedWarnPct) {
+		ps1 += xT(" ");
+
+		std::ctstring_t &str = Format::str(xT("{}%"), volumeUsedPct);
+		ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+
+		ps1 += xT(" ");
 	}
 
 	// Git branch name
