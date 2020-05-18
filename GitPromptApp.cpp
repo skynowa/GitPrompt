@@ -8,6 +8,18 @@
 
 #include "GitClient.h"
 
+//-------------------------------------------------------------------------------------------------
+namespace
+{
+
+// Options
+constexpr ulonglong_t volumeUsedWarnPct {90};
+constexpr std::size_t leftDirsNum       {2};
+constexpr std::size_t rightDirsNum      {2};
+
+}
+//-------------------------------------------------------------------------------------------------
+
 xNAMESPACE_BEGIN(git_prompt)
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::GitPromptApp(
@@ -25,9 +37,6 @@ GitPromptApp::onRun() /* override */
 	args(true, &appArgs);
 	xUNUSED(appArgs);
 
-	// Options
-	constexpr ulonglong_t volumeUsedWarnPct {90};
-
 	git_prompt::GitClient git;
 	User                  user;
 	SystemInfo            sysInfo;
@@ -35,13 +44,13 @@ GitPromptApp::onRun() /* override */
 	cbool_t isGitDir = git.isGitDir();
 
 	// Current dir
+	std::ctstring_t &currentDirPath = Dir::current();
+
 	std::tstring_t currentDirPathBrief;
 	{
-		std::ctstring_t &_currentDirPath = Path(Dir::current()).homeAsBrief();
+		std::ctstring_t &homeAsBrief = Path(currentDirPath).homeAsBrief();
 
-		std::csize_t leftDirsNum  {2};
-		std::csize_t rightDirsNum {2};
-		currentDirPathBrief = Path(_currentDirPath).brief(leftDirsNum, rightDirsNum);
+		currentDirPathBrief = Path(homeAsBrief).brief(::leftDirsNum, ::rightDirsNum);
 	}
 
 	ulonglong_t volumeUsedPct {};
@@ -49,7 +58,7 @@ GitPromptApp::onRun() /* override */
         ulonglong_t available {};
         ulonglong_t total     {};
 
-        Volume::space(Dir::current(), &available, &total, nullptr);
+        Volume::space(currentDirPath, &available, &total, nullptr);
 
         volumeUsedPct = (total - available) * 100 / total;
 	}
@@ -183,7 +192,7 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Volume used %
-	if (volumeUsedPct > volumeUsedWarnPct) {
+	if (volumeUsedPct > ::volumeUsedWarnPct) {
 		ps1 += xT(" ");
 
 		std::ctstring_t &str = Format::str(xT("{}%"), volumeUsedPct);
