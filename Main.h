@@ -26,11 +26,13 @@ public:
 /**
  * TODO:
  * - repo icon: xT("🙃");
- * - screens num
  *
  * DONE:
  * - Local branches number
  * - Stashes number
+ *
+ * UNTODO:
+ * - screens num (Must be connected to a terminal.)
  *
  */
 //-------------------------------------------------------------------------------------------------
