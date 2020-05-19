@@ -53,10 +53,10 @@ GitPromptApp::onRun() /* override */
 
 	ulonglong_t volumeUsedPct {};
 	{
-        ulonglong_t available {};
         ulonglong_t total     {};
+        ulonglong_t available {};
 
-        Volume::currentSpace(&available, &total, nullptr);
+        Volume::currentSpace(&total, &available, nullptr);
 
         volumeUsedPct = (total - available) * 100 / total;
 	}
