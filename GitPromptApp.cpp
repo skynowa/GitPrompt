@@ -44,11 +44,9 @@ GitPromptApp::onRun() /* override */
 	cbool_t isGitDir = git.isGitDir();
 
 	// Current dir
-	std::ctstring_t &currentDirPath = Dir::current();
-
 	std::tstring_t currentDirPathBrief;
 	{
-		std::ctstring_t &homeAsBrief = Path(currentDirPath).homeAsBrief();
+		std::ctstring_t &homeAsBrief = Path(Dir::current()).homeAsBrief();
 
 		currentDirPathBrief = Path(homeAsBrief).brief(::leftDirsNum, ::rightDirsNum);
 	}
@@ -58,7 +56,7 @@ GitPromptApp::onRun() /* override */
         ulonglong_t available {};
         ulonglong_t total     {};
 
-        Volume::space(currentDirPath, &available, &total, nullptr);
+        Volume::currentSpace(&available, &total, nullptr);
 
         volumeUsedPct = (total - available) * 100 / total;
 	}
