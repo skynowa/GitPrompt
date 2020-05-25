@@ -33,11 +33,6 @@ GitPromptApp::GitPromptApp(
 GitPromptApp::ExitCode
 GitPromptApp::onRun() /* override */
 {
-	struct Config
-	{
-		bool_t isHostName {false};
-	} _config;
-
 	std::vec_tstring_t appArgs;
 	args(true, &appArgs);
 	xUNUSED(appArgs);

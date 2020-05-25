@@ -19,6 +19,14 @@ public:
 	xNO_COPY_ASSIGN(GitPromptApp)
 
 	ExitCode onRun() override;
+
+private:
+	struct Config
+	{
+		bool_t isHostName {false};
+	};
+
+	Config _config;
 };
 
 xNAMESPACE_END(git_prompt)
