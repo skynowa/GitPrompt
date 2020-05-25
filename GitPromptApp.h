@@ -24,9 +24,7 @@ private:
 	struct Config
 	{
 		bool_t isHostName {false};
-	};
-
-	Config _config;
+	} _config;
 };
 
 xNAMESPACE_END(git_prompt)

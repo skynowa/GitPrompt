@@ -28,6 +28,8 @@ GitPromptApp::GitPromptApp(
 ) :
 	Application(a_appGuid, a_locale)
 {
+	// _config
+	_config.isHostName = false;
 }
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::ExitCode
