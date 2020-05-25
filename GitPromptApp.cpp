@@ -138,7 +138,7 @@ GitPromptApp::onRun() /* override */
 
 	// User name
 	{
-		std::ctstring_t &str = user.name();
+		std::ctstring_t &str = user.loginName();
 		ps1 += console.setAttributesText(fgMagenta, bgDefault, attrBold, str);
 		ps1 += xT("@");
 	}
