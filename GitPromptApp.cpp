@@ -33,6 +33,11 @@ GitPromptApp::GitPromptApp(
 GitPromptApp::ExitCode
 GitPromptApp::onRun() /* override */
 {
+	struct Config
+	{
+		bool_t isHostName {false};
+	} _config;
+
 	std::vec_tstring_t appArgs;
 	args(true, &appArgs);
 	xUNUSED(appArgs);
@@ -143,15 +148,17 @@ GitPromptApp::onRun() /* override */
 		const auto       fg  = isAdmin ? fgRed : fgMagenta;
 
 		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
-		ps1 += xT("@");
 	}
 
 	// Host name
-	{
+	if (_config.isHostName) {
+		ps1 += xT("@");
+
 		std::ctstring_t &str = sysInfo.hostName();
 		ps1 += console.setAttributesText(fgCyan, bgDefault, attrBold, str);
-		ps1 += xT(" ");
 	}
+
+	ps1 += xT(" ");
 
 	// Git repository
 	if (isGitDir) {
