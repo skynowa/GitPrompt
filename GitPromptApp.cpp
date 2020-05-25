@@ -41,6 +41,7 @@ GitPromptApp::onRun() /* override */
 	User                  user;
 	SystemInfo            sysInfo;
 
+	cbool_t isAdmin  = user.isAdmin();
 	cbool_t isGitDir = git.isGitDir();
 
 	// Current dir
@@ -139,7 +140,9 @@ GitPromptApp::onRun() /* override */
 	// User name
 	{
 		std::ctstring_t &str = user.loginName();
-		ps1 += console.setAttributesText(fgMagenta, bgDefault, attrBold, str);
+		const auto       fg  = isAdmin ? fgRed : fgMagenta;
+
+		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
 		ps1 += xT("@");
 	}
 
@@ -265,10 +268,11 @@ GitPromptApp::onRun() /* override */
 
 	// Is admin user
 	{
-		std::ctstring_t &str = user.isAdmin() ? xT("#") : xT("$");
+		std::ctstring_t &str = isAdmin ? xT("#") : xT("$");
+		const auto       fg  = isAdmin ? fgRed : fgDefault;
 
 		ps1 += xT(" ");
-		ps1 += console.setAttributesText(fgDefault, bgDefault, attrBold, str);
+		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
 		ps1 += xT(" ");
 	}
 
