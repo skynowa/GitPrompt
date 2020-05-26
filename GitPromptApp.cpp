@@ -28,6 +28,17 @@ GitPromptApp::GitPromptApp(
 ) :
 	Application(a_appGuid, a_locale)
 {
+	std::vec_tstring_t appArgs;
+	args(true, &appArgs);
+	xUNUSED(appArgs);
+
+	// Cout() << xTRACE_VAR(appArgs);
+
+	CmdOptions options;
+
+	std::vector<CmdOptionsUsage> usage;
+	options.parse(appArgs, usage);
+
 	// _config
 	_config.isHostName = false;
 }
@@ -35,10 +46,6 @@ GitPromptApp::GitPromptApp(
 GitPromptApp::ExitCode
 GitPromptApp::onRun() /* override */
 {
-	std::vec_tstring_t appArgs;
-	args(true, &appArgs);
-	xUNUSED(appArgs);
-
 	git_prompt::GitClient git;
 	User                  user;
 	SystemInfo            sysInfo;
