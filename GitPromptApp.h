@@ -23,7 +23,8 @@ public:
 private:
 	struct Config
 	{
-		bool_t isHostName {false};
+		bool_t         isHostName {false};
+		std::tstring_t myHostName;
 	} _config;
 };
 

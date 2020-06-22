@@ -41,6 +41,7 @@ GitPromptApp::GitPromptApp(
 
 	// _config
 	_config.isHostName = false;
+	_config.myHostName = xT("skynowa-pc");
 }
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::ExitCode
@@ -50,8 +51,9 @@ GitPromptApp::onRun() /* override */
 	User                  user;
 	SystemInfo            sysInfo;
 
-	cbool_t isAdmin  = user.isAdmin();
-	cbool_t isGitDir = git.isGitDir();
+	std::ctstring_t &hostName = sysInfo.hostName();
+	cbool_t          isAdmin  = user.isAdmin();
+	cbool_t          isGitDir = git.isGitDir();
 
 	// Current dir
 	std::tstring_t currentDirPathBrief;
@@ -155,11 +157,11 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Host name
-	if (_config.isHostName) {
+	if (_config.isHostName ||
+		hostName != "skynowa-pc")
+	{
 		ps1 += xT("@");
-
-		std::ctstring_t &str = sysInfo.hostName();
-		ps1 += console.setAttributesText(fgCyan, bgDefault, attrBold, str);
+		ps1 += console.setAttributesText(fgCyan, bgDefault, attrBold, hostName);
 	}
 
 	ps1 += xT(" ");
