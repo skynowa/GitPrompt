@@ -24,8 +24,10 @@ private:
 	struct Config
 	{
 		bool_t         isHostName {false};
-		std::tstring_t myHostName;
-	} _config;
+		std::tstring_t myHostName {xT("skynowa-pc")};
+	};
+
+	Config _config;
 };
 
 xNAMESPACE_END(git_prompt)

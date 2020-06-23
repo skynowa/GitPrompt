@@ -38,10 +38,6 @@ GitPromptApp::GitPromptApp(
 
 	std::vector<CmdOptionsUsage> usage;
 	options.parse(appArgs, usage);
-
-	// _config
-	_config.isHostName = false;
-	_config.myHostName = xT("skynowa-pc");
 }
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::ExitCode
