@@ -202,7 +202,8 @@ GitPromptApp::onRun() /* override */
 	}
 
 	// Volume used %
-	if (volumeUsedPct > ::volumeUsedWarnPct) {
+	if (_config.isVolumeUsedPct ||
+		volumeUsedPct > ::volumeUsedWarnPct) {
 		ps1 += xT(" ");
 
 		std::ctstring_t &str = Format::str(xT("{}%"), volumeUsedPct);
