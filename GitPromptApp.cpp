@@ -43,9 +43,9 @@ GitPromptApp::GitPromptApp(
 GitPromptApp::ExitCode
 GitPromptApp::onRun() /* override */
 {
-	git_prompt::GitClient git;
-	User                  user;
-	SystemInfo            sysInfo;
+	GitClient  git;
+	User       user;
+	SystemInfo sysInfo;
 
 	std::ctstring_t &hostName = sysInfo.hostName();
 	cbool_t          isAdmin  = user.isAdmin();
