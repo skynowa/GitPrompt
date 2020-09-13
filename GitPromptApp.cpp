@@ -6,7 +6,7 @@
 
 #include "GitPromptApp.h"
 
-#include "GitClient.h"
+#include <xLib/Package/GitClient.h>
 
 //-------------------------------------------------------------------------------------------------
 namespace
