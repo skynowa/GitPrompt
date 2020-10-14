@@ -7,7 +7,8 @@
 #include <xLib/xLib.h>
 #include "Config.h"
 //-------------------------------------------------------------------------------------------------
-xNAMESPACE_BEGIN(git_prompt)
+namespace git_prompt
+{
 
 class GitPromptApp :
 	public Application
@@ -31,7 +32,7 @@ private:
 	Config _config;
 };
 
-xNAMESPACE_END(git_prompt)
+} // namespace
 //-------------------------------------------------------------------------------------------------
 /**
  * TODO:

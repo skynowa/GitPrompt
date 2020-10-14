@@ -20,7 +20,8 @@ constexpr std::size_t rightDirsNum      {2};
 }
 //-------------------------------------------------------------------------------------------------
 
-xNAMESPACE_BEGIN(git_prompt)
+namespace git_prompt
+{
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::GitPromptApp(
 	std::ctstring_t &a_appGuid,
@@ -72,6 +73,7 @@ GitPromptApp::onRun() /* override */
 	Console console;
 	{
 		console.setColorSupport(true);
+		console.setEscapeValues(true);
 
 		std::ctstring_t &title = Format::str(xT("{} - {}, {}, CPUs: {},                Build: {}"),
 			::appName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.numOfCpus(),
@@ -297,4 +299,4 @@ GitPromptApp::onRun() /* override */
 	return ExitCode::Success;
 }
 //-------------------------------------------------------------------------------------------------
-xNAMESPACE_END(git_prompt)
+} // namespace
