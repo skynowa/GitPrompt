@@ -24,7 +24,8 @@ find_package(LibXml2 REQUIRED)
 include_directories("${LIBXML2_INCLUDE_DIR}")
 #-------------------------------------------------------------------------------
 # sources
-set(SOURCES "Main.cpp" "GitPromptApp.cpp")
+set(SOURCES
+    GitPromptApp.cpp)
 #-------------------------------------------------------------------------------
 # target
 add_executable(GitPrompt ${SOURCES})
