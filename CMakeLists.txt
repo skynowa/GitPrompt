@@ -30,7 +30,7 @@ set(SOURCES
 # target
 add_executable(GitPrompt ${SOURCES})
 #-------------------------------------------------------------------------------
-target_link_libraries(${PROJECT_NAME} ${XLIB_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${cmXLIB_LIBRARIES})
 #--------------------------------------------------------------------------------------------------
 # config
 configure_file(
