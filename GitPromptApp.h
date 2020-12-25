@@ -37,6 +37,7 @@ private:
 /**
  * TODO:
  * - repo icon: xT("🙃");
+ * - check mergeability with master
  *
  * DONE:
  * - repo URL name
