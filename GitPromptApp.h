@@ -34,18 +34,3 @@ private:
 
 } // namespace
 //-------------------------------------------------------------------------------------------------
-/**
- * TODO:
- * - repo icon: xT("🙃");
- * - check mergeability with master
- *
- * DONE:
- * - repo URL name
- * - Local branches number
- * - Stashes number
- *
- * UNTODO:
- * - screens num (Must be connected to a terminal.)
- *
- */
-//-------------------------------------------------------------------------------------------------
