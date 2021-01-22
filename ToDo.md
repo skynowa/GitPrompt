@@ -24,4 +24,4 @@
 
 ## UNTODO
 
-- Screens num (Must be connected to a terminal.)
+- Screens num (Must be connected to a terminal)
