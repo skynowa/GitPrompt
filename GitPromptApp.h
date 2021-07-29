@@ -14,10 +14,13 @@ class GitPromptApp :
 	public Application
 {
 public:
-			 GitPromptApp(std::ctstring_t &appGuid, std::ctstring_t &locale);
-			~GitPromptApp() = default;
+///@name ctors, dtor
+///@{
+	GitPromptApp(std::ctstring_t &appGuid, std::ctstring_t &locale);
+   ~GitPromptApp() = default;
 
 	xNO_COPY_ASSIGN(GitPromptApp)
+///@}
 
 	ExitCode onRun() override;
 
