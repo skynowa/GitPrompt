@@ -51,11 +51,14 @@ GitPromptApp::onRun() /* override */
 	std::ctstring_t &hostName = sysInfo.hostName();
 	cbool_t          isAdmin  = user.isAdmin();
 	cbool_t          isGitDir = git.isGitDir();
+	cbool_t          isMc     = Environment(xT("MC_SID")).isExists();
+		///< Check if MC is runnin (check env: MC_SID=30463)
 
 	// Current dir
 	std::tstring_t currentDirPathBrief;
 	{
-		std::ctstring_t &homeAsBrief = Path(Dir::current().str()).homeAsBrief().str();
+		std::ctstring_t dirCurrent  = Dir::current().str();
+		std::ctstring_t homeAsBrief = Path(dirCurrent).homeAsBrief().str();
 
 		currentDirPathBrief = Path(homeAsBrief).brief(::leftDirsNum, ::rightDirsNum).str();
 	}
@@ -284,6 +287,15 @@ GitPromptApp::onRun() /* override */
 		const auto       fg  = isAdmin ? fgRed : fgDefault;
 
 		ps1 += xT(" ");
+		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
+		ps1 += xT(" ");
+	}
+
+	// mc
+	if (isMc) {
+		std::ctstring_t &str = bRv ? xT("mc") : xT("");
+		const auto       fg  = bRv ? fgBlue : fgDefault;
+
 		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
 		ps1 += xT(" ");
 	}
