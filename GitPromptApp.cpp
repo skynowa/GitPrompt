@@ -293,8 +293,8 @@ GitPromptApp::onRun() /* override */
 
 	// mc
 	if (isMc) {
-		std::ctstring_t &str = bRv ? xT("mc") : xT("");
-		const auto       fg  = bRv ? fgBlue : fgDefault;
+		std::ctstring_t str = xT("mc");
+		const auto      fg  = fgBlue;
 
 		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
 		ps1 += xT(" ");
