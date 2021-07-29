@@ -55,9 +55,9 @@ GitPromptApp::onRun() /* override */
 	// Current dir
 	std::tstring_t currentDirPathBrief;
 	{
-		std::ctstring_t &homeAsBrief = Path(Dir::current()).homeAsBrief();
+		std::ctstring_t &homeAsBrief = Path(Dir::current().str()).homeAsBrief().str();
 
-		currentDirPathBrief = Path(homeAsBrief).brief(::leftDirsNum, ::rightDirsNum);
+		currentDirPathBrief = Path(homeAsBrief).brief(::leftDirsNum, ::rightDirsNum).str();
 	}
 
 	ulonglong_t volumeUsedPct {};
@@ -76,7 +76,7 @@ GitPromptApp::onRun() /* override */
 		console.setEscapeValues(true);
 
 		std::ctstring_t &title = Format::str(xT("{} - {}, {}, CPUs: {},                Build: {}"),
-			::appName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.numOfCpus(),
+			::appName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.cpusNum(),
 			BuildInfo().datetime());
 		console.setTitle(title);
 	}
