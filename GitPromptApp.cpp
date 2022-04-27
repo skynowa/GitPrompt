@@ -161,8 +161,11 @@ GitPromptApp::onRun() /* override */
 	if (_config.isHostName ||
 		hostName != "skynowa-pc")
 	{
+		std::ctstring_t &str = hostName;
+		const auto       fg  = fgCyan;
+
 		ps1 += xT("@");
-		ps1 += console.setAttributesText(fgCyan, bgDefault, attrBold, hostName);
+		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
 	}
 
 	ps1 += xT(" ");
@@ -294,7 +297,7 @@ GitPromptApp::onRun() /* override */
 	// mc
 	if (isMc) {
 		std::ctstring_t str = xT("mc");
-		const auto      fg  = fgBlue;
+		const auto      fg  = fgCyan;
 
 		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
 		ps1 += xT(" ");
