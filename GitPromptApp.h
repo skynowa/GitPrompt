@@ -1,6 +1,6 @@
 /**
- * \file  Main.h
- * \brief GitPrompt
+ * \file  GitPromptApp.h
+ * \brief Git prompt tools
  */
 
 
@@ -22,7 +22,7 @@ public:
 	xNO_COPY_ASSIGN(GitPromptApp)
 ///@}
 
-	ExitCode onRun() override;
+	ExitCode onRun() final;
 
 private:
 	struct Config

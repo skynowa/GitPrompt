@@ -1,6 +1,6 @@
 /**
- * \file  Main.cpp
- * \brief GitPrompt
+ * \file  GitPromptApp.cpp
+ * \brief Git prompt tools
  */
 
 
@@ -42,7 +42,7 @@ GitPromptApp::GitPromptApp(
 }
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::ExitCode
-GitPromptApp::onRun() /* override */
+GitPromptApp::onRun() /* final */
 {
 	GitClient  git;
 	User       user;
@@ -159,7 +159,7 @@ GitPromptApp::onRun() /* override */
 
 	// Host name
 	if (_config.isHostName ||
-		hostName != "skynowa-pc")
+		hostName != _config.myHostName)
 	{
 		std::ctstring_t &str = hostName;
 		const auto       fg  = fgCyan;
