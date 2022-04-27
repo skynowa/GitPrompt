@@ -4,6 +4,9 @@
 
 - [ ] Repo icon: xT("🙃");
 - [ ] Check mergeability with master
+- [ ] Number of modified files (git status -s)
+
+    [Short Format](https://www.git-scm.com/docs/git-status#_short_format)
 
   ```bash
   # https://code-maven.com/git-check-for-conflicts-before-merge
