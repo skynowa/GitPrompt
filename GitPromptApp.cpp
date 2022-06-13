@@ -256,6 +256,18 @@ GitPromptApp::onRun() /* final */
 		ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, str);
 	}
 
+	// Git files number
+	if (isGitDir) {
+		std::cvec_tstring_t filterFileExts {};
+		std::vec_tstring_t  filePathes;
+		git.modifiedFiles(filterFileExts, &filePathes);
+
+		std::ctstring_t &filesNum = std::to_string( filePathes.size() );
+		if (filesNum != xT("0")) {
+			ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, filesNum);
+		}
+	}
+
 	// Git ahead/behind commits
 	if (isGitDir) {
 		std::tstring_t str;
