@@ -5,4 +5,4 @@
 #
 
 
-export PROMPT_COMMAND='PS1="$(~/Projects/GitPrompt_eclipse_gcc/GitPrompt)"'
+export PROMPT_COMMAND='PS1="$(~/Projects/GitPrompt_build/GitPrompt)"'

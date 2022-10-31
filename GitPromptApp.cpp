@@ -33,7 +33,7 @@ GitPromptApp::GitPromptApp(
 	args(true, &appArgs);
 	xUNUSED(appArgs);
 
-	// Cout() << xTRACE_VAR(appArgs);
+	// Cout() << xSTD_TRACE_VAR(appArgs);
 
 	CmdOptions options;
 
@@ -342,13 +342,13 @@ int_t main(int_t a_argNum, tchar_t *a_args[])
 		exitStatus = app.run();
 	}
 	catch (const Exception &a_e) {
-		Cout() << xTRACE_VAR_2(exitStatus, a_e.what());
+		Cout() << xSTD_TRACE_VAR_2(exitStatus, a_e.what());
 	}
 	catch (const std::exception &a_e) {
-		Cout() << xTRACE_VAR_2(exitStatus, a_e.what());
+		Cout() << xSTD_TRACE_VAR_2(exitStatus, a_e.what());
 	}
 	catch (...) {
-		Cout() << xTRACE_VAR_2(exitStatus, xT("Unknown error"));
+		Cout() << xSTD_TRACE_VAR_2(exitStatus, xT("Unknown error"));
 	}
 
 	return exitStatus;
