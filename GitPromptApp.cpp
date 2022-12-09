@@ -48,10 +48,11 @@ GitPromptApp::onRun() /* final */
 	User       user;
 	SystemInfo sysInfo;
 
-	std::ctstring_t &hostName = sysInfo.hostName();
-	cbool_t          isAdmin  = user.isAdmin();
-	cbool_t          isGitDir = git.isGitDir();
-	cbool_t          isMc     = Environment(xT("MC_SID")).isExists();
+	std::ctstring_t &hostName  = sysInfo.hostName();
+	cbool_t          isAdmin   = user.isAdmin();
+	std::cstring_t   loginName = user.loginName();
+	cbool_t          isGitDir  = git.isGitDir();
+	cbool_t          isMc      = Environment(xT("MC_SID")).isExists();
 		///< Check if MC is runnin (check env: MC_SID=30463)
 
 	// Current dir
@@ -78,8 +79,8 @@ GitPromptApp::onRun() /* final */
 		console.setColorSupport(true);
 		console.setEscapeValues(true);
 
-		std::ctstring_t &title = Format::str(xT("{} - {}, {}, CPUs: {},                Build: {}"),
-			::appName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.cpusNum(),
+		std::ctstring_t &title = Format::str(xT("{}@{} - {}, {}, CPUs: {},                Build: {}"),
+			hostName, loginName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.cpusNum(),
 			BuildInfo().datetime());
 		console.setTitle(title);
 	}
@@ -151,7 +152,7 @@ GitPromptApp::onRun() /* final */
 
 	// User name
 	{
-		std::ctstring_t &str = user.loginName();
+		std::ctstring_t &str = loginName;
 		const auto       fg  = isAdmin ? fgRed : fgMagenta;
 
 		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
@@ -159,7 +160,7 @@ GitPromptApp::onRun() /* final */
 
 	// Host name
 	if (_config.isHostName ||
-		hostName != _config.myHostName)
+		!Algos::isContains(_config.myHostNames, hostName))
 	{
 		std::ctstring_t &str = hostName;
 		const auto       fg  = fgCyan;

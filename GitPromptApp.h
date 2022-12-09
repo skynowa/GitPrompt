@@ -27,9 +27,9 @@ public:
 private:
 	struct Config
 	{
-		bool_t         isHostName      {false};
-		std::tstring_t myHostName      {xT("skynowa-pc")};
-		bool_t         isVolumeUsedPct {true};	///< force using VolumeUsedPct
+		bool_t             isHostName      {false};
+		std::vec_tstring_t myHostNames     {xT("skynowa-pc"), xT("skynowa-laptop")};
+		bool_t             isVolumeUsedPct {true};	///< force using VolumeUsedPct
 	};
 
 	Config _config;
