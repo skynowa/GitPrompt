@@ -79,7 +79,7 @@ GitPromptApp::onRun() /* final */
 		console.setColorSupport(true);
 		console.setEscapeValues(true);
 
-		std::ctstring_t &title = Format::str(xT("{}@{} - {}, {}, CPUs: {},                Build: {}"),
+		std::ctstring_t &title = Format::str(xT("{}@{} - {}, {}, CPUs: {}                Build: {}"),
 			hostName, loginName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.cpusNum(),
 			BuildInfo().datetime());
 		console.setTitle(title);
