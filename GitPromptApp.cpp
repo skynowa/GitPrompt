@@ -53,7 +53,7 @@ GitPromptApp::onRun() /* final */
 	std::cstring_t   loginName = user.loginName();
 	cbool_t          isGitDir  = git.isGitDir();
 	cbool_t          isMc      = Environment(xT("MC_SID")).isExists();
-		///< Check if MC is runnin (check env: MC_SID=30463)
+		///< Check if MC is running (check env: MC_SID=30463)
 
 	// Current dir
 	std::tstring_t currentDirPathBrief;
