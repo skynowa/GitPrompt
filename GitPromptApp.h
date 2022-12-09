@@ -29,6 +29,10 @@ private:
 	{
 		bool_t             isHostName      {false};
 		std::vec_tstring_t myHostNames     {xT("skynowa-pc"), xT("skynowa-laptop")};
+
+		bool_t             isUserName      {false};
+		std::vec_tstring_t myUserNames     {xT("skynowa")};
+
 		bool_t             isVolumeUsedPct {true};	///< force using VolumeUsedPct
 	};
 

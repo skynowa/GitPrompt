@@ -151,6 +151,8 @@ GitPromptApp::onRun() /* final */
 	}
 
 	// User name
+	if (_config.isUserName ||
+		!Algos::isContains(_config.myUserNames, loginName))
 	{
 		std::ctstring_t &str = loginName;
 		const auto       fg  = isAdmin ? fgRed : fgMagenta;
