@@ -80,8 +80,7 @@ GitPromptApp::onRun() /* final */
 		if (_config.isPowerSupply &&
 			sysInfo.isPowerSupply())
 		{
-			powerSupply = Format::str(xT(", Power: {}%"),
-				sysInfo.powerSupplyLevel());
+			powerSupply = Format::str(xT(", Power: {}%"), sysInfo.powerSupplyLevel());
 		}
 
 		console.setColorSupport(true);
