@@ -74,16 +74,16 @@ GitPromptApp::onRun() /* final */
 		volumeUsedPct = (total - available) * 100 / total;
 	}
 
-	std::tstring_t powerSupply;
-	if (_config.isPowerSupply &&
-		sysInfo.isPowerSupply())
-	{
-		powerSupply = Format::str(xT(", Power: {}%"),
-			sysInfo.powerSupplyLevel());
-	}
-
 	Console console;
 	{
+		std::tstring_t powerSupply;
+		if (_config.isPowerSupply &&
+			sysInfo.isPowerSupply())
+		{
+			powerSupply = Format::str(xT(", Power: {}%"),
+				sysInfo.powerSupplyLevel());
+		}
+
 		console.setColorSupport(true);
 		console.setEscapeValues(true);
 
