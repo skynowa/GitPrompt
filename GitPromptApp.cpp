@@ -50,7 +50,7 @@ GitPromptApp::onRun() /* final */
 
 	std::ctstring_t &hostName  = sysInfo.hostName();
 	cbool_t          isAdmin   = user.isAdmin();
-	std::cstring_t   loginName = user.loginName();
+	std::cstring_t  &loginName = user.loginName();
 	cbool_t          isGitDir  = git.isGitDir();
 	cbool_t          isMc      = Environment(xT("MC_SID")).isExists();
 		///< Check if MC is running (check env: MC_SID=30463)
@@ -222,7 +222,8 @@ GitPromptApp::onRun() /* final */
 
 	// Volume used %
 	if (_config.isVolumeUsedPct ||
-		volumeUsedPct > ::volumeUsedWarnPct) {
+		volumeUsedPct > ::volumeUsedWarnPct)
+	{
 		ps1 += xT(" ");
 
 		std::ctstring_t &str = Format::str(xT("{}%"), volumeUsedPct);
@@ -290,6 +291,7 @@ GitPromptApp::onRun() /* final */
 			if (aheadNum != 0) {
 				str = Format::str(xT("↑{}"), aheadNum);
 			}
+
 			if (behindNum != 0) {
 				str = Format::str(xT("↓{}"), behindNum);
 			}
