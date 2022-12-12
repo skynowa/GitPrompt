@@ -27,15 +27,19 @@ public:
 private:
 	struct Config
 	{
+		// Host
 		bool_t             isHostName      {false};
 		std::vec_tstring_t myHostNames     {xT("skynowa-pc"), xT("skynowa-laptop")};
 
+		// User
 		bool_t             isUserName      {false};
 		std::vec_tstring_t myUserNames     {xT("skynowa")};
 
+		// Volume
 		bool_t             isVolumeUsedPct {true};	///< force using VolumeUsedPct
 
-		bool_t             isPowerSupply   {true};	///<
+		// Power supply
+		bool_t             isPowerSupply   {true};	///< force using power supply info
 	};
 
 	Config _config;
