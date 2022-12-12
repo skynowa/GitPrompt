@@ -42,7 +42,7 @@ private:
 		bool_t             isPowerSupply   {true};	///< force using power supply info
 	};
 
-	Config _config;
+	const Config _config;
 };
 
 } // namespace
