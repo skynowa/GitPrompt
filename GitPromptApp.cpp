@@ -75,7 +75,9 @@ GitPromptApp::onRun() /* final */
 	}
 
 	std::tstring_t powerSupply;
-	if (_config.isPowerSupply) {
+	if (_config.isPowerSupply &&
+		sysInfo.isPowerSupply())
+	{
 		powerSupply = Format::str(xT(", Power: {}%"),
 			sysInfo.powerSupplyLevel());
 	}
