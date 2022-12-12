@@ -34,6 +34,8 @@ private:
 		std::vec_tstring_t myUserNames     {xT("skynowa")};
 
 		bool_t             isVolumeUsedPct {true};	///< force using VolumeUsedPct
+
+		bool_t             isPowerSupply   {true};	///<
 	};
 
 	Config _config;

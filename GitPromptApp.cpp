@@ -74,14 +74,20 @@ GitPromptApp::onRun() /* final */
 		volumeUsedPct = (total - available) * 100 / total;
 	}
 
+	std::tstring_t powerSupply;
+	if (_config.isPowerSupply) {
+		powerSupply = Format::str(xT(", Power: {}%"),
+			sysInfo.powerSupplyLevel());
+	}
+
 	Console console;
 	{
 		console.setColorSupport(true);
 		console.setEscapeValues(true);
 
-		std::ctstring_t &title = Format::str(xT("{}@{} - {}, {}, CPUs: {}                Build: {}"),
+		std::ctstring_t &title = Format::str(xT("{}@{} - {}, {}, CPUs: {}{}                Build: {}"),
 			hostName, loginName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.cpusNum(),
-			BuildInfo().datetime());
+			powerSupply, BuildInfo().datetime());
 		console.setTitle(title);
 	}
 
