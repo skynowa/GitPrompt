@@ -93,7 +93,7 @@ GitPromptApp::onRun() /* final */
 				powerSupplyIco = "↑";
 				break;
 			case 3:
-				powerSupplyIco = "⊛"; // "*";
+				powerSupplyIco = "🔋"; // ⊛,⊕,*,∗,☀,⚡,➕
 				break;
 			case 4:
 				powerSupplyIco = "[Todo]";
