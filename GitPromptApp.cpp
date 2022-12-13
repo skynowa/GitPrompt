@@ -82,7 +82,7 @@ GitPromptApp::onRun() /* final */
 		{
 			powerSupply = Format::str(xT(", Power: {}% {}"),
 				sysInfo.powerSupplyLevel(),
-				sysInfo.powerSupplyLevel());
+				sysInfo.powerSupplyStatus());
 		}
 
 		console.setColorSupport(true);
