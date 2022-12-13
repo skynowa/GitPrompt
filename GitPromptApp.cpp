@@ -80,9 +80,32 @@ GitPromptApp::onRun() /* final */
 		if (_config.isPowerSupply &&
 			sysInfo.isPowerSupply())
 		{
+			std::tstring_t powerSupplyIco;
+
+			switch ( sysInfo.powerSupplyStatus() ) {
+			case 0:
+				powerSupplyIco = "?";
+				break;
+			case 1:
+				powerSupplyIco = "↓";
+				break;
+			case 2:
+				powerSupplyIco = "↑";
+				break;
+			case 3:
+				powerSupplyIco = "*";
+				break;
+			case 4:
+				powerSupplyIco = "[Todo]";
+				break;
+			default:
+				powerSupplyIco = "[New]";
+				break;
+			}
+
 			powerSupply = Format::str(xT(", Power: {}% {}"),
 				sysInfo.powerSupplyLevel(),
-				sysInfo.powerSupplyStatus());
+				powerSupplyIco);
 		}
 
 		console.setColorSupport(true);
