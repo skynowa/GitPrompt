@@ -256,82 +256,84 @@ GitPromptApp::onRun() /* final */
 		ps1 += xT(" ");
 	}
 
-	// Git branch name
 	if (isGitDir) {
-		// [
-		{
-			std::ctstring_t &str = xT("[");
-			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
-		}
-
 		// Git branch name
 		{
-			std::ctstring_t &str = git.branchName();
-			ps1 += console.setAttributesText(fgRed, bgDefault, attrBold, str);
-		}
-
-		// ]
-		{
-			std::ctstring_t &str = xT("]");
-			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
-		}
-	}
-
-	// Local branches number
-	if (isGitDir) {
-		std::csize_t localBranchesNum = git.localBranchesNum();
-		if (localBranchesNum > 0) {
-			std::ctstring_t &str = Format::str(xT("⎇{}"), localBranchesNum);
-			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
-		}
-	}
-
-	// Git file statuses
-	if (isGitDir) {
-		std::ctstring_t &str = git.filesStatuses();
-		ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, str);
-	}
-
-	// Git files number
-	if (isGitDir) {
-		std::cvec_tstring_t filterFileExts {};
-		std::vec_tstring_t  filePathes;
-		git.modifiedFiles(filterFileExts, &filePathes);
-
-		std::ctstring_t &filesNum = std::to_string( filePathes.size() );
-		if (filesNum != xT("0")) {
-			ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, filesNum);
-		}
-	}
-
-	// Git ahead/behind commits
-	if (isGitDir) {
-		std::tstring_t str;
-		{
-			std::size_t aheadNum  {};
-			std::size_t behindNum {};
-			git.commitsAheadBehind(&aheadNum, &behindNum);
-
-			if (aheadNum != 0) {
-				str = Format::str(xT("↑{}"), aheadNum);
+			// [
+			{
+				std::ctstring_t &str = xT("[");
+				ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
 			}
 
-			if (behindNum != 0) {
-				str = Format::str(xT("↓{}"), behindNum);
+			// Git branch name
+			{
+				std::ctstring_t &str = git.branchName();
+				ps1 += console.setAttributesText(fgRed, bgDefault, attrBold, str);
+			}
+
+			// ]
+			{
+				std::ctstring_t &str = xT("]");
+				ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
 			}
 		}
 
-		ps1 += console.setAttributesText(fgMagenta, bgDefault, attrBold, str);
-	}
-
-	// Stashes number
-	if (isGitDir) {
-		std::csize_t stashesNum = git.stashesNum();
-		if (stashesNum > 0) {
-			std::ctstring_t &str = Format::str(xT("⚑{}"), stashesNum);
-			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
+		// Local branches number
+		{
+			std::csize_t localBranchesNum = git.localBranchesNum();
+			if (localBranchesNum > 0) {
+				std::ctstring_t &str = Format::str(xT("⎇{}"), localBranchesNum);
+				ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+			}
 		}
-	}
+
+		// Git file statuses
+		{
+			std::ctstring_t &str = git.filesStatuses();
+			ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, str);
+		}
+
+		// Git files number
+		{
+			std::cvec_tstring_t filterFileExts {};
+			std::vec_tstring_t  filePathes;
+			git.modifiedFiles(filterFileExts, &filePathes);
+
+			std::ctstring_t &filesNum = std::to_string( filePathes.size() );
+			if (filesNum != xT("0")) {
+				ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, filesNum);
+			}
+		}
+
+		// Git ahead/behind commits
+		{
+			std::tstring_t str;
+			{
+				std::size_t aheadNum  {};
+				std::size_t behindNum {};
+				git.commitsAheadBehind(&aheadNum, &behindNum);
+
+				if (aheadNum != 0) {
+					str = Format::str(xT("↑{}"), aheadNum);
+				}
+
+				if (behindNum != 0) {
+					str = Format::str(xT("↓{}"), behindNum);
+				}
+			}
+
+			ps1 += console.setAttributesText(fgMagenta, bgDefault, attrBold, str);
+		}
+
+		// Stashes number
+		{
+			std::csize_t stashesNum = git.stashesNum();
+			if (stashesNum > 0) {
+				std::ctstring_t &str = Format::str(xT("⚑{}"), stashesNum);
+				ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
+			}
+		}
+	} // if (isGitDir)
 
 	// Is admin user
 	{
