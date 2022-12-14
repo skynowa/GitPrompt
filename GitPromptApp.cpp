@@ -252,11 +252,11 @@ GitPromptApp::onRun() /* final */
 
 		std::ctstring_t &str = Format::str(xT("{}%"), volumeUsedPct);
 		ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
-
-		ps1 += xT(" ");
 	}
 
 	if (isGitDir) {
+		ps1 += xT(" ");
+
 		// Git branch name
 		{
 			// [
