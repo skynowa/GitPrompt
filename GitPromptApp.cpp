@@ -83,23 +83,20 @@ GitPromptApp::onRun() /* final */
 			std::tstring_t powerSupplyIco;
 
 			switch ( sysInfo.powerSupplyStatus() ) {
-			case 0:
+			case SystemInfo::PowerSupplyStatus::Unknown:
 				powerSupplyIco = "?";
 				break;
-			case 1:
+			case SystemInfo::PowerSupplyStatus::Discharging:
 				powerSupplyIco = "↓";
 				break;
-			case 2:
+			case SystemInfo::PowerSupplyStatus::Charging:
 				powerSupplyIco = "↑";
 				break;
-			case 3:
+			case SystemInfo::PowerSupplyStatus::Full:
 				powerSupplyIco = "🔋"; // ⊛,⊕,*,∗,☀,🔌
 				break;
-			case 4:
-				powerSupplyIco = "[Todo]";
-				break;
 			default:
-				powerSupplyIco = "[New]";
+				powerSupplyIco = "[Todo]";
 				break;
 			}
 
