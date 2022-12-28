@@ -84,19 +84,19 @@ GitPromptApp::onRun() /* final */
 
 			switch ( sysInfo.powerSupplyStatus() ) {
 			case SystemInfo::PowerSupplyStatus::Unknown:
-				powerSupplyIco = "?";
+				powerSupplyIco = xT("?");
 				break;
 			case SystemInfo::PowerSupplyStatus::Discharging:
-				powerSupplyIco = "↓";
+				powerSupplyIco = xT("↓");
 				break;
 			case SystemInfo::PowerSupplyStatus::Charging:
-				powerSupplyIco = "↑";
+				powerSupplyIco = xT("↑");
 				break;
 			case SystemInfo::PowerSupplyStatus::Full:
-				powerSupplyIco = "🔋"; // ⊛,⊕,*,∗,☀,🔌
+				powerSupplyIco = xT("🔋"); // ⊛,⊕,*,∗,☀,🔌
 				break;
 			default:
-				powerSupplyIco = "[Todo]";
+				powerSupplyIco = xT("[Todo]");
 				break;
 			}
 
@@ -374,7 +374,7 @@ int_t main(int_t a_argNum, tchar_t *a_args[])
 	auto exitStatus {Application::ExitCode::Failure};
 
 	try {
-		git_prompt::GitPromptApp app(::appName, xT(""));
+		git_prompt::GitPromptApp app(::appName, {});
 		exitStatus = app.run();
 	}
 	catch (const Exception &a_e) {
