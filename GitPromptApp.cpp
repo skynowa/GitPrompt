@@ -105,11 +105,13 @@ GitPromptApp::onRun() /* final */
 				powerSupplyIco);
 		}
 
+		std::ctstring_t isVpn = sysInfo.isVpnActive() ? xT("on") : xT("off");
+
 		console.setColorSupport(true);
 		console.setEscapeValues(true);
 
-		std::ctstring_t &title = Format::str(xT("{}@{} - {}, {}, CPUs: {}{}                Build: {}"),
-			hostName, loginName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.cpusNum(),
+		std::ctstring_t &title = Format::str(xT("{}@{} - {}, {}, CPUs: {}, VPN: {}{}                Build: {}"),
+			hostName, loginName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.cpusNum(), isVpn,
 			powerSupply, BuildInfo().datetime());
 		console.setTitle(title);
 	}
