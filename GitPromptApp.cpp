@@ -46,9 +46,8 @@ GitPromptApp::onRun() /* final */
 {
 	GitClient  git;
 	User       user;
-	SystemInfo sysInfo;
 
-	std::ctstring_t &hostName  = sysInfo.hostName();
+	std::ctstring_t &hostName  = info::Host().name();
 	cbool_t          isAdmin   = user.isAdmin();
 	std::cstring_t  &loginName = user.loginName();
 	cbool_t          isGitDir  = git.isGitDir();
@@ -76,23 +75,28 @@ GitPromptApp::onRun() /* final */
 
 	Console console;
 	{
+		info::PowerSupply powerSupplyInfo;
+		info::Os          osInfo;
+		info::Cpu         cpuInfo;
+		info::Net         netInfo;
+
 		std::tstring_t powerSupply;
 		if (_config.isPowerSupply &&
-			sysInfo.isPowerSupply())
+			powerSupplyInfo.isExists())
 		{
 			std::tstring_t powerSupplyIco;
 
-			switch ( sysInfo.powerSupplyStatus() ) {
-			case SystemInfo::PowerSupplyStatus::Unknown:
+			switch ( powerSupplyInfo.status() ) {
+			case info::PowerSupply::Status::Unknown:
 				powerSupplyIco = xT("?");
 				break;
-			case SystemInfo::PowerSupplyStatus::Discharging:
+			case info::PowerSupply::Status::Discharging:
 				powerSupplyIco = xT("↓");
 				break;
-			case SystemInfo::PowerSupplyStatus::Charging:
+			case info::PowerSupply::Status::Charging:
 				powerSupplyIco = xT("↑");
 				break;
-			case SystemInfo::PowerSupplyStatus::Full:
+			case info::PowerSupply::Status::Full:
 				powerSupplyIco = xT("🔋"); // ⊛,⊕,*,∗,☀,🔌
 				break;
 			default:
@@ -101,17 +105,17 @@ GitPromptApp::onRun() /* final */
 			}
 
 			powerSupply = Format::str(xT(", Power: {}%{}"),
-				sysInfo.powerSupplyLevel(),
+				powerSupplyInfo.level(),
 				powerSupplyIco);
 		}
 
-		std::ctstring_t isVpn = sysInfo.isVpnActive() ? xT("on") : xT("off");
+		std::ctstring_t isVpn = netInfo.isVpnActive() ? xT("on") : xT("off");
 
 		console.setColorSupport(true);
 		console.setEscapeValues(true);
 
 		std::ctstring_t &title = Format::str(xT("{}@{} - {}, {}, CPUs: {}, VPN: {}{}                Build: {}"),
-			hostName, loginName, sysInfo.distro(), sysInfo.desktopName(), sysInfo.cpusNum(), isVpn,
+			hostName, loginName, osInfo.distro(), osInfo.desktopName(), cpuInfo.num(), isVpn,
 			powerSupply, BuildInfo().datetime());
 		console.setTitle(title);
 	}
