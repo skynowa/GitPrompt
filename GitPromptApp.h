@@ -10,7 +10,7 @@
 namespace git_prompt
 {
 
-class GitPromptApp :
+class GitPromptApp final :
 	public Application
 {
 public:
@@ -19,6 +19,7 @@ public:
 	GitPromptApp(std::ctstring_t &appGuid, std::ctstring_t &locale);
    ~GitPromptApp() = default;
 
+	xNO_DEFAULT_CONSTRUCT(GitPromptApp)
 	xNO_COPY_ASSIGN(GitPromptApp)
 ///@}
 
