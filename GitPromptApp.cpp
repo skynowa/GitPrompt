@@ -29,17 +29,6 @@ GitPromptApp::GitPromptApp(
 ) :
 	Application(a_appGuid, a_locale)
 {
-	if (0) {
-		std::vec_tstring_t appArgs;
-		args(true, &appArgs);
-
-		Cout() << xSTD_TRACE_VAR(appArgs);
-
-		CmdOptions options;
-
-		std::vector<CmdOptionsUsage> usage;
-		options.parse(appArgs, usage);
-	}
 }
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::ExitCode
