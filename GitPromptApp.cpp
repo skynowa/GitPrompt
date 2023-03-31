@@ -214,6 +214,12 @@ GitPromptApp::onRun() /* final */
 			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
 		}
 
+		// Gitlab repo group name
+		{
+			std::ctstring_t &str = Format::str(xT("{}:"), git.gitlabRepoGroupName());
+			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
+		}
+
 		// Git repository name
 		{
 			std::ctstring_t &str = Format::str(xT("{}"), gitRepoName);
