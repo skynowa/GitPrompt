@@ -213,7 +213,7 @@ GitPromptApp::onRun() /* final */
 			std::ctstring_t &str = Format::str(xT("{}"), git.repoUrlName());
 			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
 
-			std::ctstring_t &sep = xT(":");
+			std::ctstring_t &sep = xT("/");
 			ps1 += console.setAttributesText(fgDefault, bgDefault, attrBold, sep);
 		}
 
@@ -224,7 +224,7 @@ GitPromptApp::onRun() /* final */
 			std::ctstring_t &str = Format::str(xT("{}"), groupName);
 			ps1 += console.setAttributesText(fgCyan, bgDefault, attrBold, str);
 
-			std::ctstring_t &sep = xT(":");
+			std::ctstring_t &sep = xT("/");
 			ps1 += console.setAttributesText(fgDefault, bgDefault, attrBold, sep);
 		}
 
