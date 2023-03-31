@@ -210,14 +210,22 @@ GitPromptApp::onRun() /* final */
 
 		// Git repo URL name
 		{
-			std::ctstring_t &str = Format::str(xT("{}:"), git.repoUrlName());
+			std::ctstring_t &str = Format::str(xT("{}"), git.repoUrlName());
 			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
+
+			std::ctstring_t &sep = xT(":");
+			ps1 += console.setAttributesText(fgDefault, bgDefault, attrBold, sep);
 		}
 
 		// Gitlab repo group name
+		if (std::ctstring_t &groupName = git.gitlabRepoGroupName();
+			!groupName.empty())
 		{
-			std::ctstring_t &str = Format::str(xT("{}:"), git.gitlabRepoGroupName());
-			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
+			std::ctstring_t &str = Format::str(xT("{}"), groupName);
+			ps1 += console.setAttributesText(fgCyan, bgDefault, attrBold, str);
+
+			std::ctstring_t &sep = xT(":");
+			ps1 += console.setAttributesText(fgDefault, bgDefault, attrBold, sep);
 		}
 
 		// Git repository name
