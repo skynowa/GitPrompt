@@ -2,6 +2,7 @@
 
 ## TODO
 
+- [ ] Config file
 - [ ] Repo icon: xT("🙃");
 - [ ] Check mergeability with master
 - [ ] Number of modified files (git status -s)
@@ -16,7 +17,6 @@
   git merge --abort
   ```
 
-- [ ] Config file
 - [ ] Title - RAM info
 
 ## DONE
@@ -29,5 +29,3 @@
 ## UNTODO
 
 - [ ] Screens num (Must be connected to a terminal)
-
-
