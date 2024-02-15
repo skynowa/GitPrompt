@@ -5,6 +5,8 @@
 
 
 #include <xLib/xLib.h>
+#include <StdTest/StdTest.h>
+#include <StdStream/StdStream.h>
 #include "Config.h"
 //-------------------------------------------------------------------------------------------------
 namespace git_prompt

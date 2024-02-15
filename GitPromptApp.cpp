@@ -388,13 +388,13 @@ int_t main(int_t a_argNum, tchar_t *a_args[])
 		exitStatus = app.run();
 	}
 	catch (const Exception &a_e) {
-		Cout() << xSTD_TRACE_VAR_2(exitStatus, a_e.what());
+		Cout() << STD_TRACE_VAR2(exitStatus, a_e.what());
 	}
 	catch (const std::exception &a_e) {
-		Cout() << xSTD_TRACE_VAR_2(exitStatus, a_e.what());
+		Cout() << STD_TRACE_VAR2(exitStatus, a_e.what());
 	}
 	catch (...) {
-		Cout() << xSTD_TRACE_VAR_2(exitStatus, xT("Unknown error"));
+		Cout() << STD_TRACE_VAR2(exitStatus, xT("Unknown error"));
 	}
 
 	return exitStatus;
