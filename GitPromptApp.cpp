@@ -213,7 +213,7 @@ GitPromptApp::onRun() /* final */
 
 		// Git repo URL name, remote repository names
 		{
-			std::ctstring_t &str = Format::str(xT("{} {}"), git.repoUrlName(), remoteRepoNames.size());
+			std::ctstring_t &str = Format::str(xT("{}*{}"), git.repoUrlName(), remoteRepoNames.size());
 			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
 
 			std::ctstring_t &sep = xT("/");
