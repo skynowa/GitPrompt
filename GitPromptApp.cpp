@@ -202,15 +202,18 @@ GitPromptApp::onRun() /* final */
 	if (isGitDir) {
 		std::ctstring_t &gitRepoName = git.repoName();
 
+		std::vec_tstring_t remoteRepoNames;
+		git.remoteRepoNames(&remoteRepoNames);
+
 		// [
 		{
 			std::ctstring_t &str = xT("[");
 			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
 		}
 
-		// Git repo URL name
+		// Git repo URL name, remote repository names
 		{
-			std::ctstring_t &str = Format::str(xT("{}"), git.repoUrlName());
+			std::ctstring_t &str = Format::str(xT("{}*{}"), git.repoUrlName(), remoteRepoNames.size());
 			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
 
 			std::ctstring_t &sep = xT("/");
