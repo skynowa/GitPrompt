@@ -21,8 +21,8 @@ public:
 	GitPromptApp(std::ctstring_t &appGuid, std::ctstring_t &locale);
    ~GitPromptApp() = default;
 
-	xNO_DEFAULT_CONSTRUCT(GitPromptApp)
-	xNO_COPY_ASSIGN(GitPromptApp)
+	xNO_DEFAULT_CONSTRUCT(GitPromptApp);
+	xNO_COPY_ASSIGN(GitPromptApp);
 ///@}
 
 	ExitCode onRun() final;
