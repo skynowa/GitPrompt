@@ -63,7 +63,7 @@ GitPromptApp::onRun() /* final */
 		volumeUsedPct = (total - available) * 100 / total;
 	}
 
-	Console console;
+	Console console(true, true);
 	{
 		info::PowerSupply powerSupplyInfo;
 		info::Os          osInfo;
@@ -101,9 +101,6 @@ GitPromptApp::onRun() /* final */
 
 		std::ctstring_t isVpn = netInfo.isVpnActive() ? xT("on") : xT("off");
 
-		console.setColorSupport(true);
-		console.setEscapeValues(true);
-
 		std::ctstring_t &title = Format::str(xT("{}@{} - {}, {}, CPUs: {}, VPN: {}{}                Build: {}"),
 			hostName, loginName, osInfo.distro(), osInfo.desktopName(), cpuInfo.num(), isVpn,
 			powerSupply, BuildInfo().datetime());
@@ -113,39 +110,39 @@ GitPromptApp::onRun() /* final */
 	std::tstring_t ps1;
 
 	// Foreground
-	constexpr auto fgGreen   = Console::Foreground::Green;
-	constexpr auto fgYellow  = Console::Foreground::Yellow;
-	constexpr auto fgBlue    = Console::Foreground::Blue;
-	constexpr auto fgMagenta = Console::Foreground::Magenta;
-	constexpr auto fgRed     = Console::Foreground::Red;
-	constexpr auto fgWhite   = Console::Foreground::White;
-	constexpr auto fgCyan    = Console::Foreground::Cyan;
-	constexpr auto fgDefault = Console::Foreground::Default;
+	constexpr auto fgGreen   = Console::FG::Green;
+	constexpr auto fgYellow  = Console::FG::Yellow;
+	constexpr auto fgBlue    = Console::FG::Blue;
+	constexpr auto fgMagenta = Console::FG::Magenta;
+	constexpr auto fgRed     = Console::FG::Red;
+	constexpr auto fgWhite   = Console::FG::White;
+	constexpr auto fgCyan    = Console::FG::Cyan;
+	constexpr auto fgDefault = Console::FG::Default;
 
 	// Background
-	constexpr auto bgDefault = Console::Background::Default;
+	constexpr auto bgDefault = Console::BG::Default;
 
 	// Attribute
-	constexpr auto attrBold  = static_cast<int_t>(Console::Attribute::Bold);
+	constexpr auto attrBold  = static_cast<int_t>(Console::Attr::Bold);
 
 	// Current date
 	{
 		// [
 		{
 			std::ctstring_t &str = xT("[");
-			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold, str);
 		}
 
 		// Current date
 		{
 			std::ctstring_t &str = DateTime().current().format(xT("%d-%h %H:%M"), {});
-			ps1 += console.setAttributesText(fgGreen, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgGreen, bgDefault, attrBold, str);
 		}
 
 		// ]
 		{
 			std::ctstring_t &str = xT("]");
-			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold, str);
 		}
 	}
 
@@ -162,13 +159,13 @@ GitPromptApp::onRun() /* final */
 		std::tstring_t lastShellOk;
 		{
 			std::ctstring_t &str = xT("✔");
-			lastShellOk = console.setAttributesText(fgGreen, bgDefault, attrBold, str);
+			lastShellOk = console.setAttrsText(fgGreen, bgDefault, attrBold, str);
 		}
 
 		std::tstring_t lastShellError;
 		{
 			std::ctstring_t &str = xT("✖");
-			lastShellError = console.setAttributesText(fgRed, bgDefault, attrBold, str);
+			lastShellError = console.setAttrsText(fgRed, bgDefault, attrBold, str);
 		}
 
 		ps1 += Format::str(xT("$(if [[ $? == 0 ]]; then echo \"{}\"; else echo \"{}\"; fi)"),
@@ -182,7 +179,7 @@ GitPromptApp::onRun() /* final */
 		std::ctstring_t &str = loginName;
 		const auto       fg  = isAdmin ? fgRed : fgMagenta;
 
-		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
+		ps1 += console.setAttrsText(fg, bgDefault, attrBold, str);
 	}
 
 	// Host name
@@ -193,7 +190,7 @@ GitPromptApp::onRun() /* final */
 		const auto       fg  = fgCyan;
 
 		ps1 += xT("@");
-		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
+		ps1 += console.setAttrsText(fg, bgDefault, attrBold, str);
 	}
 
 	ps1 += xT(" ");
@@ -208,16 +205,16 @@ GitPromptApp::onRun() /* final */
 		// [
 		{
 			std::ctstring_t &str = xT("[");
-			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold, str);
 		}
 
 		// Git repo URL name, remote repository names
 		{
 			std::ctstring_t &str = Format::str(xT("{}*{}"), git.repoUrlName(), remoteRepoNames.size());
-			ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgBlue, bgDefault, attrBold, str);
 
 			std::ctstring_t &sep = xT("/");
-			ps1 += console.setAttributesText(fgDefault, bgDefault, attrBold, sep);
+			ps1 += console.setAttrsText(fgDefault, bgDefault, attrBold, sep);
 		}
 
 		// Gitlab repo group name
@@ -225,22 +222,22 @@ GitPromptApp::onRun() /* final */
 			!groupName.empty())
 		{
 			std::ctstring_t &str = Format::str(xT("{}"), groupName);
-			ps1 += console.setAttributesText(fgCyan, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgCyan, bgDefault, attrBold, str);
 
 			std::ctstring_t &sep = xT("/");
-			ps1 += console.setAttributesText(fgDefault, bgDefault, attrBold, sep);
+			ps1 += console.setAttrsText(fgDefault, bgDefault, attrBold, sep);
 		}
 
 		// Git repository name
 		{
 			std::ctstring_t &str = Format::str(xT("{}"), gitRepoName);
-			ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgYellow, bgDefault, attrBold, str);
 		}
 
 		// ]
 		{
 			std::ctstring_t &str = xT("]");
-			ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold, str);
 		}
 
 		if ( !gitRepoName.empty() ) {
@@ -251,7 +248,7 @@ GitPromptApp::onRun() /* final */
 	// Current dir
 	{
 		std::ctstring_t &str = currentDirPathBrief;
-		ps1 += console.setAttributesText(fgGreen, bgDefault, attrBold, str);
+		ps1 += console.setAttrsText(fgGreen, bgDefault, attrBold, str);
 	}
 
 	// Volume used %
@@ -261,7 +258,7 @@ GitPromptApp::onRun() /* final */
 		ps1 += xT(" ");
 
 		std::ctstring_t &str = Format::str(xT("{}%"), volumeUsedPct);
-		ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+		ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold, str);
 	}
 
 	if (isGitDir) {
@@ -272,19 +269,19 @@ GitPromptApp::onRun() /* final */
 			// [
 			{
 				std::ctstring_t &str = xT("[");
-				ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+				ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold, str);
 			}
 
 			// Git branch name
 			{
 				std::ctstring_t &str = git.branchName();
-				ps1 += console.setAttributesText(fgRed, bgDefault, attrBold, str);
+				ps1 += console.setAttrsText(fgRed, bgDefault, attrBold, str);
 			}
 
 			// ]
 			{
 				std::ctstring_t &str = xT("]");
-				ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+				ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold, str);
 			}
 		}
 
@@ -293,14 +290,14 @@ GitPromptApp::onRun() /* final */
 			std::csize_t localBranchesNum = git.localBranchesNum();
 			if (localBranchesNum > 0) {
 				std::ctstring_t &str = Format::str(xT("⎇{}"), localBranchesNum);
-				ps1 += console.setAttributesText(fgWhite, bgDefault, attrBold, str);
+				ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold, str);
 			}
 		}
 
 		// Git file statuses
 		{
 			std::ctstring_t &str = git.filesStatuses();
-			ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgYellow, bgDefault, attrBold, str);
 		}
 
 		// Git files number
@@ -311,7 +308,7 @@ GitPromptApp::onRun() /* final */
 
 			std::ctstring_t &filesNum = std::to_string( filePathes.size() );
 			if (filesNum != xT("0")) {
-				ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, filesNum);
+				ps1 += console.setAttrsText(fgYellow, bgDefault, attrBold, filesNum);
 			}
 		}
 
@@ -332,7 +329,7 @@ GitPromptApp::onRun() /* final */
 				}
 			}
 
-			ps1 += console.setAttributesText(fgMagenta, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgMagenta, bgDefault, attrBold, str);
 		}
 
 		// Stashes number
@@ -340,7 +337,7 @@ GitPromptApp::onRun() /* final */
 			std::csize_t stashesNum = git.stashesNum();
 			if (stashesNum > 0) {
 				std::ctstring_t &str = Format::str(xT("⚑{}"), stashesNum);
-				ps1 += console.setAttributesText(fgBlue, bgDefault, attrBold, str);
+				ps1 += console.setAttrsText(fgBlue, bgDefault, attrBold, str);
 			}
 		}
 	} // if (isGitDir)
@@ -351,7 +348,7 @@ GitPromptApp::onRun() /* final */
 		const auto       fg  = isAdmin ? fgRed : fgDefault;
 
 		ps1 += xT(" ");
-		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
+		ps1 += console.setAttrsText(fg, bgDefault, attrBold, str);
 		ps1 += xT(" ");
 	}
 
@@ -360,14 +357,14 @@ GitPromptApp::onRun() /* final */
 		std::ctstring_t str = xT("mc");
 		const auto      fg  = fgCyan;
 
-		ps1 += console.setAttributesText(fg, bgDefault, attrBold, str);
+		ps1 += console.setAttrsText(fg, bgDefault, attrBold, str);
 		ps1 += xT(" ");
 	}
 
 	// "> "
 	{
 		std::ctstring_t &str = xT("❱ ");
-		ps1 += console.setAttributesText(fgYellow, bgDefault, attrBold, str);
+		ps1 += console.setAttrsText(fgYellow, bgDefault, attrBold, str);
 	}
 
 	console.writeLine(ps1);
