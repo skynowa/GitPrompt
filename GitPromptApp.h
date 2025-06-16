@@ -38,6 +38,10 @@ private:
 		bool_t             isUserName      {false};
 		std::vec_tstring_t myUserNames     {xT("skynowa")};
 
+		// Dirs
+		bool_t             isDirPathInGitRepo {false};
+			///< Don't show current dir path in Git repository
+
 		// Volume
 		bool_t             isVolumeUsedPct {true};	///< force using VolumeUsedPct
 

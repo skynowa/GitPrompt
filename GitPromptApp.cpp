@@ -7,6 +7,7 @@
 #include "GitPromptApp.h"
 
 #include <xLib/Package/GitClient.h>
+#include <xLib/Log/LogStream.h>
 
 //-------------------------------------------------------------------------------------------------
 namespace
@@ -123,7 +124,7 @@ GitPromptApp::onRun() /* final */
 	constexpr auto bgDefault = Console::BG::Default;
 
 	// Attribute
-	constexpr auto attrBold  = static_cast<int_t>(Console::Attr::Bold);
+	constexpr auto attrBold  = Console::Attr::Bold;
 
 	// Current date
 	{
@@ -136,7 +137,7 @@ GitPromptApp::onRun() /* final */
 		// Current date
 		{
 			std::ctstring_t &str = DateTime().current().format(xT("%d-%h %H:%M"), {});
-			ps1 += console.setAttrsText(fgGreen, bgDefault, attrBold, str);
+			ps1 += console.setAttrsText(fgMagenta, bgDefault, attrBold, str);
 		}
 
 		// ]
@@ -246,7 +247,12 @@ GitPromptApp::onRun() /* final */
 	}
 
 	// Current dir
-	{
+	if (isGitDir) {
+		if (_config.isDirPathInGitRepo) {
+			std::ctstring_t &str = currentDirPathBrief;
+			ps1 += console.setAttrsText(fgGreen, bgDefault, attrBold, str);
+		}
+	} else {
 		std::ctstring_t &str = currentDirPathBrief;
 		ps1 += console.setAttrsText(fgGreen, bgDefault, attrBold, str);
 	}
@@ -388,13 +394,13 @@ int_t main(int_t a_argNum, tchar_t *a_args[])
 		exitStatus = app.run();
 	}
 	catch (const Exception &a_e) {
-		Cout() << STD_TRACE_VAR2(exitStatus, a_e.what());
+		LogCoutError() << STD_TRACE_VAR2(exitStatus, a_e.what());
 	}
 	catch (const std::exception &a_e) {
-		Cout() << STD_TRACE_VAR2(exitStatus, a_e.what());
+		LogCoutError() << STD_TRACE_VAR2(exitStatus, a_e.what());
 	}
 	catch (...) {
-		Cout() << STD_TRACE_VAR2(exitStatus, xT("Unknown error"));
+		LogCoutError() << STD_TRACE_VAR2(exitStatus, xT("Unknown error"));
 	}
 
 	return exitStatus;
