@@ -261,7 +261,9 @@ GitPromptApp::onRun() /* final */
 	if (_config.isVolumeUsedPct ||
 		volumeUsedPct > ::volumeUsedWarnPct)
 	{
-		ps1 += xT(" ");
+		if (ps1.back() != Const::space()[0]) {
+			ps1 += xT(" ");
+		}
 
 		std::ctstring_t &str = Format::str(xT("{}%"), volumeUsedPct);
 		ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold, str);
