@@ -6,9 +6,8 @@
 
 #include "GitPromptApp.h"
 
-#include <xLib/Package/GitClient.h>
-#include <xLib/Log/LogStream.h>
-
+#include <StdTest/StdTest.h>
+#include <StdStream/StdStream.h>
 //-------------------------------------------------------------------------------------------------
 namespace
 {
