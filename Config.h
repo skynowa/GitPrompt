@@ -25,7 +25,7 @@ struct Config
 	std::vec_tstring_t myUserNames     {xT("skynowa")};
 
 	// Dirs
-	bool_t             isDirPathInGitRepo {true};
+	bool_t             isDirPathInGitRepo {false};
 		///< Don't show current dir path in Git repository
 
 	// Volume
