@@ -23,7 +23,7 @@ constexpr std::size_t rightDirsNum      {2};
 namespace git_prompt
 {
 
-class Ps1Color :
+class Ps1Color final :
 	public Color
 {
 public:
@@ -75,30 +75,20 @@ GitPromptApp::onRun() /* final */
 
 	std::tstring_t ps1;
 
-	// Foreground
-	constexpr auto fgGreen   = Color::FG::Green;
-	constexpr auto fgYellow  = Color::FG::Yellow;
-	constexpr auto fgBlue    = Color::FG::Blue;
-	constexpr auto fgMagenta = Color::FG::Magenta;
-	constexpr auto fgRed     = Color::FG::Red;
-	constexpr auto fgWhite   = Color::FG::White;
-	constexpr auto fgCyan    = Color::FG::Cyan;
-	constexpr auto fgDefault = Color::FG::Default;
-
 	// Background
 	constexpr auto bgDefault = Color::BG::Default;
 
 	// Attribute
 	constexpr auto attrBold  = Color::Attr::Bold;
 
-	const Ps1Color clGreenBold(fgGreen, bgDefault, attrBold);
-	const Ps1Color clYellowBold(fgYellow, bgDefault, attrBold);
-	const Ps1Color clBlueBold(fgBlue, bgDefault, attrBold);
-	const Ps1Color clMagentaBold(fgMagenta, bgDefault, attrBold);
-	const Ps1Color clRedBold(fgRed, bgDefault, attrBold);
-	const Ps1Color clWhiteBold(fgWhite, bgDefault, attrBold);
-	const Ps1Color clCyanBold(fgCyan, bgDefault, attrBold);
-	const Ps1Color clDefaultBold(fgDefault, bgDefault, attrBold);
+	const Ps1Color clGreenBold(Color::FG::Green, bgDefault, attrBold);
+	const Ps1Color clYellowBold(Color::FG::Yellow, bgDefault, attrBold);
+	const Ps1Color clBlueBold(Color::FG::Blue, bgDefault, attrBold);
+	const Ps1Color clMagentaBold(Color::FG::Magenta, bgDefault, attrBold);
+	const Ps1Color clRedBold(Color::FG::Red, bgDefault, attrBold);
+	const Ps1Color clWhiteBold(Color::FG::White, bgDefault, attrBold);
+	const Ps1Color clCyanBold(Color::FG::Cyan, bgDefault, attrBold);
+	const Ps1Color clDefaultBold(Color::FG::Default, bgDefault, attrBold);
 
 	// Current date
 	{
