@@ -91,24 +91,34 @@ GitPromptApp::onRun() /* final */
 	// Attribute
 	constexpr auto attrBold  = Color::Attr::Bold;
 
+	const Ps1Color clWhiteBold(fgWhite, bgDefault, attrBold);
+	const Ps1Color clMagentaBold(fgMagenta, bgDefault, attrBold);
+	const Ps1Color clGreenBold(fgGreen, bgDefault, attrBold);
+	const Ps1Color clDefaultBold(fgDefault, bgDefault, attrBold);
+	const Ps1Color clBlueBold(fgBlue, bgDefault, attrBold);
+	const Ps1Color clCyanBold(fgCyan, bgDefault, attrBold);
+	const Ps1Color clRedBold(fgRed, bgDefault, attrBold);
+	const Ps1Color clYellowBold(fgYellow, bgDefault, attrBold);
+
+
 	// Current date
 	{
 		// [
 		{
 			std::ctstring_t &str = xT("[");
-			ps1 += Ps1Color(fgWhite, bgDefault, attrBold).setText(str);
+			ps1 += clWhiteBold.setText(str);
 		}
 
 		// Current date
 		{
 			std::ctstring_t &str = DateTime().current().format(xT("%d-%h %H:%M"), {});
-			ps1 += Ps1Color(fgMagenta, bgDefault, attrBold).setText(str);
+			ps1 += clMagentaBold.setText(str);
 		}
 
 		// ]
 		{
 			std::ctstring_t &str = xT("]");
-			ps1 += Ps1Color(fgWhite, bgDefault, attrBold).setText(str);
+			ps1 += clWhiteBold.setText(str);
 		}
 	}
 
@@ -125,13 +135,13 @@ GitPromptApp::onRun() /* final */
 		std::tstring_t lastShellOk;
 		{
 			std::ctstring_t &str = xT("✔");
-			lastShellOk = Ps1Color(fgGreen, bgDefault, attrBold).setText(str);
+			lastShellOk = clGreenBold.setText(str);
 		}
 
 		std::tstring_t lastShellError;
 		{
 			std::ctstring_t &str = xT("✖");
-			lastShellError = Ps1Color(fgRed, bgDefault, attrBold).setText(str);
+			lastShellError = clRedBold.setText(str);
 		}
 
 		ps1 += Format::str(xT("$(if [[ $? == 0 ]]; then echo \"{}\"; else echo \"{}\"; fi)"),
@@ -171,16 +181,16 @@ GitPromptApp::onRun() /* final */
 		// [
 		{
 			std::ctstring_t &str = xT("[");
-			ps1 += Ps1Color(fgWhite, bgDefault, attrBold).setText(str);
+			ps1 += clWhiteBold.setText(str);
 		}
 
 		// Git repo URL name, remote repository names
 		{
 			std::ctstring_t &str = Format::str(xT("{}*{}"), git.repoUrlName(), remoteRepoNames.size());
-			ps1 += Ps1Color(fgBlue, bgDefault, attrBold).setText(str);
+			ps1 += clBlueBold.setText(str);
 
 			std::ctstring_t &sep = xT("/");
-			ps1 += Ps1Color(fgDefault, bgDefault, attrBold).setText(sep);
+			ps1 += clDefaultBold.setText(sep);
 		}
 
 		// Gitlab repo group name
@@ -188,22 +198,22 @@ GitPromptApp::onRun() /* final */
 			!groupName.empty())
 		{
 			std::ctstring_t &str = Format::str(xT("{}"), groupName);
-			ps1 += Ps1Color(fgCyan, bgDefault, attrBold).setText(str);
+			ps1 += clCyanBold.setText(str);
 
 			std::ctstring_t &sep = xT("/");
-			ps1 += Ps1Color(fgDefault, bgDefault, attrBold).setText(sep);
+			ps1 += clDefaultBold.setText(sep);
 		}
 
 		// Git repository name
 		{
 			std::ctstring_t &str = Format::str(xT("{}"), gitRepoName);
-			ps1 += Ps1Color(fgYellow, bgDefault, attrBold).setText(str);
+			ps1 += clYellowBold.setText(str);
 		}
 
 		// ]
 		{
 			std::ctstring_t &str = xT("]");
-			ps1 += Ps1Color(fgWhite, bgDefault, attrBold).setText(str);
+			ps1 += clWhiteBold.setText(str);
 		}
 
 		if ( !gitRepoName.empty() ) {
@@ -215,11 +225,11 @@ GitPromptApp::onRun() /* final */
 	if (isGitDir) {
 		if (_config.isDirPathInGitRepo) {
 			std::ctstring_t &str = currentDirPathBrief;
-			ps1 += Ps1Color(fgGreen, bgDefault, attrBold).setText(str);
+			ps1 += clGreenBold.setText(str);
 		}
 	} else {
 		std::ctstring_t &str = currentDirPathBrief;
-		ps1 += Ps1Color(fgGreen, bgDefault, attrBold).setText(str);
+		ps1 += clGreenBold.setText(str);
 	}
 
 	// Volume used %
@@ -231,7 +241,7 @@ GitPromptApp::onRun() /* final */
 		}
 
 		std::ctstring_t &str = Format::str(xT("{}%"), volumeUsedPct);
-		ps1 += Ps1Color(fgWhite, bgDefault, attrBold).setText(str);
+		ps1 += clWhiteBold.setText(str);
 	}
 
 	if (isGitDir) {
@@ -242,19 +252,19 @@ GitPromptApp::onRun() /* final */
 			// [
 			{
 				std::ctstring_t &str = xT("[");
-				ps1 += Ps1Color(fgWhite, bgDefault, attrBold).setText(str);
+				ps1 += clWhiteBold.setText(str);
 			}
 
 			// Git branch name
 			{
 				std::ctstring_t &str = git.branchName();
-				ps1 += Ps1Color(fgRed, bgDefault, attrBold).setText(str);
+				ps1 += clRedBold.setText(str);
 			}
 
 			// ]
 			{
 				std::ctstring_t &str = xT("]");
-				ps1 += Ps1Color(fgWhite, bgDefault, attrBold).setText(str);
+				ps1 += clWhiteBold.setText(str);
 			}
 		}
 
@@ -263,14 +273,14 @@ GitPromptApp::onRun() /* final */
 			std::csize_t localBranchesNum = git.localBranchesNum();
 			if (localBranchesNum > 0) {
 				std::ctstring_t &str = Format::str(xT("⎇{}"), localBranchesNum);
-				ps1 += Ps1Color(fgWhite, bgDefault, attrBold).setText(str);
+				ps1 += clWhiteBold.setText(str);
 			}
 		}
 
 		// Git file statuses
 		{
 			std::ctstring_t &str = git.filesStatuses();
-			ps1 += Ps1Color(fgYellow, bgDefault, attrBold).setText(str);
+			ps1 += clYellowBold.setText(str);
 		}
 
 		// Git files number
@@ -281,7 +291,7 @@ GitPromptApp::onRun() /* final */
 
 			std::ctstring_t &filesNum = std::to_string( filePathes.size() );
 			if (filesNum != xT("0")) {
-				ps1 += Ps1Color(fgYellow, bgDefault, attrBold).setText(filesNum);
+				ps1 += clYellowBold.setText(filesNum);
 			}
 		}
 
@@ -302,7 +312,7 @@ GitPromptApp::onRun() /* final */
 				}
 			}
 
-			ps1 += Ps1Color(fgMagenta, bgDefault, attrBold).setText(str);
+			ps1 += clMagentaBold.setText(str);
 		}
 
 		// Stashes number
@@ -310,7 +320,7 @@ GitPromptApp::onRun() /* final */
 			std::csize_t stashesNum = git.stashesNum();
 			if (stashesNum > 0) {
 				std::ctstring_t &str = Format::str(xT("⚑{}"), stashesNum);
-				ps1 += Ps1Color(fgBlue, bgDefault, attrBold).setText(str);
+				ps1 += clBlueBold.setText(str);
 			}
 		}
 	} // if (isGitDir)
@@ -337,7 +347,7 @@ GitPromptApp::onRun() /* final */
 	// "> "
 	{
 		std::ctstring_t &str = xT("❱ ");
-		ps1 += Ps1Color(fgYellow, bgDefault, attrBold).setText(str);
+		ps1 += clYellowBold.setText(str);
 	}
 
 	// Console
