@@ -381,8 +381,8 @@ GitPromptApp::onRun() /* final */
 			powerSupply, BuildInfo().datetime());
 
 		Console console;
-		console.writeLine(ps1);
 		console.setTitle(title);
+		console.writeLine(ps1);
 	}
 
 	return ExitCode::Success;
