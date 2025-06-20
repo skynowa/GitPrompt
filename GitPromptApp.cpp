@@ -91,15 +91,14 @@ GitPromptApp::onRun() /* final */
 	// Attribute
 	constexpr auto attrBold  = Color::Attr::Bold;
 
-	const Ps1Color clWhiteBold(fgWhite, bgDefault, attrBold);
-	const Ps1Color clMagentaBold(fgMagenta, bgDefault, attrBold);
 	const Ps1Color clGreenBold(fgGreen, bgDefault, attrBold);
-	const Ps1Color clDefaultBold(fgDefault, bgDefault, attrBold);
-	const Ps1Color clBlueBold(fgBlue, bgDefault, attrBold);
-	const Ps1Color clCyanBold(fgCyan, bgDefault, attrBold);
-	const Ps1Color clRedBold(fgRed, bgDefault, attrBold);
 	const Ps1Color clYellowBold(fgYellow, bgDefault, attrBold);
-
+	const Ps1Color clBlueBold(fgBlue, bgDefault, attrBold);
+	const Ps1Color clMagentaBold(fgMagenta, bgDefault, attrBold);
+	const Ps1Color clRedBold(fgRed, bgDefault, attrBold);
+	const Ps1Color clWhiteBold(fgWhite, bgDefault, attrBold);
+	const Ps1Color clCyanBold(fgCyan, bgDefault, attrBold);
+	const Ps1Color clDefaultBold(fgDefault, bgDefault, attrBold);
 
 	// Current date
 	{
@@ -153,9 +152,12 @@ GitPromptApp::onRun() /* final */
 		!Algos::isContains(_config.myUserNames, loginName))
 	{
 		std::ctstring_t &str = loginName;
-		const auto       fg  = isAdmin ? fgRed : fgMagenta;
 
-		ps1 += Ps1Color(fg, bgDefault, attrBold).setText(str);
+		if (isAdmin) {
+			ps1 += clRedBold.setText(str);
+		} else {
+			ps1 += clMagentaBold.setText(str);
+		}
 	}
 
 	// Host name
@@ -163,10 +165,9 @@ GitPromptApp::onRun() /* final */
 		!Algos::isContains(_config.myHostNames, hostName))
 	{
 		std::ctstring_t &str = hostName;
-		const auto       fg  = fgCyan;
 
 		ps1 += xT("@");
-		ps1 += Ps1Color(fg, bgDefault, attrBold).setText(str);
+		ps1 += clCyanBold.setText(str);
 	}
 
 	ps1 += xT(" ");
@@ -328,19 +329,23 @@ GitPromptApp::onRun() /* final */
 	// Is admin user
 	{
 		std::ctstring_t &str = isAdmin ? xT("#") : xT("$");
-		const auto       fg  = isAdmin ? fgRed : fgDefault;
 
 		ps1 += xT(" ");
-		ps1 += Ps1Color(fg, bgDefault, attrBold).setText(str);
+
+		if (isAdmin) {
+			ps1 += clRedBold.setText(str);
+		} else {
+			ps1 += clDefaultBold.setText(str);
+		}
+
 		ps1 += xT(" ");
 	}
 
 	// mc
 	if (isMc) {
 		std::ctstring_t str = xT("mc");
-		const auto      fg  = fgCyan;
 
-		ps1 += Ps1Color(fg, bgDefault, attrBold).setText(str);
+		ps1 += clCyanBold.setText(str);
 		ps1 += xT(" ");
 	}
 
