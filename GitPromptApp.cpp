@@ -30,7 +30,6 @@ public:
 	Ps1Color(cFG fg, cBG bg, cAttr attrs) :
 		Color(true, false, fg, bg, attrs)
 	{
-
 	}
 };
 //-------------------------------------------------------------------------------------------------
@@ -97,11 +96,7 @@ GitPromptApp::onRun() /* final */
 		// [
 		{
 			std::ctstring_t &str = xT("[");
-		#if 0
-			ps1 += console.setAttrsText(fgWhite, bgDefault, attrBold).setText(str);
-		#else
 			ps1 += Ps1Color(fgWhite, bgDefault, attrBold).setText(str);
-		#endif
 		}
 
 		// Current date
