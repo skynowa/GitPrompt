@@ -12,7 +12,7 @@ using namespace xl::fs;
 using namespace xl::sync;
 using namespace xl::system;
 //-------------------------------------------------------------------------------------------------
-const std::ctstring_t appName = xT("@PROJECT_NAME@");
+inline const std::ctstring_t appName = xT("@PROJECT_NAME@");
 //-------------------------------------------------------------------------------------------------
 namespace git_prompt
 {
