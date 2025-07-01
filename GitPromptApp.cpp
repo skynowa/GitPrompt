@@ -133,8 +133,9 @@ GitPromptApp::onRun() /* final */
 			lastShellError = clRedBold.setText(str);
 		}
 
-		ps1 += Format::str(xT("$(if [[ $? == 0 ]]; then echo \"{}\"; else echo \"{}\"; fi)"),
-			lastShellOk, lastShellError);
+		std::ctstring_view_t fmt{xT("$(if [[ $? == 0 ]]; then echo \"{}\"; else echo \"{}\"; fi)")};
+
+		ps1 += Format::str(fmt, lastShellOk, lastShellError);
 	}
 
 	// User name
@@ -387,7 +388,7 @@ GitPromptApp::onRun() /* final */
 			hostName, loginName, osInfo.distro(), osInfo.desktopName(), cpuInfo.num(), isVpn,
 			powerSupply, BuildInfo().datetime());
 
-		LogFile() << xTRACE_VAR(ps1);
+		// LogFile() << xTRACE_VAR(ps1);
 
 		Console console;
 		console.setTitle(title);
