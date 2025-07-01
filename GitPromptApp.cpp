@@ -28,7 +28,7 @@ class Ps1Color final :
 {
 public:
 	Ps1Color(cFG fg, cBG bg, cAttr attrs) :
-		Color(true /* isColorSupport */, false /* isEscapeValues */, fg, bg, attrs)
+		Color(true /* isColorSupport */, true /* isEscapeValues */, fg, bg, attrs)
 	{
 	}
 };
@@ -390,7 +390,7 @@ GitPromptApp::onRun() /* final */
 		LogFile() << xTRACE_VAR(ps1);
 
 		Console console;
-		// console.setTitle(title);
+		console.setTitle(title);
 		console.writeLine(ps1);
 	}
 
