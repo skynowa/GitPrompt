@@ -23,15 +23,6 @@ constexpr std::size_t rightDirsNum      {2};
 namespace git_prompt
 {
 
-class Ps1Color final :
-	public Color
-{
-public:
-	Ps1Color(cFG fg, cBG bg, cAttr attrs) :
-		Color(true /* isColorSupport */, false /* isEscapeValues */, fg, bg, attrs)
-	{
-	}
-};
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::GitPromptApp(
 	std::ctstring_t &a_appGuid,
@@ -81,14 +72,14 @@ GitPromptApp::onRun() /* final */
 	// Attribute
 	constexpr auto attrBold  = Color::Attr::Bold;
 
-	const Ps1Color clGreenBold(Color::FG::Green, bgDefault, attrBold);
-	const Ps1Color clYellowBold(Color::FG::Yellow, bgDefault, attrBold);
-	const Ps1Color clBlueBold(Color::FG::Blue, bgDefault, attrBold);
-	const Ps1Color clMagentaBold(Color::FG::Magenta, bgDefault, attrBold);
-	const Ps1Color clRedBold(Color::FG::Red, bgDefault, attrBold);
-	const Ps1Color clWhiteBold(Color::FG::White, bgDefault, attrBold);
-	const Ps1Color clCyanBold(Color::FG::Cyan, bgDefault, attrBold);
-	const Ps1Color clDefaultBold(Color::FG::Default, bgDefault, attrBold);
+	const Color clGreenBold(Color::FG::Green, bgDefault, attrBold);
+	const Color clYellowBold(Color::FG::Yellow, bgDefault, attrBold);
+	const Color clBlueBold(Color::FG::Blue, bgDefault, attrBold);
+	const Color clMagentaBold(Color::FG::Magenta, bgDefault, attrBold);
+	const Color clRedBold(Color::FG::Red, bgDefault, attrBold);
+	const Color clWhiteBold(Color::FG::White, bgDefault, attrBold);
+	const Color clCyanBold(Color::FG::Cyan, bgDefault, attrBold);
+	const Color clDefaultBold(Color::FG::Default, bgDefault, attrBold);
 
 	// Current date
 	{
