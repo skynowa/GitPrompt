@@ -82,14 +82,14 @@ GitPromptApp::onRun() /* final */
 	// Attribute
 	constexpr auto attrBold  = Color::Attr::Bold;
 
-	const Color clGreenBold(Color::FG::Green, bgDefault, attrBold);
-	const Color clYellowBold(Color::FG::Yellow, bgDefault, attrBold);
-	const Color clBlueBold(Color::FG::Blue, bgDefault, attrBold);
-	const Color clMagentaBold(Color::FG::Magenta, bgDefault, attrBold);
-	const Color clRedBold(Color::FG::Red, bgDefault, attrBold);
-	const Color clWhiteBold(Color::FG::White, bgDefault, attrBold);
-	const Color clCyanBold(Color::FG::Cyan, bgDefault, attrBold);
-	const Color clDefaultBold(Color::FG::Default, bgDefault, attrBold);
+	constexpr Color clGreenBold(Color::FG::Green, bgDefault, attrBold);
+	constexpr Color clYellowBold(Color::FG::Yellow, bgDefault, attrBold);
+	constexpr Color clBlueBold(Color::FG::Blue, bgDefault, attrBold);
+	constexpr Color clMagentaBold(Color::FG::Magenta, bgDefault, attrBold);
+	constexpr Color clRedBold(Color::FG::Red, bgDefault, attrBold);
+	constexpr Color clWhiteBold(Color::FG::White, bgDefault, attrBold);
+	constexpr Color clCyanBold(Color::FG::Cyan, bgDefault, attrBold);
+	constexpr Color clDefaultBold(Color::FG::Default, bgDefault, attrBold);
 
 	// Current date
 	{
