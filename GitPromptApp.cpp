@@ -403,12 +403,13 @@ GitPromptApp::_wrapAnsiForPS1(
 {
     std::tstring_t sRv;
 
-    xCALL_ONCE std::ctregex_t ansiRegex("\x1B\\[[0-9;?]*[A-Za-z]");
+    xCALL_ONCE std::ctregex_t ansiRegex(xT("\x1B\\[[0-9;?]*[A-Za-z]"));
 
     std::sregex_iterator it(a_ps1_str.cbegin(), a_ps1_str.cend(), ansiRegex);
     std::sregex_iterator end;
 
-    size_t lastPos = 0;
+    size_t lastPos {};
+
     for (; it != end; ++ it) {
         auto match = *it;
 
@@ -419,9 +420,9 @@ GitPromptApp::_wrapAnsiForPS1(
         sRv.append(a_ps1_str, lastPos, start - lastPos);
 
         // Append the wrapped ANSI sequence
-        sRv.append("\\[");
+        sRv.append(xT("\\["));
         sRv.append(match.str());
-        sRv.append("\\]");
+        sRv.append(xT("\\]"));
 
         lastPos = start + length;
     }
