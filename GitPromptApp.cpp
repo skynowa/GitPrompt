@@ -398,7 +398,7 @@ GitPromptApp::onRun() /* final */
  */
 std::tstring_t
 GitPromptApp::_wrapAnsiForPS1(
-    std::ctstring_t &a_ps1_str
+    std::ctstring_t &a_ps1_str ///< PS1 string
 ) const
 {
     std::tstring_t sRv;
