@@ -19,7 +19,7 @@ public:
 	GitPromptApp(std::ctstring_t &appGuid, std::ctstring_t &locale);
    ~GitPromptApp() = default;
 
-	xNO_DEFAULT_CONSTRUCT(GitPromptApp);
+    xNO_DEFAULT_CTOR(GitPromptApp);
 	xNO_COPY_ASSIGN(GitPromptApp);
 ///@}
 
