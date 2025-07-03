@@ -35,15 +35,12 @@ GitPromptApp::GitPromptApp(
 GitPromptApp::ExitCode
 GitPromptApp::onRun() /* final */
 {
-	std::size_t shellLastExitCode {};
+	std::size_t shellLastExitCode {0};
 	{
-		cbool_t            withoutFirstArg {true};
 		std::vec_tstring_t options;
-		this->options(withoutFirstArg, &options);
+		this->options(&options);
 
 		if ( !options.empty() ) {
-			// LogCout() << xTRACE_VAR(options);
-
 			shellLastExitCode = String::cast<std::size_t>( options.front() );
 		}
 	}
