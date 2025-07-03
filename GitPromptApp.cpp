@@ -403,7 +403,7 @@ GitPromptApp::_wrapAnsiForPS1(
 {
     std::tstring_t sRv;
 
-    static const std::regex ansiRegex("\x1B\\[[0-9;?]*[A-Za-z]");
+    xCALL_ONCE std::ctregex_t ansiRegex("\x1B\\[[0-9;?]*[A-Za-z]");
 
     std::sregex_iterator it(a_ps1_str.cbegin(), a_ps1_str.cend(), ansiRegex);
     std::sregex_iterator end;
