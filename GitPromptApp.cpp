@@ -405,15 +405,15 @@ GitPromptApp::_wrapAnsiForPS1(
 
     static const std::regex ansiRegex("\x1B\\[[0-9;?]*[A-Za-z]");
 
-    std::sregex_iterator it(a_ps1_str.begin(), a_ps1_str.end(), ansiRegex);
+    std::sregex_iterator it(a_ps1_str.cbegin(), a_ps1_str.cend(), ansiRegex);
     std::sregex_iterator end;
 
     size_t lastPos = 0;
     for (; it != end; ++ it) {
         auto match = *it;
 
-        const std::size_t start  = match.position();
-        const std::size_t length = match.length();
+        std::csize_t start  = match.position();
+        std::csize_t length = match.length();
 
         // Append text before the match
         sRv.append(a_ps1_str, lastPos, start - lastPos);
