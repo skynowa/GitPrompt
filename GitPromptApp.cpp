@@ -117,17 +117,8 @@ GitPromptApp::onRun() /* final */
 
 	// Shell last exit code
 	{
-		std::tstring_t lastShellOk;
-		{
-			std::ctstring_t &str = xT("✔");
-			lastShellOk = clGreenBold.setText(str);
-		}
-
-		std::tstring_t lastShellError;
-		{
-			std::ctstring_t &str = xT("✖");
-			lastShellError = clRedBold.setText(str);
-		}
+		std::ctstring_t &lastShellOk    = clGreenBold.setText(xT("✔"));
+		std::ctstring_t &lastShellError = clRedBold.setText(xT("✖"));
 
 		ps1 += (shellLastExitCode == 0) ? lastShellOk : lastShellError;
 	}
