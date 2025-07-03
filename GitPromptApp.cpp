@@ -35,6 +35,19 @@ GitPromptApp::GitPromptApp(
 GitPromptApp::ExitCode
 GitPromptApp::onRun() /* final */
 {
+	std::size_t shellLastExitCode {};
+	{
+		cbool_t            withoutFirstArg {true};
+		std::vec_tstring_t options;
+		this->options(withoutFirstArg, &options);
+
+		if ( !options.empty() ) {
+			// LogCout() << xTRACE_VAR(options);
+
+			shellLastExitCode = String::cast<std::size_t>( options.front() );
+		}
+	}
+
 	GitClient  git;
 	User       user;
 
@@ -102,16 +115,8 @@ GitPromptApp::onRun() /* final */
 		}
 	}
 
-	// Shell last error
+	// Shell last exit code
 	{
-	   /**
-		* ps1 += "$(if [[ $? == 0 ]]; then
-		*     echo \"\\[\033[0;32m\\]✔\";
-		* else
-		*     echo \"\\[\033[0;31m\\]✖\";
-		* fi)\\[\033[00m\\]";
-		*/
-
 		std::tstring_t lastShellOk;
 		{
 			std::ctstring_t &str = xT("✔");
@@ -124,9 +129,7 @@ GitPromptApp::onRun() /* final */
 			lastShellError = clRedBold.setText(str);
 		}
 
-		std::ctstring_view_t fmt{xT("$(if [[ $? == 0 ]]; then echo \"{}\"; else echo \"{}\"; fi)")};
-
-		ps1 += Format::str(fmt, lastShellOk, lastShellError);
+		ps1 += (shellLastExitCode == 0) ? lastShellOk : lastShellError;
 	}
 
 	// User name
