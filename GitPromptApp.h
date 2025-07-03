@@ -27,6 +27,9 @@ public:
 
 private:
 	const Config _config;
+
+	std::tstring_t _wrapAnsiForPS1(std::ctstring_t &ps1_str) const;
+		///< safe PS1 now can be assigned to PS1 without messing up cursor/line wrap
 };
 
 } // namespace

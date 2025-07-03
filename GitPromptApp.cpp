@@ -17,34 +17,6 @@ constexpr ulonglong_t volumeUsedWarnPct {90};
 constexpr std::size_t leftDirsNum       {2};
 constexpr std::size_t rightDirsNum      {2};
 
-std::string wrapAnsiForPS1(const std::string& input)
-{
-    static const std::regex ansiRegex("\x1B\\[[0-9;?]*[A-Za-z]");
-    std::string output;
-    std::sregex_iterator it(input.begin(), input.end(), ansiRegex);
-    std::sregex_iterator end;
-
-    size_t lastPos = 0;
-    for (; it != end; ++it) {
-        auto match = *it;
-        size_t start = match.position();
-        size_t length = match.length();
-
-        // Append text before the match
-        output.append(input, lastPos, start - lastPos);
-        // Append the wrapped ANSI sequence
-        output.append("\\[");
-        output.append(match.str());
-        output.append("\\]");
-
-        lastPos = start + length;
-    }
-    // Append remaining text
-    output.append(input, lastPos, std::string::npos);
-
-    return output;
-}
-
 }
 //-------------------------------------------------------------------------------------------------
 
@@ -410,11 +382,54 @@ GitPromptApp::onRun() /* final */
 		LogFile() << xTRACE_VAR(ps1);
 
 		Console console;
-		console.setTitle( ::wrapAnsiForPS1(title) );
-		console.writeLine( ::wrapAnsiForPS1(ps1) );
+		console.setTitle( _wrapAnsiForPS1(title) );
+		console.writeLine( _wrapAnsiForPS1(ps1) );
 	}
 
 	return ExitCode::Success;
+}
+//-------------------------------------------------------------------------------------------------
+/**
+ * What it does:
+ *
+ * - Finds ANSI escape sequences (ESC + [ + ... + letter)
+ * - Wraps each entire escape sequence in \[ and \]
+ * - Leaves all other characters as-is
+ */
+std::tstring_t
+GitPromptApp::_wrapAnsiForPS1(
+    std::ctstring_t &a_ps1_str
+) const
+{
+    std::tstring_t sRv;
+
+    static const std::regex ansiRegex("\x1B\\[[0-9;?]*[A-Za-z]");
+
+    std::sregex_iterator it(a_ps1_str.begin(), a_ps1_str.end(), ansiRegex);
+    std::sregex_iterator end;
+
+    size_t lastPos = 0;
+    for (; it != end; ++ it) {
+        auto match = *it;
+
+        const std::size_t start  = match.position();
+        const std::size_t length = match.length();
+
+        // Append text before the match
+        sRv.append(a_ps1_str, lastPos, start - lastPos);
+
+        // Append the wrapped ANSI sequence
+        sRv.append("\\[");
+        sRv.append(match.str());
+        sRv.append("\\]");
+
+        lastPos = start + length;
+    }
+
+    // Append remaining text
+    sRv.append(a_ps1_str, lastPos, std::tstring_t::npos);
+
+    return sRv;
 }
 //-------------------------------------------------------------------------------------------------
 
