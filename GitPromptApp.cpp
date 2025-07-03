@@ -23,15 +23,6 @@ constexpr std::size_t rightDirsNum      {2};
 namespace git_prompt
 {
 
-class Ps1Color final :
-	public Color
-{
-public:
-	Ps1Color(cFG fg, cBG bg, cAttr attrs) :
-		Color(true /* isColorSupport */, false /* isEscapeValues */, fg, bg, attrs)
-	{
-	}
-};
 //-------------------------------------------------------------------------------------------------
 GitPromptApp::GitPromptApp(
 	std::ctstring_t &a_appGuid,
@@ -81,14 +72,14 @@ GitPromptApp::onRun() /* final */
 	// Attribute
 	constexpr auto attrBold  = Color::Attr::Bold;
 
-	const Ps1Color clGreenBold(Color::FG::Green, bgDefault, attrBold);
-	const Ps1Color clYellowBold(Color::FG::Yellow, bgDefault, attrBold);
-	const Ps1Color clBlueBold(Color::FG::Blue, bgDefault, attrBold);
-	const Ps1Color clMagentaBold(Color::FG::Magenta, bgDefault, attrBold);
-	const Ps1Color clRedBold(Color::FG::Red, bgDefault, attrBold);
-	const Ps1Color clWhiteBold(Color::FG::White, bgDefault, attrBold);
-	const Ps1Color clCyanBold(Color::FG::Cyan, bgDefault, attrBold);
-	const Ps1Color clDefaultBold(Color::FG::Default, bgDefault, attrBold);
+	const Color clGreenBold(Color::FG::Green, bgDefault, attrBold);
+	const Color clYellowBold(Color::FG::Yellow, bgDefault, attrBold);
+	const Color clBlueBold(Color::FG::Blue, bgDefault, attrBold);
+	const Color clMagentaBold(Color::FG::Magenta, bgDefault, attrBold);
+	const Color clRedBold(Color::FG::Red, bgDefault, attrBold);
+	const Color clWhiteBold(Color::FG::White, bgDefault, attrBold);
+	const Color clCyanBold(Color::FG::Cyan, bgDefault, attrBold);
+	const Color clDefaultBold(Color::FG::Default, bgDefault, attrBold);
 
 	// Current date
 	{
@@ -391,11 +382,55 @@ GitPromptApp::onRun() /* final */
 		LogFile() << xTRACE_VAR(ps1);
 
 		Console console;
-		console.setTitle(title);
-		console.writeLine(ps1);
+		console.setTitle( _wrapAnsiForPS1(title) );
+		console.writeLine( _wrapAnsiForPS1(ps1) );
 	}
 
 	return ExitCode::Success;
+}
+//-------------------------------------------------------------------------------------------------
+/**
+ * What it does:
+ *
+ * - Finds ANSI escape sequences (ESC + [ + ... + letter)
+ * - Wraps each entire escape sequence in \[ and \]
+ * - Leaves all other characters as-is
+ */
+std::tstring_t
+GitPromptApp::_wrapAnsiForPS1(
+    std::ctstring_t &a_ps1_str ///< PS1 string
+) const
+{
+    std::tstring_t sRv;
+
+    xCALL_ONCE std::ctregex_t ansiRegex(xT("\x1B\\[[0-9;?]*[A-Za-z]"));
+
+    std::sregex_iterator it(a_ps1_str.cbegin(), a_ps1_str.cend(), ansiRegex);
+    std::sregex_iterator end;
+
+    size_t lastPos {};
+
+    for (; it != end; ++ it) {
+        auto match = *it;
+
+        std::csize_t start  = match.position();
+        std::csize_t length = match.length();
+
+        // Append text before the match
+        sRv.append(a_ps1_str, lastPos, start - lastPos);
+
+        // Append the wrapped ANSI sequence
+        sRv.append(xT("\\["));
+        sRv.append(match.str());
+        sRv.append(xT("\\]"));
+
+        lastPos = start + length;
+    }
+
+    // Append remaining text
+    sRv.append(a_ps1_str, lastPos, std::tstring_t::npos);
+
+    return sRv;
 }
 //-------------------------------------------------------------------------------------------------
 
