@@ -5,4 +5,9 @@
 #
 
 
-export PROMPT_COMMAND='PS1="$(~/Projects/GitPrompt_build/GitPrompt)"'
+function update_ps1()
+{
+	export PS1="$(~/Projects/GitPrompt_build/GitPrompt $?)"
+}
+
+PROMPT_COMMAND=update_ps1
