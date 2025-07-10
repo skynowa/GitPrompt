@@ -440,7 +440,7 @@ int_t main(int_t a_argNum, tchar_t *a_args[])
 		exitStatus = app.run();
 	}
 	catch (const Exception &a_e) {
-		LogCoutError() << STD_TRACE_VAR2(exitStatus, a_e.what());
+		LogCoutError() << STD_TRACE_VAR2(exitStatus, a_e.str());
 	}
 	catch (const std::exception &a_e) {
 		LogCoutError() << STD_TRACE_VAR2(exitStatus, a_e.what());
