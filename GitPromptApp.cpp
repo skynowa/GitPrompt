@@ -370,7 +370,7 @@ GitPromptApp::onRun() /* final */
 			hostName, loginName, osInfo.distro(), osInfo.desktopName(), cpuInfo.num(), isVpn,
 			powerSupply, BuildInfo().datetime());
 
-		LogFile() << xTRACE_VAR(ps1);
+		LogFile() << xPRINT_VAR(ps1);
 
 		Console console;
 		console.setTitle( "<" + _wrapAnsiForPS1(title) + ">" );
