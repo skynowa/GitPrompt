@@ -371,10 +371,12 @@ GitPromptApp::onRun() /* final */
 			powerSupply, BuildInfo().datetime());
 
 		LogFile() << xPRINT_VAR(ps1);
+		LogFile() << xPRINT_VAR(_wrapAnsiForPS1(ps1));
+		LogFile() << std::endl;
 
 		Console console;
-		console.setTitle( "<" + _wrapAnsiForPS1(title) + ">" );
-		console.writeLine( "<" + _wrapAnsiForPS1(ps1) + ">" );
+		console.setTitle(_wrapAnsiForPS1(title));
+		console.writeLine(_wrapAnsiForPS1(ps1));
 	}
 
 	return ExitCode::Success;
