@@ -223,9 +223,9 @@ GitPromptApp::onRun() /* final */
 
 		// Git branch name
 		{
-			// [
+			// (
 			{
-				std::ctstring_t &str = xT("[");
+				std::ctstring_t &str = xT("(");
 				ps1 += clWhiteBold.setText(str);
 			}
 
@@ -235,9 +235,9 @@ GitPromptApp::onRun() /* final */
 				ps1 += clRedBold.setText(str);
 			}
 
-			// ]
+			// )
 			{
-				std::ctstring_t &str = xT("]");
+				std::ctstring_t &str = xT(")");
 				ps1 += clWhiteBold.setText(str);
 			}
 		}
