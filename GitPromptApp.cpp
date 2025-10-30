@@ -216,11 +216,10 @@ GitPromptApp::onRun() /* final */
 
 		std::ctstring_t &str = Format::str(xT("{}%"), volumeUsedPct);
 		ps1 += clWhiteBold.setText(str);
+		ps1 += xT(" ");
 	}
 
 	if (isGitDir) {
-		ps1 += xT(" ");
-
 		// Git branch name
 		{
 			// (

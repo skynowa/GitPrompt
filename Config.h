@@ -34,7 +34,7 @@ struct Config
 		///< Don't show current dir path in Git repository
 
 	// Volume
-	bool_t             isVolumeUsedPct {true};	///< force using VolumeUsedPct
+	bool_t             isVolumeUsedPct {false};	///< force using VolumeUsedPct
 
 	// Power supply
 	bool_t             isPowerSupply   {true};	///< force using power supply info
