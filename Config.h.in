@@ -20,6 +20,9 @@ namespace git_prompt
 
 struct Config
 {
+	// Date, timer
+	bool_t             isDate          {false};
+	bool_t             isTime          {true};
 
 	// Host
 	bool_t             isHostName      {false};
