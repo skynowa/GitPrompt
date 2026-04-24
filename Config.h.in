@@ -20,7 +20,7 @@ namespace git_prompt
 
 struct Config
 {
-	// Date, timer
+	// Date, time
 	bool_t             isDate          {false};
 	bool_t             isTime          {true};
 
