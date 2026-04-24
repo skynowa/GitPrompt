@@ -99,9 +99,11 @@ GitPromptApp::onRun() /* final */
 			ps1 += clWhiteBold.setText(str);
 		}
 
+		DateTime dt;
+
 		// Date
 		if (_config.isDate) {
-			std::ctstring_t &str = DateTime().current().format(xT("%d-%h"), {});
+			std::ctstring_t &str = dt.currentLocal().format(xT("%d-%h"), {});
 			ps1 += clMagentaBold.setText(str);
 		}
 
@@ -109,7 +111,7 @@ GitPromptApp::onRun() /* final */
 		if (_config.isTime) {
 			std::ctstring_t space = _config.isDate ? Const::space() : xT("");
 
-			std::ctstring_t &str = DateTime().current().format(space + xT("%H:%M"), {});
+			std::ctstring_t &str = dt.currentLocal().format(space + xT("%H:%M"), {});
 			ps1 += clMagentaBold.setText(str);
 		}
 
