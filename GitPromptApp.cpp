@@ -384,7 +384,7 @@ GitPromptApp::onRun() /* final */
 		LogFile() << std::endl;
 
 		Console console;
-		console.setTitle(_wrapAnsiForPS1(title));
+		console.write(_wrapTitleForPS1(title));
 		console.writeLine(_wrapAnsiForPS1(ps1));
 	}
 
@@ -432,7 +432,15 @@ GitPromptApp::_wrapAnsiForPS1(
     // Append remaining text
     sRv.append(a_ps1_str, lastPos, std::tstring_t::npos);
 
-    return sRv;
+	return sRv;
+}
+//-------------------------------------------------------------------------------------------------
+std::tstring_t
+GitPromptApp::_wrapTitleForPS1(
+    std::ctstring_t &a_title ///< terminal title
+) const
+{
+    return Format::str(xT("\\[\033]0;{}\a\\]"), a_title);
 }
 //-------------------------------------------------------------------------------------------------
 

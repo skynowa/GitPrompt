@@ -30,6 +30,8 @@ private:
 
 	std::tstring_t _wrapAnsiForPS1(std::ctstring_t &ps1_str) const;
 		///< safe PS1 now can be assigned to PS1 without messing up cursor/line wrap
+	std::tstring_t _wrapTitleForPS1(std::ctstring_t &title) const;
+		///< terminal title sequence wrapped as non-printing PS1 text
 };
 
 } // namespace
