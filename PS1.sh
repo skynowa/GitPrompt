@@ -7,7 +7,7 @@
 
 function update_ps1()
 {
-	export PS1="$(~/Projects/GitPrompt_build/GitPrompt $?)"
+	export PS1="$(python3 ~/Projects/GitPrompt/GitPromptApp.py $?)"
 }
 
 PROMPT_COMMAND=update_ps1
