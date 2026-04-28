@@ -115,6 +115,16 @@ def run_text(args: list[str], cwd: Path | None = None) -> str:
     return result.stdout.strip()
 
 
+def local_branches_num(root: Path) -> int:
+    branch_names = []
+    for line in run_text(["git", "branch", "--format=%(refname:short)"], root).splitlines():
+        branch_name = line.strip()
+        if branch_name and branch_name not in {"main", "master"}:
+            branch_names.append(branch_name)
+
+    return len(branch_names)
+
+
 def current_git_info() -> GitInfo:
     root_text = run_text(["git", "rev-parse", "--show-toplevel"])
     if not root_text:
@@ -139,7 +149,7 @@ def current_git_info() -> GitInfo:
         branch_name=branch_name,
         remotes=remotes,
         remote_info=parse_remote_url(remote_url),
-        local_branches_num=len(run_text(["git", "branch", "--list"], root).splitlines()),
+        local_branches_num=local_branches_num(root),
         files_statuses=format_file_statuses(status_lines),
         modified_files_num=len(status_lines),
         ahead_num=ahead_num,
