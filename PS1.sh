@@ -12,7 +12,7 @@ function update_ps1_cpp()
 
 function update_ps1_py()
 {
-	export PS1="$(python3 ~/Projects/GitPrompt/GitPromptApp.py $?)"
+	export PS1="$(python3 ~/Projects/GitPrompt/Python/GitPromptApp.py $?)"
 }
 
 PROMPT_COMMAND=update_ps1_py
