@@ -431,7 +431,7 @@ def build_prompt(shell_last_exit_code: int, config: Config) -> str:
     title = (
         f"{host_name}@{login_name} - {distro_name()}, {desktop_name()}, "
         f"CPUs: {os.cpu_count() or 0}, VPN: {'on' if is_vpn_active() else 'off'}"
-        f"{battery_status(config)}                Build: Python"
+        f"{battery_status(config)}                Build: Python {platform.python_version()}"
     )
 
     return wrap_title_for_ps1(title) + wrap_ansi_for_ps1(ps1)
