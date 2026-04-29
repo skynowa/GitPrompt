@@ -320,12 +320,32 @@ def desktop_name() -> str:
 def is_vpn_active() -> bool:
     net_root = Path("/sys/class/net")
     try:
-        interfaces = [path.name for path in net_root.iterdir()]
+        interfaces = list(net_root.iterdir())
     except OSError:
         return False
 
-    vpn_prefixes = ("tun", "tap", "wg", "ppp", "vpn", "zt")
-    return any(name.startswith(vpn_prefixes) for name in interfaces)
+    return any(is_vpn_interface(path) for path in interfaces)
+
+
+def is_vpn_interface(path: Path) -> bool:
+    if not is_network_interface_up(path):
+        return False
+
+    name = path.name.lower()
+    vpn_prefixes = ("tun", "tap", "wg", "ppp", "vpn", "zt", "tailscale", "nordlynx", "proton", "mullvad")
+    vpn_markers = ("warp",)
+    if name.startswith(vpn_prefixes) or any(marker in name for marker in vpn_markers):
+        return True
+
+    return read_first_line(path / "type") == "65534"
+
+
+def is_network_interface_up(path: Path) -> bool:
+    flags = read_first_line(path / "flags")
+    try:
+        return bool(int(flags, 16) & 0x1)
+    except ValueError:
+        return False
 
 
 def wrap_ansi_for_ps1(ps1: str) -> str:
